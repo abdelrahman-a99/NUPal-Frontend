@@ -13,6 +13,13 @@ interface Message {
   text: string;
   isUser: boolean;
   timestamp: string;
+  kind?: string;
+  metadataJson?: string;
+  agentTraceId?: string;
+  agentRoute?: string;
+  agentStatus?: string;
+  routeConfidence?: number;
+  routeReason?: string;
 }
 
 interface Chat {
@@ -215,6 +222,11 @@ export default function ChatPage() {
             hour: '2-digit',
             minute: '2-digit',
           }),
+          kind: reply.kind,
+          metadataJson: reply.metadata_json,
+          agentTraceId: reply.agent_trace_id,
+          agentRoute: reply.agent_route,
+          agentStatus: reply.agent_status,
         }));
 
         setChats((prevChats) =>
@@ -346,11 +358,18 @@ export default function ChatPage() {
       setLoadingChatId(chatId);
       try {
         const msgs = await getMessages(chatId);
-        const mappedMessages: Message[] = msgs.map((m: any) => ({
+        const mappedMessages: Message[] = msgs.map((m) => ({
           id: m.id,
           text: m.content,
           isUser: m.role === 'user',
-          timestamp: new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          timestamp: new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          kind: m.kind,
+          metadataJson: m.metadata_json,
+          agentTraceId: m.agent_trace_id,
+          agentRoute: m.agent_route,
+          agentStatus: m.agent_status,
+          routeConfidence: m.route_confidence,
+          routeReason: m.route_reason,
         }));
 
         setChats(prev => prev.map(c => c.id === chatId ? { ...c, messages: mappedMessages, lastMessage: mappedMessages[mappedMessages.length - 1]?.text || "" } : c));

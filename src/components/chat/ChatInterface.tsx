@@ -10,6 +10,13 @@ interface Message {
   text: string;
   isUser: boolean;
   timestamp: string;
+  kind?: string;
+  metadataJson?: string;
+  agentTraceId?: string;
+  agentRoute?: string;
+  agentStatus?: string;
+  routeConfidence?: number;
+  routeReason?: string;
 }
 
 interface ChatInterfaceProps {
@@ -179,6 +186,13 @@ export default function ChatInterface({
                 key={message.id}
                 message={message.text}
                 isUser={message.isUser}
+                kind={message.kind}
+                metadataJson={message.metadataJson}
+                agentTraceId={message.agentTraceId}
+                agentRoute={message.agentRoute}
+                agentStatus={message.agentStatus}
+                routeConfidence={message.routeConfidence}
+                routeReason={message.routeReason}
               />
             ))}
             {isLoading && (

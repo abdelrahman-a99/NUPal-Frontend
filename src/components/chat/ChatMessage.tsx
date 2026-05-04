@@ -1,12 +1,152 @@
 'use client';
 
-interface ChatMessageProps {
+import { useMemo, useState } from 'react';
+
+interface AgentMessageMetadata {
+  kind?: string;
+  metadataJson?: string;
+  agentTraceId?: string;
+  agentRoute?: string;
+  agentStatus?: string;
+  routeConfidence?: number;
+  routeReason?: string;
+}
+
+interface ChatMessageProps extends AgentMessageMetadata {
   message: string;
   isUser: boolean;
   timestamp?: string;
 }
 
-export default function ChatMessage({ message, isUser }: ChatMessageProps) {
+interface ParsedMetadata {
+  traceId?: string;
+  route?: string;
+  status?: string;
+  confidence?: number;
+  reason?: string;
+  resultService?: string;
+  raw?: unknown;
+}
+
+const SHOW_AGENT_DEBUG = process.env.NEXT_PUBLIC_SHOW_AGENT_DEBUG === 'true';
+
+function safeJsonParse(value?: string): unknown | null {
+  if (!value) return null;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+}
+
+function getPathValue(source: unknown, path: string): unknown {
+  if (!source || typeof source !== 'object') return undefined;
+
+  return path.split('.').reduce<unknown>((current, part) => {
+    if (!current || typeof current !== 'object') return undefined;
+    return (current as Record<string, unknown>)[part];
+  }, source);
+}
+
+function getNestedString(source: unknown, keys: string[]): string | undefined {
+  for (const key of keys) {
+    const value = getPathValue(source, key);
+    if (typeof value === 'string' && value.trim()) return value;
+  }
+  return undefined;
+}
+
+function getNestedNumber(source: unknown, keys: string[]): number | undefined {
+  for (const key of keys) {
+    const value = getPathValue(source, key);
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+  }
+  return undefined;
+}
+
+function parseMetadata(props: AgentMessageMetadata): ParsedMetadata {
+  const raw = safeJsonParse(props.metadataJson);
+  const rawObject = raw && typeof raw === 'object' ? raw : undefined;
+
+  return {
+    traceId: props.agentTraceId || getNestedString(rawObject, ['agent.trace_id', 'trace_id']),
+    route: props.agentRoute || getNestedString(rawObject, ['agent.route', 'route']),
+    status: props.agentStatus || getNestedString(rawObject, ['agent.status', 'status']),
+    confidence: props.routeConfidence ?? getNestedNumber(rawObject, ['agent.route_confidence', 'route_confidence', 'agent.router.confidence', 'router.confidence']),
+    reason: props.routeReason || getNestedString(rawObject, ['agent.route_reason', 'route_reason', 'agent.router.reason', 'router.reason']),
+    resultService: getNestedString(rawObject, ['result.service', 'result.source', 'result.kind']),
+    raw: raw ?? undefined,
+  };
+}
+
+function routeLabel(route?: string, kind?: string): string | null {
+  switch (route) {
+    case 'rag_only':
+      return 'Policy answer';
+    case 'rl_only':
+      return 'Course recommendation';
+    case 'mixed_rag_rl':
+      return 'Policy + recommendation';
+    case 'general_chat':
+      return 'General chat';
+    case 'unsupported':
+      return 'Unsupported';
+    default:
+      if (kind === 'rag') return 'Policy answer';
+      if (kind === 'rl') return 'Course recommendation';
+      if (kind === 'mixed') return 'Policy + recommendation';
+      if (kind === 'general') return 'General chat';
+      return null;
+  }
+}
+
+function statusLabel(status?: string): string | null {
+  switch (status) {
+    case 'partial':
+      return 'Partial answer';
+    case 'degraded':
+      return 'Service degraded';
+    case 'clarification_needed':
+      return 'Needs clarification';
+    case 'unsupported':
+      return 'Unsupported';
+    case 'ok':
+    case undefined:
+    case '':
+      return null;
+    default:
+      return status.replaceAll('_', ' ');
+  }
+}
+
+function formatConfidence(confidence?: number): string | null {
+  if (confidence === undefined) return null;
+  const clamped = Math.max(0, Math.min(1, confidence));
+  return `${Math.round(clamped * 100)}% confidence`;
+}
+
+export default function ChatMessage({
+  message,
+  isUser,
+  kind,
+  metadataJson,
+  agentTraceId,
+  agentRoute,
+  agentStatus,
+  routeConfidence,
+  routeReason,
+}: ChatMessageProps) {
+  const [showDebug, setShowDebug] = useState(false);
+  const metadata = useMemo(
+    () => parseMetadata({ kind, metadataJson, agentTraceId, agentRoute, agentStatus, routeConfidence, routeReason }),
+    [kind, metadataJson, agentTraceId, agentRoute, agentStatus, routeConfidence, routeReason]
+  );
+
+  const label = !isUser ? routeLabel(metadata.route, kind) : null;
+  const status = !isUser ? statusLabel(metadata.status) : null;
+  const confidence = !isUser ? formatConfidence(metadata.confidence) : null;
+  const hasDebugDetails = Boolean(metadata.traceId || metadata.route || metadata.reason || metadata.resultService || metadata.raw);
+
   return (
     <div
       className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
@@ -21,8 +161,48 @@ export default function ChatMessage({ message, isUser }: ChatMessageProps) {
         <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
           {message}
         </p>
+
+        {!isUser && (label || status || confidence) && (
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] leading-none">
+            {label && (
+              <span className="rounded-full border border-blue-100 bg-blue-50 px-2 py-1 font-medium text-blue-700">
+                {label}
+              </span>
+            )}
+            {status && (
+              <span className="rounded-full border border-amber-100 bg-amber-50 px-2 py-1 font-medium text-amber-700">
+                {status}
+              </span>
+            )}
+            {confidence && (
+              <span className="rounded-full border border-slate-200 bg-white px-2 py-1 font-medium text-slate-600">
+                {confidence}
+              </span>
+            )}
+          </div>
+        )}
+
+        {!isUser && SHOW_AGENT_DEBUG && hasDebugDetails && (
+          <div className="mt-3 border-t border-slate-200 pt-2">
+            <button
+              type="button"
+              onClick={() => setShowDebug((prev) => !prev)}
+              className="text-[11px] font-medium text-slate-500 hover:text-slate-700"
+            >
+              {showDebug ? 'Hide routing details' : 'Show routing details'}
+            </button>
+            {showDebug && (
+              <div className="mt-2 space-y-1 rounded-lg bg-white/70 p-2 text-[11px] text-slate-600">
+                {metadata.traceId && <div><span className="font-semibold">Trace:</span> {metadata.traceId}</div>}
+                {metadata.route && <div><span className="font-semibold">Route:</span> {metadata.route}</div>}
+                {metadata.status && <div><span className="font-semibold">Status:</span> {metadata.status}</div>}
+                {metadata.reason && <div><span className="font-semibold">Reason:</span> {metadata.reason}</div>}
+                {metadata.resultService && <div><span className="font-semibold">Service:</span> {metadata.resultService}</div>}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
