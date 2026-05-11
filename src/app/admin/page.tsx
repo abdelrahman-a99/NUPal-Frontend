@@ -142,10 +142,10 @@ export default function AdminOverviewPage() {
                     </div>
                     <div className="admin-gpa-dist">
                         {[
-                            'Freshman (0-29)',
-                            'Sophomore (30-59)',
-                            'Junior (60-89)',
-                            'Senior (90+)'
+                            'Freshman (0-35)',
+                            'Sophomore (36-70)',
+                            'Junior (71-105)',
+                            'Senior (106-135)'
                         ].map(label => {
                             const count = levelDist[label] || 0;
                             return (
