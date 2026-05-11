@@ -17,7 +17,7 @@ const formatTime = (time24?: string) => {
 
 export default function ScheduleList({ courses, onCoursePress }: Props) {
     return (
-        <div className="flex-1 overflow-auto p-4 space-y-3">
+        <div className="flex-1 overflow-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
             {courses.map((course, idx) => {
                 const color = course.color || '#3b82f6';
                 const hasSchedule = course.day && course.start && course.end;

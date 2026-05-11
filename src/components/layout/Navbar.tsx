@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -48,7 +48,8 @@ const dashboardLinks: NavLinkItem[] = [
   },
 ];
 
-export function Navbar() {
+function NavbarInner() {
+  const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -60,6 +61,8 @@ export function Navbar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { scrollToId, scrollToTop } = useSmoothScroll(70);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -153,6 +156,12 @@ export function Navbar() {
       setUserRole(null);
     }
   }, []);
+
+  if (!mounted) {
+    // Render a consistent placeholder on the server and first client paint
+    // to avoid hydration mismatches caused by auth state / searchParams
+    return <div className="h-16" aria-hidden="true" />;
+  }
 
   if (pathname === '/login' || pathname.startsWith('/admin')) {
     return null;
@@ -488,5 +497,13 @@ export function Navbar() {
         </div>
       </div>
     </>
+  );
+}
+
+export function Navbar() {
+  return (
+    <Suspense fallback={<div className="h-16" aria-hidden="true" />}>
+      <NavbarInner />
+    </Suspense>
   );
 }

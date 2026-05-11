@@ -85,20 +85,11 @@ export default function SchedulePreviewModal({
                 </div>
             )}
 
-            {previewCourse && (
-                <div
-                    className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 backdrop-blur-[2px] p-4 animate-in fade-in duration-200"
-                    onClick={() => setPreviewCourse(null)}
-                >
-                    <div className="relative w-full max-w-sm" onClick={e => e.stopPropagation()}>
-                        <CourseDetailModal
-                            course={previewCourse}
-                            visible={!!previewCourse}
-                            onClose={() => setPreviewCourse(null)}
-                        />
-                    </div>
-                </div>
-            )}
+            <CourseDetailModal
+                course={previewCourse}
+                visible={!!previewCourse}
+                onClose={() => setPreviewCourse(null)}
+            />
         </>
     );
 }
