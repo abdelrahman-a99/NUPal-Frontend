@@ -24,11 +24,19 @@ async function apiFetch<T>(
         ...(options.headers ?? {}),
     };
     const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    if (res.status === 204) return null as any;
+
+    const text = await res.text();
     if (!res.ok) {
-        const err = await res.json().catch(() => ({ message: res.statusText }));
-        throw new Error(err?.message ?? 'API error');
+        let errMessage = res.statusText;
+        try {
+            const err = text ? JSON.parse(text) : null;
+            errMessage = err?.message || err?.error || res.statusText;
+        } catch (e) {}
+        throw new Error(errMessage);
     }
-    return res.json() as Promise<T>;
+
+    return (text ? JSON.parse(text) : null) as any;
 }
 
 // ── Types returned by backend (mirrors SchedulingDtos.cs) ─────────────────────
@@ -54,7 +62,7 @@ const PALETTE = [
 function assignColors(courses: ApiCourseSession[]): ApiCourseSession[] {
     const colorMap = new Map<string, string>();
     let colorIdx = 0;
-    
+
     return courses.map(c => {
         let color = colorMap.get(c.courseName);
         if (!color) {
@@ -196,6 +204,41 @@ export async function getActiveSemester(): Promise<string> {
     return data.semester;
 }
 
+export async function registerSchedule(registration: {
+    studentId: string;
+    studentName: string;
+    studentEmail: string;
+    selectedBlock: any;
+    isFromRecommendation: boolean;
+    isFromRl: boolean;
+    isModified: boolean;
+}): Promise<void> {
+    return apiFetch('/api/scheduling/register', {
+        method: 'POST',
+        body: JSON.stringify(registration),
+    });
+}
+
+export async function getRegistrations(): Promise<any[]> {
+    return apiFetch('/api/admin/registrations');
+}
+
+export async function getMyRegistration(): Promise<any> {
+    return apiFetch('/api/scheduling/my-registration');
+}
+
+export async function getLatestRegistration(): Promise<any> {
+    return apiFetch('/api/scheduling/latest-registration');
+}
+
+export async function approveRegistration(id: any, status: string, adminNote?: string): Promise<void> {
+    const stringId = typeof id === 'object' ? (id.id || id._id || JSON.stringify(id)) : String(id);
+    return apiFetch(`/api/admin/registrations/${stringId}/approve`, {
+        method: 'POST',
+        body: JSON.stringify({ status, adminNote }),
+    });
+}
+
 export const schedulingApi = {
     getBlocks,
     getBlock,
@@ -205,4 +248,9 @@ export const schedulingApi = {
     getRecommendations,
     getCourseMappings,
     getActiveSemester,
+    registerSchedule,
+    getRegistrations,
+    getMyRegistration,
+    getLatestRegistration,
+    approveRegistration,
 };
