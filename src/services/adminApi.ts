@@ -10,7 +10,7 @@ import type {
 
 import { getToken } from '@/lib/auth';
 
-const BASE_URL = () => process.env.NEXT_PUBLIC_API_URL || '';
+const BASE_URL = () => process.env.NEXT_PUBLIC_API_URL;
 
 const adminHeaders = (): HeadersInit => {
     const token = getToken();
@@ -165,5 +165,10 @@ export const adminApi = {
             headers,
             body: formData,
         }).then(res => handleResponse(res));
-    }
+    },
+
+    // ── Contact Messages ──────────────────────────────────────────────────────
+    getContactMessages: (): Promise<any[]> =>
+        fetch(`${BASE_URL()}/api/contact`, { headers: adminHeaders() })
+            .then(res => handleResponse<any[]>(res)),
 };

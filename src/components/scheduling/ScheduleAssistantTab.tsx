@@ -1,8 +1,30 @@
 import { useMemo, useState } from 'react';
 import { ArrowRight, Calendar as CalendarIcon, CalendarDays, Check, Clock, Info, Loader2, Minus, Plus, RotateCcw, Search, Sparkles, Users, UserCheck, Eye, BookOpen, Library } from 'lucide-react';
 import { CourseSession, DayOfWeek, RecommendationResult, SchedulePreferences } from '@/types/scheduling';
+import { schedulingApi } from '@/services/schedulingApi';
 
-const canonicalCourseKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+const canonicalCourseKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+
+const isCourseMatch = (name1: string, name2: string, strict = false) => {
+    const k1 = canonicalCourseKey(name1);
+    const k2 = canonicalCourseKey(name2);
+    
+    // Split into tokens, but keep short tokens if they are numbers or Roman numerals
+    const tokens1 = k1.split(/\s+/).filter(t => t.length > 2 || /^[ivxldm0-9]+$/i.test(t));
+    const tokens2 = k2.split(/\s+/).filter(t => t.length > 2 || /^[ivxldm0-9]+$/i.test(t));
+    
+    if (tokens1.length === 0 || tokens2.length === 0) return k1.includes(k2) || k2.includes(k1);
+    
+    const common = tokens1.filter(t1 => tokens2.some(t2 => t2 === t1 || t2.startsWith(t1) || t1.startsWith(t2)));
+    const threshold = Math.min(tokens1.length, tokens2.length);
+    
+    if (strict) {
+        // For badges, we want a very high match (almost all tokens)
+        return common.length >= threshold;
+    }
+    
+    return common.length >= threshold || (threshold > 1 && common.length >= threshold - 1);
+};
 
 export default function ScheduleAssistantTab({
     useMyData,
@@ -28,12 +50,19 @@ export default function ScheduleAssistantTab({
     computing,
     results,
     appliedCourses,
+    appliedPrefs,
+    appliedUseMyData,
     isDirty,
     handleReset,
     handleGetRecommendations,
     setPreviewBlock,
     prefsAreDefault,
     activeSemester,
+    studentData,
+    myRegistration,
+    onRegistrationUpdate,
+    setOriginalRecBlock,
+    rlLoading
 }: {
     useMyData: boolean | null;
     setUseMyData: React.Dispatch<React.SetStateAction<boolean | null>>;
@@ -58,40 +87,101 @@ export default function ScheduleAssistantTab({
     computing: boolean;
     results: RecommendationResult[];
     appliedCourses: string[];
+    appliedPrefs: SchedulePreferences;
+    appliedUseMyData: boolean | null;
     isDirty: boolean;
     handleReset: () => void;
     handleGetRecommendations: (matchCoursesOnly?: boolean, topN?: number) => void;
     setPreviewBlock: React.Dispatch<React.SetStateAction<CourseSession[] | null>>;
     prefsAreDefault: boolean;
     activeSemester: string | null;
+    studentData: any;
+    myRegistration: any | null;
+    onRegistrationUpdate: () => void;
+    setOriginalRecBlock: (block: any) => void;
+    rlLoading?: boolean;
 }) {
     const [topN, setTopN] = useState<number>(5);
+    const [registeringId, setRegisteringId] = useState<string | null>(null);
     const selectedCourses = useMyData ? advisorSelectedNames : manualSelectedNames;
+
+    const handleRegister = async (rec: RecommendationResult) => {
+        if (!studentData) {
+            alert("Please wait for your profile to load or log in again.");
+            return;
+        }
+
+        if (myRegistration && (myRegistration.status === 'Pending' || myRegistration.status === 'Approved')) {
+            alert("You already have a pending or approved registration. You cannot register for another schedule.");
+            return;
+        }
+
+        setOriginalRecBlock(rec.block);
+        setRegisteringId(rec.block.blockId);
+        const isFromRecommendation = !!useMyData;
+        let isModified = false;
+        if (useMyData) {
+            const originalSorted = [...rlRecommendedNames].sort();
+            const currentSorted = [...advisorSelectedNames].sort();
+            isModified = JSON.stringify(originalSorted) !== JSON.stringify(currentSorted);
+        }
+
+        try {
+            await schedulingApi.registerSchedule({
+                studentId: studentData.account.id,
+                studentName: studentData.account.name,
+                studentEmail: studentData.account.email,
+                selectedBlock: {
+                    blockId: rec.block.blockId,
+                    semester: rec.block.semester || activeSemester,
+                    courses: rec.block.courses.map(c => ({
+                        courseName: c.courseName,
+                        section: c.section,
+                        type: c.subtype,
+                        instructor: c.instructor,
+                        day: c.day,
+                        startTime: c.start,
+                        endTime: c.end,
+                        room: c.room
+                    }))
+                },
+                isFromRecommendation: isFromRecommendation,
+                isFromRl: !!useMyData,
+                isModified: isModified
+            });
+            alert("Schedule submitted for approval! It will appear as 'Pending' in your 'My Schedule' tab.");
+            onRegistrationUpdate();
+        } catch (e: any) {
+            console.error(e);
+            alert("Failed to submit schedule: " + e.message);
+        } finally {
+            setRegisteringId(null);
+        }
+    };
 
     const filteredResults = useMemo(() => {
         if (!results) return [];
 
-        const currentSelected = useMyData ? advisorSelectedNames : manualSelectedNames;
-        const filterKeys = appliedCourses.length > 0
-            ? appliedCourses.map(canonicalCourseKey)
-            : currentSelected.map(canonicalCourseKey);
+        const filterKeys = appliedCourses.map(canonicalCourseKey);
 
         return results.filter(rec => {
-            // 1. Instructor filter
+            // 1. Instructor filter (We keep this as "live" filter for the search box, or we can freeze it too)
+            // Let's freeze the search too for consistency with the user's request
             if (instrQuery && !rec.block.courses.some((c: CourseSession) =>
                 c.instructor.toLowerCase().includes(instrQuery.toLowerCase())
             )) return false;
 
-            // 2. Strict Course Match Filter: Must have at least one of the selected courses
-            if (filterKeys.length > 0) {
-                const blockKeys = rec.block.courses.map((c: CourseSession) => canonicalCourseKey(c.courseName));
-                const hasMatch = filterKeys.some(n => blockKeys.includes(n));
+            // 2. Course Match Filter: Must have at least one of the selected courses
+            if (appliedCourses.length > 0) {
+                const hasMatch = appliedCourses.some(ac => 
+                    rec.block.courses.some((c: CourseSession) => isCourseMatch(ac, c.courseName))
+                );
                 if (!hasMatch) return false;
             }
 
             return true;
         });
-    }, [results, instrQuery, appliedCourses, advisorSelectedNames, manualSelectedNames, useMyData]);
+    }, [results, instrQuery, appliedCourses]);
 
     return (
         <div className="w-full">
@@ -142,6 +232,9 @@ export default function ScheduleAssistantTab({
                                         className={`w-full flex items-center gap-3 rounded-xl p-3.5 border-2 text-left transition-all ${useMyData === true ? 'border-[#2F80ED] bg-blue-50/40' : 'border-slate-200 bg-slate-50 hover:border-slate-300'}`}
                                         onClick={() => {
                                             setUseMyData(true);
+                                            if (advisorSelectedNames.length === 0 && rlRecommendedNames.length > 0) {
+                                                setAdvisorSelectedNames([...rlRecommendedNames]);
+                                            }
                                         }}
                                     >
                                         <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -238,6 +331,20 @@ export default function ScheduleAssistantTab({
                                     </div>
 
                                     <div className={`${useMyData ? 'flex-1' : 'max-h-[310px]'} overflow-y-auto pr-1 scrollbar-hide space-y-3`}>
+                                        {rlLoading && useMyData && (
+                                            <div className="flex flex-col items-center justify-center py-10 text-slate-400">
+                                                <Loader2 size={24} className="animate-spin mb-2" />
+                                                <p className="text-xs font-medium">Fetching advisor recommendations...</p>
+                                            </div>
+                                        )}
+                                        
+                                        {!rlLoading && useMyData && rlRecommendedNames.length === 0 && (
+                                            <div className="text-center py-10 px-4 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                                                <p className="text-xs font-bold text-slate-500 mb-1">No Advisor Recommendations Found</p>
+                                                <p className="text-[10px] text-slate-400">Try switching to 'Browse Catalog' to pick courses manually.</p>
+                                            </div>
+                                        )}
+
                                         {Object.entries(displayCoursesByCategory).map(([category, names]) => (
                                             <div key={category}>
                                                 <div className="flex items-center justify-between mb-1.5 mt-2 first:mt-0">
@@ -261,7 +368,7 @@ export default function ScheduleAssistantTab({
                                                 <div className="space-y-1.5">
                                                     {names.map((name: string) => {
                                                         const isSelected = useMyData ? advisorSelectedNames.includes(name) : manualSelectedNames.includes(name);
-                                                        const isRecommended = rlRecommendedNames.includes(name);
+                                                        const isRecommended = rlRecommendedNames.some(rn => isCourseMatch(rn, name, true));
                                                         return (
                                                             <button
                                                                 key={name}
@@ -613,12 +720,19 @@ export default function ScheduleAssistantTab({
                                         filteredResults.map((rec, idx) => {
                                             const uniqueDaysList = Array.from(new Set(rec.block.courses.map((c: CourseSession) => c.day))) as DayOfWeek[];
                                             const blockCourseNames = rec.block.courses.map((c: CourseSession) => c.courseName);
-                                            const filterKeys = appliedCourses.length > 0
-                                                ? appliedCourses.map(canonicalCourseKey)
-                                                : selectedCourses.map(canonicalCourseKey);
+                                            const filterKeys = appliedCourses.map(canonicalCourseKey);
                                             const blockKeys = blockCourseNames.map(canonicalCourseKey);
-                                            const matchedCount = filterKeys.filter(n => blockKeys.includes(n)).length;
-                                            const displayScore = prefsAreDefault && filterKeys.length > 0
+                                            const matchedCount = appliedCourses.filter(ac => 
+                                                blockCourseNames.some(bcn => isCourseMatch(ac, bcn))
+                                            ).length;
+
+                                            // Calculate if the 'applied' preferences were default
+                                            const appliedPrefsAreDefault =
+                                                appliedPrefs.preferredDays.length === 0 &&
+                                                appliedPrefs.preferredInstructors.length === 0 &&
+                                                appliedPrefs.scheduleType === 'balanced'; // Simple check for brevity
+
+                                            const displayScore = appliedPrefsAreDefault && filterKeys.length > 0
                                                 ? Math.round((matchedCount / filterKeys.length) * 100)
                                                 : rec.matchScore;
 
@@ -658,7 +772,7 @@ export default function ScheduleAssistantTab({
                                                             <div className="flex flex-wrap gap-1.5">
                                                                 {Array.from(new Set(rec.block.courses.map((c: CourseSession) => c.courseName)))
                                                                     .map((courseName: string) => {
-                                                                        const isMatched = filterKeys.includes(canonicalCourseKey(courseName));
+                                                                        const isMatched = appliedCourses.some(ac => isCourseMatch(ac, courseName));
                                                                         const isCompleted = prefs.hideCompleted && completedCourseBlockNames.some(cn => canonicalCourseKey(cn) === canonicalCourseKey(courseName));
                                                                         return (
                                                                             <div
@@ -708,13 +822,33 @@ export default function ScheduleAssistantTab({
                                                                 })}
                                                             </div>
 
-                                                            <button
-                                                                className="flex items-center justify-center gap-1.5 px-5 py-2 rounded-xl bg-blue-400 hover:bg-blue-500 text-white text-[11px] font-bold transition-all shadow-md shadow-blue-400/20"
-                                                                onClick={() => setPreviewBlock(rec.block.courses)}
-                                                            >
-                                                                <Eye size={13} strokeWidth={2.5} />
-                                                                Preview Schedule
-                                                            </button>
+                                                            <div className="flex items-center gap-2">
+                                                                <button
+                                                                    className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-[11px] font-bold transition-all shadow-sm"
+                                                                    onClick={() => setPreviewBlock(rec.block.courses)}
+                                                                >
+                                                                    <Eye size={13} strokeWidth={2.5} />
+                                                                    Preview
+                                                                </button>
+                                                                <button
+                                                                    className={`flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-white text-[11px] font-bold transition-all shadow-md ${
+                                                                        registeringId === rec.block.blockId ? 'bg-blue-300' : 
+                                                                        (myRegistration?.status === 'Pending' || myRegistration?.status === 'Approved') ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20' :
+                                                                        'bg-blue-500 hover:bg-blue-600 shadow-blue-500/20'
+                                                                    }`}
+                                                                    onClick={() => handleRegister(rec)}
+                                                                    disabled={registeringId !== null || myRegistration?.status === 'Pending' || myRegistration?.status === 'Approved'}
+                                                                >
+                                                                    {registeringId === rec.block.blockId ? (
+                                                                        <Loader2 size={13} className="animate-spin" />
+                                                                    ) : (myRegistration?.status === 'Pending' || myRegistration?.status === 'Approved') ? (
+                                                                        <Check size={13} strokeWidth={2.5} />
+                                                                    ) : (
+                                                                        <Plus size={13} strokeWidth={2.5} />
+                                                                    )}
+                                                                    {(myRegistration?.status === 'Pending' || myRegistration?.status === 'Approved') ? 'Registered' : 'Add to My Schedule'}
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

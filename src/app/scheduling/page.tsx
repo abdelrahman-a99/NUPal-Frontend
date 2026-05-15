@@ -44,7 +44,7 @@ const LEVELS: { id: 'FR' | 'JR' | 'SO' | 'SR' | 'ALL'; label: string; desc: stri
 const DEFAULT_PREFS: SchedulePreferences = {
     level: 'ALL',
     preferredDays: [],
-    numPreferredDays: 6,
+    numPreferredDays: undefined,
     dayMode: 'count',
     maxDaysPerWeek: 6,
     maxGapHours: 6,
@@ -93,7 +93,7 @@ export function SchedulingPageInner() {
         }
     }, [searchParams]);
 
-    const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+    const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
     const [availableBlocks, setAvailableBlocks] = useState<Block[]>([]);
     const [hasAttemptedFetch, setHasAttemptedFetch] = useState(false);
     const [blocksLoading, setBlocksLoading] = useState(currentTab === 'blocks-explorer' && availableBlocks.length === 0);
@@ -154,8 +154,14 @@ export function SchedulingPageInner() {
     const [allCourseNames, setAllCourseNames] = useState<string[]>([]);
     const [allInstructors, setAllInstructors] = useState<string[]>([]);
     const [studentData, setStudentData] = useState<any>(null);
+    const [myRegistration, setMyRegistration] = useState<any | null>(null);
+    const [latestRegistration, setLatestRegistration] = useState<any | null>(null);
+    const [originalRecBlock, setOriginalRecBlock] = useState<any | null>(null);
+    const [regsLoading, setRegsLoading] = useState(false);
     const [lastConfig, setLastConfig] = useState<string | null>(null);
     const [appliedCourses, setAppliedCourses] = useState<string[]>([]);
+    const [appliedPrefs, setAppliedPrefs] = useState<SchedulePreferences>(DEFAULT_PREFS);
+    const [appliedUseMyData, setAppliedUseMyData] = useState<boolean | null>(null);
     const [courseMappings, setCourseMappings] = useState<any[]>([]);
 
     const isDirty = useMemo(() => {
@@ -188,75 +194,125 @@ export function SchedulingPageInner() {
     // Note: results filtering is handled inside the ScheduleAssistantTab UI.
 
     // Load Student Profile & RL Recommendation
-    useEffect(() => {
-        const initializeData = async () => {
+    const initializeData = useCallback(async () => {
+        try {
+            // Fetch course mappings first
+            let mappings: any[] = [];
             try {
-                // Fetch course mappings first
-                let mappings: any[] = [];
-                try {
-                    mappings = await schedulingApi.getCourseMappings();
-                    setCourseMappings(mappings);
-                } catch (e) {
-                    console.warn('Failed to load course mappings:', e);
-                }
-
-                const token = getToken();
-                if (!token) return;
-                const user = parseJwt(token);
-                if (!user || !user.email) return;
-                const { getStudentByEmail } = await import('@/services/studentService');
-                const data = await getStudentByEmail(user.email);
-
-                if (data) {
-                    setStudentData(data);
-
-                    // Fetch RL recommendation
-                    setRlLoading(true);
-                    try {
-                        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-                        const url = `${baseUrl}/api/students/${data.account.id}/rl-recommendation`;
-                        console.log('[DEBUG] Fetching RL Recommendation from:', url);
-
-                        const res = await fetch(url, {
-                            headers: { 'Authorization': `Bearer ${token}` }
-                        });
-
-                        if (res.ok) {
-                            const rlRaw = await res.json();
-                            console.log('[DEBUG] RL Data Fetched:', rlRaw);
-
-                            if (rlRaw && rlRaw.courses && Array.isArray(rlRaw.courses)) {
-                                const recommendedList = Array.from(new Set(rlRaw.courses.map((c: any) => typeof c === 'string' ? c : c.id || c.name || c.courseId)));
-
-                                setRlRecommendedNames(recommendedList as string[]);
-                                setAdvisorSelectedNames(recommendedList as string[]);
-                            } else {
-                                setRlRecommendedNames([]);
-                                setAdvisorSelectedNames([]);
-                            }
-                        } else {
-                            console.warn('[DEBUG] RL Fetch response not OK:', res.status, await res.text());
-                        }
-                    } catch (e) {
-                        console.error('[DEBUG] RL Fetch Exception:', e);
-                    } finally {
-                        setRlLoading(false);
-                    }
-                }
-            } catch (err) {
-                console.error('Failed to initialize scheduling data:', err);
+                mappings = await schedulingApi.getCourseMappings();
+                setCourseMappings(mappings);
+            } catch (e) {
+                console.warn('Failed to load course mappings:', e);
             }
+
+            const token = getToken();
+            if (!token) return;
+            const user = parseJwt(token);
+            if (!user || !user.email) return;
+            const { getStudentByEmail } = await import('@/services/studentService');
+            const data = await getStudentByEmail(user.email);
+
+            if (data) {
+                setStudentData(data);
+                
+                // Fetch registration
+                setRegsLoading(true);
+                try {
+                    const [reg, latest] = await Promise.all([
+                        schedulingApi.getMyRegistration(),
+                        schedulingApi.getLatestRegistration()
+                    ]);
+                    setMyRegistration(reg);
+                    setLatestRegistration(latest);
+                } catch (e) {
+                    console.error("Error loading registration:", e);
+                } finally {
+                    setRegsLoading(false);
+                }
+
+                // Fetch RL recommendation
+                setRlLoading(true);
+                try {
+                    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+                    const url = `${baseUrl}/api/students/${data.account.id}/rl-recommendation`;
+                    console.log('[DEBUG] Fetching RL Recommendation from:', url);
+
+                    const res = await fetch(url, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (res.ok) {
+                        const rlRaw = await res.json();
+                        console.log('[DEBUG] RL Data Fetched:', rlRaw);
+
+                        if (rlRaw && rlRaw.courses && Array.isArray(rlRaw.courses)) {
+                            const recommendedList = Array.from(new Set(rlRaw.courses.map((c: any) => typeof c === 'string' ? c : c.id || c.name || c.courseId)));
+
+                            setRlRecommendedNames(recommendedList as string[]);
+                            setAdvisorSelectedNames(recommendedList as string[]);
+                        } else {
+                            setRlRecommendedNames([]);
+                            setAdvisorSelectedNames([]);
+                        }
+                    } else {
+                        console.warn('[DEBUG] RL Fetch response not OK:', res.status, await res.text());
+                    }
+                } catch (e) {
+                    console.error('[DEBUG] RL Fetch Exception:', e);
+                } finally {
+                    setRlLoading(false);
+                }
+            }
+        } catch (err) {
+            console.error('Failed to initialize scheduling data:', err);
+        }
+    }, [activeSemester]);
+
+    useEffect(() => {
+        initializeData();
+    }, [initializeData]);
+
+
+
+    // Smart Polling: Sync active semester with admin changes
+    useEffect(() => {
+        const checkSemester = async () => {
+            // Only poll if the tab is visible to save resources
+            if (document.visibilityState !== 'visible') return;
+
+            try {
+                const latest = await schedulingApi.getActiveSemester();
+                setActiveSemester(prev => {
+                    if (prev && prev !== latest) {
+                        setAvailableBlocks([]);
+                        setHasAttemptedFetch(false);
+                    }
+                    return latest;
+                });
+            } catch (e) { /* Silent fail */ }
         };
 
-        initializeData();
+        // 1. Regular interval (20s)
+        const timer = setInterval(checkSemester, 20000);
+
+        // 2. Immediate check when student switches back to this tab
+        window.addEventListener('focus', checkSemester);
+
+        return () => {
+            clearInterval(timer);
+            window.removeEventListener('focus', checkSemester);
+        };
     }, []);
 
-    // Load blocks when Blocks Explorer tab is opened
+    // Load blocks when Blocks Explorer tab is opened or active semester changes
     useEffect(() => {
-        if (activeTab === 'blocks-explorer' && availableBlocks.length === 0 && !hasAttemptedFetch) {
+        const shouldFetch = (activeTab === 'blocks-explorer' && availableBlocks.length === 0 && !hasAttemptedFetch) ||
+            (activeSemester && hasAttemptedFetch && availableBlocks.length === 0);
+
+        if (shouldFetch) {
             setBlocksLoading(true);
             setHasAttemptedFetch(true);
-            
+
             // Parallel fetch blocks and active semester
             Promise.all([
                 schedulingApi.getBlocks(),
@@ -274,9 +330,9 @@ export function SchedulingPageInner() {
                 .then(setActiveSemester)
                 .catch(e => console.warn('Failed to fetch active semester:', e));
         }
-    }, [activeTab]);
+    }, [activeTab, activeSemester, hasAttemptedFetch]);
 
-    // Reload course names, instructors & blocks when level changes
+    // Reload course names, instructors & blocks when level or active semester changes
     useEffect(() => {
         const lvl = prefs.level || undefined;
         Promise.all([
@@ -290,7 +346,7 @@ export function SchedulingPageInner() {
                 setAvailableBlocks(blocks);
             })
             .catch(e => console.warn('Failed to load course metadata:', e));
-    }, [prefs.level]);
+    }, [prefs.level, activeSemester]);
 
     useEffect(() => {
         if (useMyData) {
@@ -444,14 +500,21 @@ export function SchedulingPageInner() {
 
             setResults(res);
             setAppliedCourses(coursesToSend);
+            setAppliedPrefs({ ...prefs });
+            setAppliedUseMyData(useMyData);
             setLastConfig(JSON.stringify({ prefs, manualSelectedNames, advisorSelectedNames, useMyData }));
+
+            // Sync active semester from the first result if available
+            if (res.length > 0 && res[0].block.semester && res[0].block.semester !== activeSemester) {
+                setActiveSemester(res[0].block.semester);
+            }
         } catch (e) {
             console.warn('Recommender error:', e);
             setResults([]);
         } finally {
             setComputing(false);
         }
-    }, [prefs, manualSelectedNames, advisorSelectedNames, useMyData]);
+    }, [prefs, manualSelectedNames, advisorSelectedNames, useMyData, activeSemester]);
 
     const handleReset = () => {
         setUseMyData(null);
@@ -476,7 +539,18 @@ export function SchedulingPageInner() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
                 {activeTab === 'my-schedule' && (
-                    <MyScheduleTab viewMode={viewMode} setViewMode={setViewMode} />
+                    <MyScheduleTab 
+                        viewMode={viewMode} 
+                        setViewMode={setViewMode} 
+                        registration={myRegistration}
+                        latestRegistration={latestRegistration}
+                        onRefresh={() => initializeData()}
+                        studentData={studentData}
+                        activeSemester={activeSemester}
+                        originalRecBlock={originalRecBlock}
+                        useMyData={useMyData}
+                        rlRecommendedNames={rlRecommendedNames}
+                    />
                 )}
 
                 {activeTab === 'blocks-explorer' && (
@@ -520,12 +594,19 @@ export function SchedulingPageInner() {
                         computing={computing}
                         results={results}
                         appliedCourses={appliedCourses}
+                        appliedPrefs={appliedPrefs}
+                        appliedUseMyData={appliedUseMyData}
                         isDirty={isDirty}
                         handleReset={handleReset}
                         handleGetRecommendations={handleGetRecommendations}
                         setPreviewBlock={setPreviewBlock}
                         prefsAreDefault={prefsAreDefault}
                         activeSemester={activeSemester}
+                        studentData={studentData}
+                        myRegistration={myRegistration}
+                        onRegistrationUpdate={() => initializeData()}
+                        setOriginalRecBlock={setOriginalRecBlock}
+                        rlLoading={rlLoading}
                     />
                 )}
                 <SchedulePreviewModal

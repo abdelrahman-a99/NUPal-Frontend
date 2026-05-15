@@ -11,15 +11,19 @@ import {
     ChevronRight,
     Shield,
     LogOut,
+    ClipboardList,
+    Mail,
 } from 'lucide-react';
 import { removeToken } from '@/lib/auth';
 
 const NAV_ITEMS = [
     { href: '/admin', label: 'Overview', icon: LayoutDashboard, exact: true },
     { href: '/admin/students', label: 'Students', icon: Users },
+    { href: '/admin/registrations', label: 'Registrations', icon: ClipboardList },
     { href: '/admin/recommendations', label: 'Recommended Courses', icon: Brain },
     { href: '/admin/course-mappings', label: 'Courses', icon: BookOpen },
     { href: '/admin/scheduling', label: 'Scheduling Blocks', icon: Layers },
+    { href: '/admin/messages', label: 'Contact Messages', icon: Mail },
 ];
 
 export default function AdminSidebar() {
