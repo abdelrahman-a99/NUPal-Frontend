@@ -25,6 +25,8 @@ interface ParsedMetadata {
   confidence?: number;
   reason?: string;
   resultService?: string;
+  targetTrack?: string;
+  objectiveProfile?: string;
   raw?: unknown;
 }
 
@@ -75,6 +77,8 @@ function parseMetadata(props: AgentMessageMetadata): ParsedMetadata {
     confidence: props.routeConfidence ?? getNestedNumber(rawObject, ['agent.route_confidence', 'route_confidence', 'agent.router.confidence', 'router.confidence']),
     reason: props.routeReason || getNestedString(rawObject, ['agent.route_reason', 'route_reason', 'agent.router.reason', 'router.reason']),
     resultService: getNestedString(rawObject, ['result.service', 'result.source', 'result.kind']),
+    targetTrack: getNestedString(rawObject, ['result.target_track', 'result.requested_target_track', 'agent.router.target_track', 'router.target_track']),
+    objectiveProfile: getNestedString(rawObject, ['result.profile', 'result.objective_profile', 'result.requested_profile', 'agent.router.objective_profile', 'router.objective_profile']),
     raw: raw ?? undefined,
   };
 }
@@ -97,6 +101,19 @@ function routeLabel(route?: string, kind?: string): string | null {
       if (kind === 'mixed') return 'Policy + recommendation';
       if (kind === 'general') return 'General chat';
       return null;
+  }
+}
+
+function trackLabel(track?: string): string | null {
+  switch (track) {
+    case 'general':
+      return 'Track: General';
+    case 'big_data':
+      return 'Track: Big Data';
+    case 'media':
+      return 'Track: Media';
+    default:
+      return track ? `Track: ${track.replaceAll('_', ' ')}` : null;
   }
 }
 
@@ -145,7 +162,8 @@ export default function ChatMessage({
   const label = !isUser ? routeLabel(metadata.route, kind) : null;
   const status = !isUser ? statusLabel(metadata.status) : null;
   const confidence = !isUser ? formatConfidence(metadata.confidence) : null;
-  const hasDebugDetails = Boolean(metadata.traceId || metadata.route || metadata.reason || metadata.resultService || metadata.raw);
+  const track = !isUser ? trackLabel(metadata.targetTrack) : null;
+  const hasDebugDetails = Boolean(metadata.traceId || metadata.route || metadata.reason || metadata.resultService || metadata.targetTrack || metadata.objectiveProfile || metadata.raw);
 
   return (
     <div
@@ -162,7 +180,7 @@ export default function ChatMessage({
           {message}
         </p>
 
-        {!isUser && (label || status || confidence) && (
+        {!isUser && (label || status || confidence || track) && (
           <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] leading-none">
             {label && (
               <span className="rounded-full border border-blue-100 bg-blue-50 px-2 py-1 font-medium text-blue-700">
@@ -172,6 +190,11 @@ export default function ChatMessage({
             {status && (
               <span className="rounded-full border border-amber-100 bg-amber-50 px-2 py-1 font-medium text-amber-700">
                 {status}
+              </span>
+            )}
+            {track && (
+              <span className="rounded-full border border-emerald-100 bg-emerald-50 px-2 py-1 font-medium text-emerald-700">
+                {track}
               </span>
             )}
             {confidence && (
@@ -198,6 +221,8 @@ export default function ChatMessage({
                 {metadata.status && <div><span className="font-semibold">Status:</span> {metadata.status}</div>}
                 {metadata.reason && <div><span className="font-semibold">Reason:</span> {metadata.reason}</div>}
                 {metadata.resultService && <div><span className="font-semibold">Service:</span> {metadata.resultService}</div>}
+                {metadata.targetTrack && <div><span className="font-semibold">Track:</span> {metadata.targetTrack}</div>}
+                {metadata.objectiveProfile && <div><span className="font-semibold">Profile:</span> {metadata.objectiveProfile}</div>}
               </div>
             )}
           </div>
