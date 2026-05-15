@@ -331,7 +331,7 @@ export default function ScheduleAssistantTab({
                                     </div>
 
                                     <div className={`${useMyData ? 'flex-1' : 'max-h-[310px]'} overflow-y-auto pr-1 scrollbar-hide space-y-3`}>
-                                        {rlLoading && useMyData && (
+                                        {rlLoading && useMyData && rlRecommendedNames.length === 0 && (
                                             <div className="flex flex-col items-center justify-center py-10 text-slate-400">
                                                 <Loader2 size={24} className="animate-spin mb-2" />
                                                 <p className="text-xs font-medium">Fetching advisor recommendations...</p>
@@ -390,7 +390,7 @@ export default function ScheduleAssistantTab({
                                                 </div>
                                             </div>
                                         ))}
-                                        {Object.keys(displayCoursesByCategory).length === 0 && (
+                                        {Object.keys(displayCoursesByCategory).length === 0 && (!useMyData || rlRecommendedNames.length > 0) && (
                                             <p className="text-center text-sm text-slate-400 py-8">No courses match your search.</p>
                                         )}
                                     </div>

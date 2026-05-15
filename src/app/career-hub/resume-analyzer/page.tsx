@@ -403,7 +403,7 @@ function ResumeAnalyzerPageInner() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8 career-hub-container">
       {!hideChrome && (
         <div className="max-w-7xl mx-auto mb-12 text-center">
           {activeTab !== 'interview-prep' && (

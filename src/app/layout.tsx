@@ -49,6 +49,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2F80ED" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var settingsRaw = localStorage.getItem('nupal_student_settings');
+                var theme = 'system';
+                if (settingsRaw) {
+                  var parsed = JSON.parse(settingsRaw);
+                  theme = parsed.theme || 'system';
+                  if (parsed.compactMode) document.documentElement.classList.add('compact-mode');
+                  if (parsed.reducedMotion) document.documentElement.classList.add('reduce-motion');
+                }
+                var isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) document.documentElement.classList.add('dark', 'dark-mode');
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
       <body className={`${poppins.className} flex min-h-screen flex-col`} suppressHydrationWarning>
         <Navbar />

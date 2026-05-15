@@ -41,16 +41,19 @@ interface MindMapNodeData {
 const MindMapNode = ({ data, id }: { data: MindMapNodeData; id: string }) => {
     // Category-based colors from University Images (Used ONLY for Tracks)
     const getCategoryStyles = (category?: string) => {
+        // Shared dark mode check (usually handled by CSS but needed for hardcoded logic)
+        const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark-mode');
+
         switch (category) {
-            case 'Math': return 'bg-[#FCE7F3] text-[#A01B4D] border-[#FBCFE8]'; // Pink
-            case 'Core': return 'bg-[#DBEAFE] text-[#1E40AF] border-[#BFDBFE]'; // Blue
-            case 'Systems': return 'bg-[#DCFCE7] text-[#166534] border-[#BBF7D0]'; // Green
-            case 'Track': return 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]'; // Yellow
-            case 'Graphics': return 'bg-[#F3F4F6] text-[#374151] border-[#E5E7EB]'; // Grey
-            case 'Senior': return 'bg-[#FFEDD5] text-[#9A3412] border-[#FED7AA]'; // Orange
-            case 'English': return 'bg-[#CFFAFE] text-[#0891B2] border-[#A5F3FC]'; // Teal
-            case 'Huma': return 'bg-[#F0F9FF] text-[#0369A1] border-[#E0F2FE]'; // Sky
-            case 'SSCI': return 'bg-[#F3E8FF] text-[#7E22CE] border-[#E9D5FF]'; // Purple
+            case 'Math': return 'bg-[#FCE7F3] text-[#A01B4D] border-[#FBCFE8]'; 
+            case 'Core': return 'bg-[#DBEAFE] text-[#1E40AF] border-[#BFDBFE]';
+            case 'Systems': return 'bg-[#DCFCE7] text-[#166534] border-[#BBF7D0]';
+            case 'Track': return 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]';
+            case 'Graphics': return 'bg-[#F3F4F6] text-[#374151] border-[#E5E7EB]';
+            case 'Senior': return 'bg-[#FFEDD5] text-[#9A3412] border-[#FED7AA]';
+            case 'English': return 'bg-[#CFFAFE] text-[#0891B2] border-[#A5F3FC]';
+            case 'Huma': return 'bg-[#F0F9FF] text-[#0369A1] border-[#E0F2FE]';
+            case 'SSCI': return 'bg-[#F3E8FF] text-[#7E22CE] border-[#E9D5FF]';
             default: return 'bg-white text-slate-800 border-slate-200';
         }
     };
@@ -73,7 +76,7 @@ const MindMapNode = ({ data, id }: { data: MindMapNodeData; id: string }) => {
 
                 <div className={`py-1.5 rounded-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border-2 transition-all duration-300 flex items-center justify-between hover:brightness-[0.95] 
                     ${data.level === 3 ? 'px-3 min-w-[100px] justify-center gap-1.5' : 'px-4 md:px-6 min-w-[160px] md:min-w-[200px] gap-3 md:gap-6'}
-                    ${isRoot ? 'bg-indigo-600 text-white border-indigo-400' :
+                    ${isRoot ? 'bg-[#4A9EFF] text-white border-blue-400 shadow-[0_0_20px_rgba(74,158,255,0.3)]' :
                         isSemester ? 'bg-[#D1D9FF] text-[#1E293B] border-[#BCC6FF]' :
                             data.level === 3 ? 'bg-white text-emerald-700 border-emerald-100 shadow-sm' :
                                 'bg-[#E7F7F0] text-[#1E293B] border-[#D1EEDD]'}`}>
@@ -88,7 +91,7 @@ const MindMapNode = ({ data, id }: { data: MindMapNodeData; id: string }) => {
                             size="none"
                             onClick={handleToggle}
                             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer z-50
-                            ${isRoot ? 'bg-white/20 text-white hover:bg-white/30' :
+                             ${isRoot ? 'bg-white/20 text-white hover:bg-white/30' :
                                     isSemester ? 'bg-white/80 text-indigo-700 hover:bg-white' :
                                         'bg-white/80 text-green-700 hover:bg-white'}`}>
                             <ChevronRight size={16} className={`transform transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`} />
@@ -119,12 +122,12 @@ const MindMapNode = ({ data, id }: { data: MindMapNodeData; id: string }) => {
 
             <div className={`
                 relative rounded-xl border-2 transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-md py-5 px-6 text-center
-                ${isRoot ? 'bg-indigo-600 text-white border-indigo-500 min-w-[280px] rounded-2xl shadow-xl' :
-                    isSemester ? 'bg-slate-50 text-indigo-900 border-slate-200 min-w-[240px] rounded-xl' :
+                ${isRoot ? 'bg-[#4A9EFF] text-white border-blue-400 min-w-[280px] rounded-2xl shadow-xl' :
+                    isSemester ? 'bg-slate-50 text-indigo-900 border-slate-200 min-w-[240px] rounded-xl dark:bg-slate-800 dark:text-indigo-200 dark:border-slate-700' :
                         `${catStyles} min-w-[240px] max-w-[280px] rounded-lg`}
             `}>
                 <div className="flex flex-col items-center justify-center w-full overflow-hidden">
-                    <span className={`tracking-tight leading-snug block w-full whitespace-pre-line ${isRoot ? 'text-lg font-black' : 'text-[14px] font-extrabold text-slate-800'}`}>
+                    <span className={`tracking-tight leading-snug block w-full whitespace-pre-line ${isRoot ? 'text-lg font-black' : 'text-[14px] font-extrabold text-slate-800 dark:text-slate-200'}`}>
                         {data.label}
                     </span>
                 </div>
@@ -178,7 +181,7 @@ const MindMapEdge = ({
         ? getSmoothStepPath({ ...edgeParams, borderRadius: 20 })
         : getBezierPath(edgeParams);
 
-    const edgeColor = (data as any)?.color || '#000000';
+    const edgeColor = (data as any)?.color || '#94a3b8';
 
     return (
         <BaseEdge
@@ -304,7 +307,7 @@ const ControlButton = ({ onClick, icon: Icon, label, active = false }: { onClick
             variant="none"
             size="none"
             onClick={onClick}
-            className={`p-2 rounded-xl transition-all active:scale-95 flex items-center justify-center ${active ? 'bg-slate-100 text-blue-600' : 'hover:bg-slate-50 text-slate-600 hover:text-slate-900'}`}
+            className={`p-2 rounded-xl transition-all active:scale-95 flex items-center justify-center ${active ? 'bg-slate-100 text-blue-600 dark:bg-slate-800 dark:text-blue-400' : 'hover:bg-slate-50 text-slate-600 hover:text-slate-900 dark:hover:bg-slate-800 dark:text-slate-400 dark:hover:text-slate-200'}`}
         >
             <Icon size={16} />
         </Button>
@@ -804,9 +807,9 @@ const MindMapContent = ({ data, externalTrackId, onBackToPersonal }: { data: any
             maxZoom={4}
             proOptions={{ hideAttribution: true }}
         >
-            <Background color="#cbd5e1" gap={25} size={1} />
+            <Background color="currentColor" className="text-slate-200 dark:text-slate-800/0" gap={25} size={1} />
             <Panel position="top-right" className="flex flex-col gap-2 m-4 scale-90 origin-top-right">
-                <div className="flex flex-col gap-1 bg-white border border-slate-200 rounded-[1.25rem] shadow-lg p-1">
+                <div className="flex flex-col gap-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[1.25rem] shadow-lg p-1">
                     <ControlButton
                         onClick={toggleFullscreen}
                         label={isStandalone ? "Close Map" : isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
@@ -818,7 +821,7 @@ const MindMapContent = ({ data, externalTrackId, onBackToPersonal }: { data: any
 
             <Panel position="bottom-right" className="flex flex-col gap-2 m-4 scale-75 md:scale-90 origin-bottom-right">
                 {mapMode === 'personal' && (
-                    <div className="flex flex-col gap-1 bg-white border border-slate-200 rounded-[1.25rem] shadow-lg p-1">
+                    <div className="flex flex-col gap-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[1.25rem] shadow-lg p-1">
                         {collapsedIds.size === 0 ? (
                             <ControlButton
                                 onClick={collapseAll}
@@ -835,7 +838,7 @@ const MindMapContent = ({ data, externalTrackId, onBackToPersonal }: { data: any
                     </div>
                 )}
 
-                <div className="flex flex-col gap-1 bg-white border-2 border-slate-200 rounded-[1.25rem] shadow-xl p-1.5 ring-4 ring-black/5">
+                <div className="flex flex-col gap-1 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-[1.25rem] shadow-xl p-1.5 ring-4 ring-black/5">
                     <ControlButton
                         onClick={() => fitView({ duration: 400 })}
                         label="Reset View"
@@ -862,10 +865,10 @@ const MindMapContent = ({ data, externalTrackId, onBackToPersonal }: { data: any
     return (
         <div className="relative w-full h-full group/mindmap">
             {isFullscreen && mounted ? createPortal(
-                <div className={`fixed inset-0 z-[99999] bg-slate-900/10 backdrop-blur-md flex items-center justify-center p-4 md:p-8 ${mapMode !== 'personal' ? 'animate-in fade-in duration-700' : ''}`}>
-                    <div className={`w-full h-full bg-white rounded-[2.5rem] shadow-2xl border border-white/50 overflow-hidden relative ${mapMode !== 'personal' ? 'animate-in zoom-in-95 duration-700' : ''}`}>
+                <div className="fixed inset-0 z-[99999] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4 md:p-8">
+                    <div className={`w-full h-full bg-white rounded-[2.5rem] shadow-2xl border border-white/20 overflow-hidden relative ${mapMode !== 'personal' ? 'animate-in zoom-in-95 duration-700' : ''}`}>
                         <div className="absolute top-0 left-0 right-0 p-4 md:p-10 z-20 flex items-start justify-between pointer-events-none">
-                            <div className="pointer-events-auto bg-white/40 backdrop-blur-md px-4 py-2 md:px-6 md:py-3 rounded-2xl border border-white/50 shadow-sm flex items-center gap-4">
+                            <div className="pointer-events-auto bg-white/40 backdrop-blur-md px-4 py-2 md:px-6 md:py-3 rounded-2xl border border-white/20 shadow-sm flex items-center gap-4">
                                 <h2 className="text-lg md:text-2xl font-black text-slate-900 tracking-tight">
                                     {mapMode === 'personal'
                                         ? `${data?.account?.name ? data.account.name.split(' ')[0] : 'Academic'}'s Academy Map`

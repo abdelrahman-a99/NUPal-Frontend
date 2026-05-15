@@ -39,13 +39,29 @@ function deleteCookie(name: string) {
 
 export function setToken(token: string) {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(AUTH_TOKEN_KEY, token);
-    setCookie('token', token, 7);
+    let remember = true;
+    try {
+        const raw = localStorage.getItem('nupal_student_settings');
+        if (raw) {
+            remember = JSON.parse(raw).sessionRemember !== false;
+        }
+    } catch {}
+
+    if (remember) {
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+        setCookie('token', token, 7);
+    } else {
+        sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+        // Set session cookie (no expires)
+        document.cookie = `token=${token};path=/;SameSite=Lax`;
+    }
   }
 }
 
 export function getToken(): string | null {
   if (typeof window !== 'undefined') {
+    const sessionToken = sessionStorage.getItem(AUTH_TOKEN_KEY);
+    if (sessionToken) return sessionToken;
     const localToken = localStorage.getItem(AUTH_TOKEN_KEY);
     if (localToken) return localToken;
     return getCookie('token');
@@ -56,6 +72,7 @@ export function getToken(): string | null {
 export function removeToken() {
   if (typeof window !== 'undefined') {
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    sessionStorage.removeItem(AUTH_TOKEN_KEY);
     deleteCookie('token');
   }
 }

@@ -54,8 +54,8 @@ export function SidebarNav({ activeTab, onSelect, interviewLocked }: SidebarNavP
             className={`w-full flex items-start text-left gap-4 p-4 rounded-2xl transition-all relative hover:bg-slate-50/80 border border-transparent`}
           >
             <div className={`mt-0.5 w-12 h-12 rounded-full flex items-center justify-center shrink-0 border-4 transition-all ${isActive
-                ? 'bg-blue-600 border-blue-50 text-white'
-                : 'bg-white border-slate-50 text-slate-500 hover:border-slate-100 shadow-sm'
+              ? 'bg-blue-600 border-blue-50 text-white'
+              : 'bg-white border-slate-50 text-slate-500 hover:border-slate-100 shadow-sm'
               }`}>
               <Icon className="w-5 h-5" />
             </div>

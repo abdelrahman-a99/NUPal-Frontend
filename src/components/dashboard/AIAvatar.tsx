@@ -89,7 +89,7 @@ const AIAvatar = ({ mouseX, mouseY, isActive }: AIAvatarProps = {}) => {
                         {[...Array(12)].map((_, i) => (
                             <div
                                 key={i}
-                                className="absolute w-5 h-5 bg-blue-900 rounded-[30%] left-1/2 top-0"
+                                className="absolute w-5 h-5 bg-blue-900 rounded-[30%] left-1/2 top-0 shadow-[0_0_15px_rgba(74,158,255,0.2)]"
                                 style={{
                                     marginLeft: '-10px',
                                     transformOrigin: '10px 88px',
@@ -113,9 +113,9 @@ const AIAvatar = ({ mouseX, mouseY, isActive }: AIAvatarProps = {}) => {
                     }}
                 >
                     {/* Left Eye */}
-                    <div className="w-6 h-6 bg-blue-900 rounded-[30%] animate-[eye-blink_6s_ease-in-out_infinite] shadow-[0_0_15px_rgba(30,58,138,0.1)]"></div>
+                    <div className="w-6 h-6 bg-blue-900 rounded-[30%] animate-[eye-blink_6s_ease-in-out_infinite] shadow-[0_0_15px_rgba(74,158,255,0.3)]"></div>
                     {/* Right Eye */}
-                    <div className="w-6 h-6 bg-blue-900 rounded-[30%] animate-[eye-blink_6s_ease-in-out_infinite] shadow-[0_0_15px_rgba(30,58,138,0.1)]"></div>
+                    <div className="w-6 h-6 bg-blue-900 rounded-[30%] animate-[eye-blink_6s_ease-in-out_infinite] shadow-[0_0_15px_rgba(74,158,255,0.3)]"></div>
                 </div>
             </div>
 

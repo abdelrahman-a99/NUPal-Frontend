@@ -163,6 +163,88 @@ export function SchedulingPageInner() {
     const [appliedPrefs, setAppliedPrefs] = useState<SchedulePreferences>(DEFAULT_PREFS);
     const [appliedUseMyData, setAppliedUseMyData] = useState<boolean | null>(null);
     const [courseMappings, setCourseMappings] = useState<any[]>([]);
+    const [autoSaveEnabled, setAutoSaveEnabled] = useState(() => {
+        if (typeof window === 'undefined') return true;
+        try {
+            const raw = localStorage.getItem('nupal_student_settings');
+            if (raw) {
+                const s = JSON.parse(raw);
+                return s.autoSaveDrafts !== false;
+            }
+        } catch {}
+        return true;
+    });
+    const [hasRestored, setHasRestored] = useState(false);
+
+    // Sync settings from localStorage
+    const syncSettings = useCallback(() => {
+        try {
+            const raw = localStorage.getItem('nupal_student_settings');
+            if (raw) {
+                const s = JSON.parse(raw);
+                const enabled = s.autoSaveDrafts !== false;
+                setAutoSaveEnabled(enabled);
+                
+                // If user just turned it off, clear the current draft so it doesn't 
+                // re-appear if they turn it back on later with stale data
+                if (!enabled) {
+                    localStorage.removeItem('nupal_scheduling_draft');
+                }
+            }
+        } catch {}
+    }, []);
+
+    useEffect(() => {
+        syncSettings();
+        
+        // Sync when switching back to this tab or when storage changes in another tab
+        window.addEventListener('focus', syncSettings);
+        window.addEventListener('storage', syncSettings);
+        // Custom event for same-window sync from modal
+        window.addEventListener('nupal-settings-updated', syncSettings);
+        
+        return () => {
+            window.removeEventListener('focus', syncSettings);
+            window.removeEventListener('storage', syncSettings);
+            window.removeEventListener('nupal-settings-updated', syncSettings);
+        };
+    }, [syncSettings]);
+
+    // Load Draft on Mount
+    useEffect(() => {
+        if (!autoSaveEnabled || hasRestored) return;
+        try {
+            const draftRaw = localStorage.getItem('nupal_scheduling_draft');
+            if (draftRaw) {
+                const draft = JSON.parse(draftRaw);
+                if (draft.manualSelectedNames) setManualSelectedNames(draft.manualSelectedNames);
+                if (draft.advisorSelectedNames) setAdvisorSelectedNames(draft.advisorSelectedNames);
+                if (draft.prefs) setPrefs(prev => ({ ...prev, ...draft.prefs }));
+                if (draft.useMyData !== undefined) setUseMyData(draft.useMyData);
+                console.log('[Draft] Restored scheduling progress');
+            }
+        } catch (e) {
+            console.warn('Failed to load scheduling draft:', e);
+        } finally {
+            setHasRestored(true);
+        }
+    }, [autoSaveEnabled, hasRestored]);
+
+    // Save Draft on Change
+    useEffect(() => {
+        // Only save if auto-save is enabled AND we've already finished restoring the previous draft
+        // This prevents overwriting the draft with empty state on initial mount
+        if (!autoSaveEnabled || !hasRestored) return;
+        
+        const draft = {
+            manualSelectedNames,
+            advisorSelectedNames,
+            prefs,
+            useMyData,
+            updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem('nupal_scheduling_draft', JSON.stringify(draft));
+    }, [manualSelectedNames, advisorSelectedNames, prefs, useMyData, autoSaveEnabled, hasRestored]);
 
     const isDirty = useMemo(() => {
         if (!results.length || !lastConfig) return false;
@@ -249,7 +331,13 @@ export function SchedulingPageInner() {
                             const recommendedList = Array.from(new Set(rlRaw.courses.map((c: any) => typeof c === 'string' ? c : c.id || c.name || c.courseId)));
 
                             setRlRecommendedNames(recommendedList as string[]);
-                            setAdvisorSelectedNames(recommendedList as string[]);
+                            
+                            // Only overwrite advisorSelectedNames if we haven't already restored a custom draft
+                            // OR if the current list is empty
+                            setAdvisorSelectedNames(prev => {
+                                if (prev && prev.length > 0) return prev;
+                                return recommendedList as string[];
+                            });
                         } else {
                             setRlRecommendedNames([]);
                             setAdvisorSelectedNames([]);

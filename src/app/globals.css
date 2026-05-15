@@ -97,3 +97,1147 @@
     stroke 600ms cubic-bezier(0.4, 0, 0.2, 1),
     stroke-width 600ms cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+/* ── System Overrides ── */
+
+/* ── Eye-Friendly Dark Mode (Slate-based) ── */
+/* ── Refined Charcoal Dark Mode (Slightly Deeper #1C1C1C) ── */
+.dark-mode body {
+  background-color: #0F0F0F !important;
+  color: #F0F0F0 !important;
+}
+
+/* Navbar Fix */
+.dark-mode header.sticky {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+}
+
+.dark-mode header.sticky.shadow-md {
+  background-color: #262626 !important;
+  border-color: #262626 !important;
+}
+
+.dark-mode header nav span,
+.dark-mode header nav a {
+  color: #BBBBBB !important;
+}
+
+.dark-mode header nav span:hover,
+.dark-mode header nav a:hover,
+.dark-mode header nav a.text-blue-500,
+.dark-mode header nav span.text-blue-500,
+.dark-mode header nav .isActive {
+  color: #4A9EFF !important;
+}
+
+/* Navbar Dropdown */
+.dark-mode header .absolute.bg-white {
+  background-color: #1E1E1E !important;
+  border-color: #262626 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .group\/child.hover\:bg-slate-50:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Global Background Overrides */
+.dark-mode .bg-white {
+  background-color: #1E1E1E !important;
+  color: #F0F0F0 !important;
+  border-color: #2D2D2D !important;
+}
+
+/* Elevated Surfaces (Cards/Stat Strip) */
+.dark-mode .bg-slate-700,
+.dark-mode .bg-\[\#064E3B\],
+.dark-mode .bg-\[\#D1E9F6\],
+.dark-mode .bg-slate-50,
+.dark-mode .bg-white.rounded-\[2rem\],
+.dark-mode .bg-white.rounded-2xl,
+.dark-mode .rounded-\[2rem\],
+.dark-mode .rounded-\[2\.5rem\] {
+  background-color: #2C2C2C !important;
+  background-image: none !important;
+  border-color: #2E2E2E !important;
+}
+
+/* Specific Lighter Header for Dashboard */
+.dark-mode .bg-slate-100 {
+  background-color: #323232 !important;
+  border-bottom: none !important;
+}
+
+/* Make SVG Curve invisible by matching Main Background color */
+.dark-mode .bg-slate-100 svg path {
+  fill: #1E1E1E !important;
+}
+
+/* Force Text Visibility in Dark Cards */
+.dark-mode .rounded-\[2rem\] h2,
+.dark-mode .rounded-\[2rem\] h4,
+.dark-mode .rounded-\[2rem\] h5,
+.dark-mode .rounded-\[2\.5rem\] h2 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .rounded-\[2rem\] p,
+.dark-mode .rounded-\[2\.5rem\] p {
+  color: #CCCCCC !important;
+}
+
+/* Specific Card Overrides (Removing Hardcoded Colors) */
+.dark-mode .bg-\[\#064E3B\] {
+  background-color: #2C2C2C !important;
+}
+
+.dark-mode .bg-\[\#D1E9F6\] {
+  background-color: #2C2C2C !important;
+}
+
+/* Mind Map Specifics */
+.dark-mode .react-flow__pane {
+  background-color: #1E1E1E !important;
+}
+
+.dark-mode .react-flow__background {
+  display: none !important;
+}
+
+/* Mind Map Node Overrides in Dark Mode */
+.dark-mode .bg-\[\#D1D9FF\] {
+  background-color: rgba(74, 158, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(74, 158, 255, 0.3) !important;
+}
+
+.dark-mode .bg-\[\#E7F7F0\] {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Mind Map Category Overrides in Dark Mode */
+.dark-mode .bg-\[\#FCE7F3\] {
+  background-color: rgba(244, 114, 182, 0.1) !important;
+  color: #F9A8D4 !important;
+  border-color: rgba(244, 114, 182, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#DBEAFE\] {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: #93C5FD !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#DCFCE7\] {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #6EE7B7 !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#FEF3C7\] {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  color: #FCD34D !important;
+  border-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#F3F4F6\] {
+  background-color: rgba(107, 114, 128, 0.1) !important;
+  color: #D1D5DB !important;
+  border-color: rgba(107, 114, 128, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#FFEDD5\] {
+  background-color: rgba(249, 115, 22, 0.1) !important;
+  color: #FDBA74 !important;
+  border-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#CFFAFE\] {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+  color: #67E8F9 !important;
+  border-color: rgba(6, 182, 212, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#F0F9FF\] {
+  background-color: rgba(14, 165, 233, 0.1) !important;
+  color: #7DD3FC !important;
+  border-color: rgba(14, 165, 233, 0.2) !important;
+}
+
+.dark-mode .bg-\[\#F3E8FF\] {
+  background-color: rgba(168, 85, 247, 0.1) !important;
+  color: #D8B4FE !important;
+  border-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+/* AI Avatar Specifics */
+.dark-mode .bg-blue-900 {
+  background-color: #4A9EFF !important;
+}
+
+.dark-mode div[style*="omni-bg.png"] {
+  opacity: 0.2 !important;
+  filter: brightness(0.5) grayscale(0.99) !important;
+}
+
+/* Force transparent children in the stat strip */
+.dark-mode .rounded-\[2rem\]>div,
+.dark-mode .rounded-\[2rem\] [class*="flex-1"] {
+  background-color: transparent !important;
+}
+
+/* Dashboard Wave Curve Fix */
+.dark-mode .fill-white {
+  fill: #1E1E1E !important;
+  /* Must match the new base */
+}
+
+/* Neutralize Slate Colors & Hover states */
+.dark-mode .bg-slate-50,
+.dark-mode .hover\:bg-slate-50:hover,
+.dark-mode [class*="hover:bg-slate-50"]:hover {
+  background-color: #2D2D2D !important;
+}
+
+.dark-mode .text-slate-900 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .text-slate-800 {
+  color: #F0F0F0 !important;
+}
+
+.dark-mode .text-slate-500 {
+  color: #BBBBBB !important;
+}
+
+.dark-mode .text-slate-400 {
+  color: #A0A0A0 !important;
+}
+
+/* Dashboard Navigation / Tabs */
+.dark-mode .border-blue-600 {
+  border-color: #4A9EFF !important;
+}
+
+.dark-mode .text-blue-600 {
+  color: #4A9EFF !important;
+}
+
+.dark-mode .border-slate-100,
+.dark-mode .hover\:border-slate-300:hover {
+  border-color: #333333 !important;
+}
+
+/* Dividers */
+.dark-mode .divide-x>*,
+.dark-mode .md\:divide-x>*,
+.dark-mode .divide-y>*,
+.dark-mode [class*="divide-slate"]>* {
+  border-color: #2E2E2E !important;
+}
+
+/* Dashboard Specifics */
+.dark-mode .bg-gradient-to-br.from-indigo-50 {
+  background-image: none !important;
+  background-color: #1E1E1E !important;
+}
+
+.dark-mode .bg-gradient-to-r.from-white {
+  background-image: linear-gradient(to r, #2C2C2C, rgba(30, 30, 30, 0.8), transparent) !important;
+}
+
+/* Accents - Using User Preferred #4A9EFF */
+.dark-mode .bg-blue-50 {
+  background-color: rgba(74, 158, 255, 0.1) !important;
+  color: #4A9EFF !important;
+}
+
+.dark-mode .text-blue-500,
+.dark-mode .text-blue-400 {
+  color: #4A9EFF !important;
+}
+
+/* Neutralize hardcoded colors */
+.dark-mode .bg-\[\#064E3B\] {
+  background-color: #2C2C2C !important;
+  border: 1px solid #2E2E2E !important;
+}
+
+.dark-mode .bg-\[\#D1E9F6\] {
+  background-color: #2C2C2C !important;
+  border: 1px solid #2E2E2E !important;
+  color: #F0F0F0 !important;
+}
+
+/* Academic Plan / Curriculum Overrides */
+.dark-mode .md\:bg-white.md\:rounded-\[2\.5rem\],
+.dark-mode .bg-slate-50\/50.border.border-slate-200.rounded-3xl,
+.dark-mode .bg-white.border.border-slate-200.text-slate-500,
+.dark-mode .mt-auto.bg-white.border.border-slate-100.rounded-2xl {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+  box-shadow: none !important;
+  ring: none !important;
+  outline: none !important;
+}
+
+/* Course Pills (Completed/Progress) */
+.dark-mode .bg-emerald-100 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #6EE7B7 !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+.dark-mode .bg-amber-100 {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  color: #FCD34D !important;
+  border-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+.dark-mode .bg-rose-100 {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  color: #FDA4AF !important;
+  border-color: rgba(244, 63, 94, 0.2) !important;
+}
+
+/* Expanded Course Cards */
+.dark-mode .bg-white.border.border-slate-200.rounded-2xl.p-4 {
+  background-color: #454545 !important;
+  border-color: #555555 !important;
+  box-shadow: none !important;
+}
+
+/* GPA Points Inner Box in Expanded Card */
+.dark-mode .bg-white.border.border-slate-200.rounded-2xl.p-4 .bg-slate-50 {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Roadmap Group Headers (e.g., English 12 credits) - Remove box */
+.dark-mode .group\/header,
+.dark-mode .rounded-3xl .cursor-pointer.flex.items-center.justify-between {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark-mode .group\/header:hover,
+.dark-mode .rounded-3xl .cursor-pointer.flex.items-center.justify-between:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Track Card Decorative Blobs */
+.dark-mode div.rounded-\[2\.5rem\] div[class*="bg-gradient-to-br"].opacity-5 {
+  opacity: 0.25 !important;
+  filter: blur(8px) brightness(1.2);
+}
+
+.dark-mode div.rounded-\[2\.5rem\]:hover div[class*="bg-gradient-to-br"].opacity-5 {
+  opacity: 0.4 !important;
+}
+
+/* Roadmap Number Badges (Top right of columns) */
+.dark-mode .rounded-3xl .bg-slate-200 {
+  background-color: #333333 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #444444 !important;
+}
+
+/* Whiten text in Academic Plan */
+.dark-mode .rounded-3xl h4,
+.dark-mode .rounded-3xl h5,
+.dark-mode .rounded-3xl span,
+.dark-mode .rounded-2xl span,
+.dark-mode .rounded-lg.text-slate-900,
+.dark-mode .rounded-2xl .text-slate-400,
+.dark-mode .rounded-2xl .text-slate-500,
+.dark-mode .rounded-2xl .text-slate-600 {
+  color: #FFFFFF !important;
+}
+
+/* Search bar & View Mode buttons */
+.dark-mode input.bg-white.border-slate-200,
+.dark-mode .bg-white.p-1.rounded-lg.border-slate-200 {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode .bg-slate-100.text-slate-900 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #4A9EFF !important;
+}
+
+/* Chart Tooltip Overrides */
+.dark-mode .bg-white\/90.backdrop-blur-md.p-4.rounded-2xl {
+  background-color: rgba(44, 44, 44, 0.95) !important;
+  border-color: #262626 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .bg-white\/90.backdrop-blur-md.p-4.rounded-2xl p.text-slate-900,
+.dark-mode .bg-white\/90.backdrop-blur-md.p-4.rounded-2xl span.text-slate-900 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .bg-white\/90.backdrop-blur-md.p-4.rounded-2xl span.text-slate-600 {
+  color: #BBBBBB !important;
+}
+
+/* Skeleton Screens Overrides */
+.dark-mode .animate-pulse,
+.dark-mode .animate-pulse,
+.dark-mode [class*="bg-slate"].animate-pulse,
+.dark-mode [class*="bg-gray"].animate-pulse {
+  background-color: #333333 !important;
+  opacity: 0.4 !important;
+}
+
+/* Chatbot Specific Overrides */
+.dark-mode .flex.h-\[calc\(100dvh-64px\)\].bg-white {
+  background-color: #1E1E1E !important;
+}
+
+.dark-mode .flex.h-full.flex-1.flex-col.bg-white {
+  background-color: #1E1E1E !important;
+}
+
+/* Sidebar */
+.dark-mode div.bg-slate-50.border-r.border-slate-200 {
+  background-color: #262626 !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode h2.text-slate-800,
+.dark-mode h3.text-slate-500 {
+  color: #FFFFFF !important;
+}
+
+/* New Chat Button - "Calmer" Blue */
+.dark-mode button.bg-blue-400 {
+  background-color: rgba(74, 158, 255, 0.15) !important;
+  color: #4A9EFF !important;
+  border: 1px solid rgba(74, 158, 255, 0.3) !important;
+  box-shadow: none !important;
+}
+
+.dark-mode button.bg-blue-400:hover {
+  background-color: rgba(74, 158, 255, 0.25) !important;
+}
+
+/* Sidebar Toggle Buttons */
+.dark-mode button.text-slate-500.hover\:bg-slate-200:hover,
+.dark-mode button.text-slate-500.hover\:bg-slate-50:hover,
+.dark-mode button.bg-white.text-slate-500:hover {
+  background-color: #262626 !important;
+  color: #FFFFFF !important;
+}
+
+/* Chat History Items */
+.dark-mode button.text-slate-700.hover\:bg-slate-50:hover,
+.dark-mode button.text-blue-600:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark-mode button span,
+.dark-mode button.text-blue-600 span {
+  color: #BBBBBB !important;
+}
+
+.dark-mode button.bg-blue-50.text-blue-600 {
+  background-color: rgba(74, 158, 255, 0.1) !important;
+}
+
+.dark-mode button.bg-blue-50.text-blue-600 span {
+  color: #FFFFFF !important;
+  font-weight: bold !important;
+}
+
+/* Chat Bubbles */
+.dark-mode .bg-slate-100.text-slate-900 {
+  background-color: #2C2C2C !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode .bg-slate-100.text-slate-900 p {
+  color: #FFFFFF !important;
+}
+
+/* Input Area */
+.dark-mode .border-slate-200.bg-slate-50,
+.dark-mode input.bg-slate-50 {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode textarea.text-slate-900,
+.dark-mode input.text-slate-900 {
+  color: #FFFFFF !important;
+}
+
+/* Scheduling Page Overrides */
+.dark-mode .min-h-screen.bg-slate-50 {
+  background-color: #1E1E1E !important;
+}
+
+/* Hide the light blobs in the header */
+.dark-mode div.bg-blue-50\/80,
+.dark-mode div.bg-indigo-50\/60 {
+  background-color: rgba(74, 158, 255, 0.05) !important;
+  opacity: 0.2 !important;
+}
+
+/* Header Title & Text */
+.dark-mode h1.text-slate-900,
+.dark-mode h1 span.text-slate-900 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode p.text-slate-500 {
+  color: #A0A0A0 !important;
+}
+
+/* Tab Navigation Container */
+.dark-mode div.bg-slate-100.p-1\.5.rounded-2xl {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+  box-shadow: none !important;
+}
+
+/* Tab Buttons */
+.dark-mode button.rounded-xl.bg-white {
+  background-color: #1E1E1E !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+.dark-mode button.text-slate-500.hover\:bg-slate-200\/50:hover {
+  background-color: #262626 !important;
+  color: #FFFFFF !important;
+}
+
+/* My Schedule Icon & Text */
+.dark-mode div.bg-blue-100\/50 {
+  background-color: #2C2C2C !important;
+  border: 1px solid #262626 !important;
+}
+
+.dark-mode svg.text-\[\#2F80ED\] {
+  color: #4A9EFF !important;
+}
+
+/* Status Alert - Pending Approval */
+.dark-mode .bg-amber-50.border-amber-100.text-amber-800 {
+  background-color: rgba(245, 158, 11, 0.05) !important;
+  border-color: #443311 !important;
+}
+
+/* Universal Border Fix for Scheduling */
+.dark-mode .max-w-7xl [class*="border"],
+.dark-mode .max-w-7xl div[class*="border"] {
+  border-color: #333333 !important;
+}
+
+/* Career Hub Search Bar Divider - Hidden in Dark Mode */
+.dark-mode .h-8.w-px.bg-slate-200 {
+  display: none !important;
+}
+
+/* Force transparency for search bar inputs/selects to match container */
+.dark-mode .max-w-3xl select,
+.dark-mode .max-w-3xl input {
+  background-color: transparent !important;
+}
+
+/* Schedule List View */
+.dark-mode .grid-cols-1 .bg-white {
+  background-color: #262626 !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode h4.text-sky-600,
+.dark-mode h4.group-hover\:text-sky-700 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .space-y-0\.5.text-xs.text-slate-600,
+.dark-mode .text-slate-600,
+.dark-mode .text-slate-700 {
+  color: #BBBBBB !important;
+}
+
+/* Timetable Grid & Headers */
+.dark-mode div.bg-white.rounded-2xl.border.border-slate-100 {
+  background-color: #1A1A1A !important;
+  box-shadow: none !important;
+}
+
+.dark-mode div.bg-slate-50\/95.backdrop-blur-sm {
+  background-color: #222222 !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode div.bg-slate-50\/30 {
+  background-color: #1E1E1E !important;
+}
+
+/* Schedule Assistant Overrides */
+.dark-mode h2.text-slate-900,
+.dark-mode label.text-slate-700,
+.dark-mode h3.text-slate-900,
+.dark-mode h4.text-slate-800 {
+  color: #FFFFFF !important;
+}
+
+/* Form Containers */
+.dark-mode div.bg-white.rounded-2xl.border.border-slate-100 {
+  background-color: #262626 !important;
+  border-color: #333333 !important;
+}
+
+/* Course Source Buttons */
+.dark-mode button.border-slate-200.bg-slate-50 {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode button.bg-blue-50\/40 {
+  background-color: rgba(74, 158, 255, 0.05) !important;
+  border-color: #4A9EFF !important;
+}
+
+.dark-mode div.bg-blue-100 {
+  background-color: #333333 !important;
+}
+
+/* Input Fields & Search */
+.dark-mode input.bg-transparent,
+.dark-mode div.bg-slate-50 {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode input[type="time"],
+.dark-mode select {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+  color-scheme: dark !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode option {
+  background-color: #1A1A1A !important;
+  color: #FFFFFF !important;
+}
+
+/* Level & Day Pickers */
+.dark-mode button.border-slate-200.bg-white {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+}
+
+/* Recommended Blocks Section */
+.dark-mode div.bg-slate-50\/40.border-b.border-slate-50 {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+}
+
+/* Result Cards */
+.dark-mode div.bg-white.rounded-2xl.border.border-slate-200 {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode .bg-blue-50\/50 {
+  background-color: #2C2C2C !important;
+}
+
+.dark-mode .border-blue-100\/30 {
+  border-color: #262626 !important;
+}
+
+.dark-mode .text-blue-500 {
+  color: #4A9EFF !important;
+}
+
+/* Course Badges in Results */
+.dark-mode .bg-blue-50\/50.border-blue-100,
+.dark-mode .bg-slate-50.border-slate-200 {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+  color: #BBBBBB !important;
+}
+
+/* AI Insight Box */
+.dark-mode div.bg-blue-50\/30.border-blue-100\/20 {
+  background-color: #262626 !important;
+  border-color: #333333 !important;
+}
+
+/* Numeric Input Containers (Days, Gaps) - Forced Neutralization */
+.dark-mode [class*="bg-slate-50"],
+.dark-mode [class*="bg-slate-100"],
+.dark-mode [class*="bg-indigo-50"] {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode div.bg-slate-50\/80 span.text-slate-800,
+.dark-mode div.bg-slate-50\/80 span.text-slate-900,
+.dark-mode div.bg-slate-50\/80 div span {
+  color: #FFFFFF !important;
+}
+
+.dark-mode div.bg-slate-50\/80 span.text-slate-400 {
+  color: #A0A0A0 !important;
+}
+
+/* Search Input & All Text Inputs - Ultra Final Fix */
+.dark-mode input,
+.dark-mode input:focus,
+.dark-mode .placeholder\:text-slate-400 {
+  color: #FFFFFF !important;
+  caret-color: #FFFFFF !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  line-height: normal !important;
+}
+
+.dark-mode input::placeholder,
+.dark-mode input::-webkit-input-placeholder,
+.dark-mode input::-moz-placeholder,
+.dark-mode input:-ms-input-placeholder,
+.dark-mode .placeholder\:text-slate-400::placeholder {
+  color: #888888 !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+  border: none !important;
+  background: none !important;
+  -webkit-text-fill-color: #888888 !important;
+}
+
+
+.dark-mode div.bg-slate-50 input,
+.dark-mode div.bg-slate-50\/30 input {
+  background-color: transparent !important;
+}
+
+/* Specific Search Bar Styling */
+.dark-mode div.bg-slate-50 input.bg-transparent,
+.dark-mode div.bg-slate-50\/30 input.bg-transparent {
+  color: #FFFFFF !important;
+}
+
+/* Hide Completed Toggle & Buttons */
+.dark-mode button[class*="bg-indigo-50"],
+.dark-mode button[class*="bg-slate-50"] {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode div.bg-indigo-100.text-indigo-600 {
+  background-color: #333333 !important;
+  color: #4A9EFF !important;
+}
+
+.dark-mode div.bg-indigo-500 {
+  background-color: #4A9EFF !important;
+}
+
+/* Empty State Halo Fix */
+.dark-mode div.bg-blue-100\/30.blur-2xl {
+  display: none !important;
+}
+
+/* Search Input Text Color */
+.dark-mode input.flex-1.text-sm.bg-transparent,
+.dark-mode input.flex-1.text-xs.bg-transparent {
+  color: #FFFFFF !important;
+}
+
+.dark-mode input::placeholder {
+  color: #666666 !important;
+}
+
+/* Checkboxes & Course List Items */
+.dark-mode button.border-slate-200.bg-white span.text-slate-700 {
+  color: #BBBBBB !important;
+}
+
+.dark-mode div.border-slate-300 {
+  border-color: #444444 !important;
+}
+
+/* Suggested Badge */
+.dark-mode span.text-green-600.bg-green-50 {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+  color: #22C55E !important;
+  border: 1px solid rgba(34, 197, 94, 0.2) !important;
+}
+
+/* Plus/Minus Buttons */
+.dark-mode button.bg-white.border-slate-200.flex.items-center.justify-center {
+  background-color: #2C2C2C !important;
+  border-color: #444444 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode button.bg-white.border-slate-200:hover {
+  background-color: #262626 !important;
+}
+
+/* Navbar & Navigation - Dark Mode Fixes */
+.dark-mode header.sticky {
+  background-color: #262626 !important;
+  border-bottom-color: #262626 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode header.sticky nav a,
+.dark-mode header.sticky nav span {
+  color: #BBBBBB !important;
+}
+
+.dark-mode header.sticky nav a:hover,
+.dark-mode header.sticky nav span:hover,
+.dark-mode header.sticky nav a.text-blue-500,
+.dark-mode header.sticky nav span.text-blue-500 {
+  color: #4A9EFF !important;
+}
+
+/* Dropdown Container */
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Dropdown Items */
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child {
+  background-color: transparent !important;
+}
+
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child:hover {
+  background-color: #2C2C2C !important;
+}
+
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child.bg-blue-50 {
+  background-color: rgba(47, 128, 237, 0.15) !important;
+  /* Subtle active state */
+}
+
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child span.text-slate-600 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child.bg-blue-50 span.text-blue-500 {
+  color: #4A9EFF !important;
+}
+
+.dark-mode div.absolute[class*="top-[calc(100%+0.5rem)]"].z-50 a.group\/child span.text-slate-400 {
+  color: #BBBBBB !important;
+}
+
+/* Profile Dropdown Menu */
+.dark-mode div[role="menu"][aria-label="Profile menu"] {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+.dark-mode div[role="menu"] div.bg-slate-50\/70,
+.dark-mode div[role="menu"] div.bg-slate-100 {
+  background-color: #2C2C2C !important;
+}
+
+.dark-mode div[role="menu"] .text-slate-900,
+.dark-mode div[role="menu"] .text-slate-700,
+.dark-mode div[role="menu"] span {
+  color: #FFFFFF !important;
+}
+
+.dark-mode div[role="menu"] .text-slate-500 {
+  color: #AAAAAA !important;
+}
+
+.dark-mode div[role="menu"] .bg-slate-200 {
+  background-color: #333333 !important;
+  /* Divider */
+}
+
+.dark-mode div[role="menu"] button.hover\:bg-slate-50:hover {
+  background-color: #2C2C2C !important;
+}
+
+/* Recommendation & Reset Buttons - No Shadow */
+.dark-mode button.bg-\[\#2F80ED\],
+.dark-mode button.bg-slate-800,
+.dark-mode button.bg-slate-700 {
+  background-color: #3b82f6 !important;
+  box-shadow: none !important;
+}
+
+.dark-mode button.bg-slate-800 {
+  background-color: #2C2C2C !important;
+  border: 1px solid #444444 !important;
+  box-shadow: none !important;
+}
+
+/* No Recommendations Empty State */
+.dark-mode h3.text-\[\#00103e\] {
+  color: #FFFFFF !important;
+}
+
+/* Timetable Grid Lines - Faint & Subtle */
+.dark-mode [class*="border-slate-100"],
+.dark-mode [class*="border-slate-200"],
+.dark-mode [class*="border-slate-50"],
+.dark-mode .divide-slate-100,
+.dark-mode .divide-slate-200 {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Course Blocks in Grid - Adding Color Strip */
+.dark-mode div.rounded-lg.bg-white.shadow-sm,
+.dark-mode div.absolute.inset-1.bg-slate-800,
+.dark-mode div.absolute.inset-1.bg-slate-100 {
+  background-color: #2C2C2C !important;
+  border-left: 4px solid #3b82f6 !important;
+  /* Premium Blue Strip */
+  border-top: 1px solid #262626 !important;
+  border-right: 1px solid #262626 !important;
+  border-bottom: 1px solid #262626 !important;
+  color: #FFFFFF !important;
+}
+
+.dark-mode div.rounded-lg p.text-slate-800,
+.dark-mode div.absolute.inset-1 p.text-slate-800,
+.dark-mode div.absolute.inset-1 h4 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode div.rounded-lg p.text-slate-400,
+.dark-mode div.rounded-lg p.text-slate-500,
+.dark-mode div.absolute.inset-1 p.text-slate-400,
+.dark-mode div.absolute.inset-1 p.text-slate-500 {
+  color: #BBBBBB !important;
+}
+
+/* Timetable Header */
+.dark-mode div.bg-slate-50\/95,
+.dark-mode div.bg-slate-50\/30 {
+  background-color: #1A1A1A !important;
+}
+
+/* Schedule Preview Modal Overrides */
+.dark-mode .fixed.inset-0.z-\[100\] .bg-white.rounded-3xl,
+.dark-mode .fixed.inset-0.z-50 .bg-white.rounded-3xl {
+  background-color: #1E1E1E !important;
+  border: 1px solid #333333 !important;
+}
+
+.dark-mode .fixed.inset-0.z-\[100\] div.bg-white\/80,
+.dark-mode .fixed.inset-0.z-50 div.bg-white\/80,
+.dark-mode .fixed.inset-0.z-50 .bg-slate-50\/80 {
+  background-color: #262626 !important;
+  border-bottom: 1px solid #333333 !important;
+}
+
+.dark-mode .fixed.inset-0.z-\[100\] h3.text-xl.font-black,
+.dark-mode .fixed.inset-0.z-50 h2.text-2xl.font-black,
+.dark-mode .fixed.inset-0.z-50 h3.text-sm.font-black {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .fixed.inset-0.z-50 .bg-white.border-slate-200.rounded-xl {
+  background-color: #2C2C2C !important;
+  border-color: #262626 !important;
+}
+
+/* Modal Grid Lines */
+.dark-mode .fixed.inset-0.z-50 .border-slate-100,
+.dark-mode .fixed.inset-0.z-50 .border-slate-200,
+.dark-mode .fixed.inset-0.z-50 .border-r,
+.dark-mode .fixed.inset-0.z-50 .border-b {
+  border-color: #333333 !important;
+}
+
+.dark-mode .fixed.inset-0.z-50 .text-slate-400.font-bold {
+  color: #888888 !important;
+}
+
+/* Time Range Box */
+.dark-mode div.bg-slate-50.border-slate-100.p-4\.rounded-2xl {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+}
+
+.dark-mode .border-t.border-slate-200.bg-white {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+}
+
+/* Footer Overrides */
+.dark-mode footer.bg-white {
+  background-color: #0F0F0F !important;
+  border-top: 1px solid #2D2D2D !important;
+  margin-top: 0 !important;
+  padding-top: 5rem !important;
+}
+
+.dark-mode footer h3 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode footer p,
+.dark-mode footer a.text-slate-600 {
+  color: #BBBBBB !important;
+}
+
+.dark-mode footer a:hover {
+  color: #4A9EFF !important;
+}
+
+.dark-mode footer.border-t.border-slate-200,
+.dark-mode footer.border-t {
+  border-top: none !important;
+}
+
+.dark-mode footer .bg-slate-100,
+.dark-mode footer a[aria-label] {
+  background-color: #666666 !important;
+  color: #60A5FA !important;
+}
+
+.dark-mode footer a[aria-label] svg {
+  color: #60A5FA !important;
+  fill: currentColor !important;
+}
+
+/* Restore normal spacing for tracks map using padding to avoid black gap */
+.dark-mode .mt-20.mb-12.flex.flex-col.items-start.gap-8 {
+  margin-bottom: 0 !important;
+  padding-bottom: 5rem !important;
+}
+
+/* Fix the dark divider in dashboard */
+.dark-mode .border-t.border-slate-100 {
+  border-color: #444444 !important;
+}
+
+/* Interactive - Primary Button Background */
+.dark-mode button.bg-blue-600,
+.dark-mode button.bg-blue-500,
+.dark-mode div.px-4.py-3 button.bg-blue-600 {
+  background-color: #4A9EFF !important;
+  color: #FFFFFF !important;
+  font-weight: bold !important;
+}
+
+.dark-mode button.bg-blue-600:hover,
+.dark-mode button.bg-blue-500:hover {
+  background-color: #3B86E0 !important;
+}
+
+/* Chat Sidebar Items Fix */
+.dark-mode .bg-blue-50.text-blue-600,
+.dark-mode .bg-blue-50\/50.rounded-xl.p-3 {
+  background-color: rgba(74, 158, 255, 0.15) !important;
+  color: #60A5FA !important;
+}
+
+.dark-mode button.hover\:bg-slate-50:hover,
+.dark-mode .hover\:bg-slate-200\/50:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark-mode div[class*="bg-slate-100"].rounded-xl.p-3,
+.dark-mode .bg-slate-50.px-4.py-3 {
+  background-color: transparent !important;
+}
+
+/* Chat Input Fixes */
+.dark-mode textarea::placeholder,
+.dark-mode input::placeholder {
+  color: #FFFFFF !important;
+  opacity: 0.9 !important;
+}
+
+.dark-mode .bg-slate-50.focus-within\:border-blue-400,
+.dark-mode .bg-slate-50.px-4.py-2\.5 {
+  background-color: #2C2C2C !important;
+  border-color: #333333 !important;
+  color: #FFFFFF !important;
+}
+
+/* Career Hub - Global Neutralization (Light & Dark) */
+.career-hub-container .text-blue-900,
+.career-hub-container .text-blue-600,
+.career-hub-container .text-blue-500 {
+  color: #334155 !important;
+}
+
+.dark-mode .career-hub-container .text-blue-900,
+.dark-mode .career-hub-container .text-blue-600,
+.dark-mode .career-hub-container .text-blue-500 {
+  color: #E2E8F0 !important;
+}
+
+.career-hub-container .bg-blue-600,
+.career-hub-container .bg-blue-500 {
+  background-color: #059669 !important;
+}
+
+.career-hub-container .bg-blue-50.text-blue-600 {
+  background-color: #ECFDF5 !important;
+  color: #059669 !important;
+  border: 1px solid #D1FAE5 !important;
+}
+
+.dark-mode .career-hub-container .bg-blue-50.text-blue-600 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #34D399 !important;
+}
+
+.career-hub-container .animate-spin.text-blue-600 {
+  color: #0F172A !important;
+}
+
+.dark-mode .career-hub-container .animate-spin.text-blue-600 {
+  color: #FFFFFF !important;
+}
+
+.career-hub-container .text-slate-950,
+.career-hub-container .text-slate-900 {
+  color: #0F172A !important;
+}
+
+.dark-mode .career-hub-container .text-slate-950,
+.dark-mode .career-hub-container .text-slate-900 {
+  color: #FFFFFF !important;
+}
+
+.dark-mode .max-w-5xl p.text-slate-950,
+.dark-mode .max-w-5xl p.text-slate-500 {
+  color: #A0A0A0 !important;
+}
+
+/* Emerald Ready Badge Dark Mode */
+.dark-mode .bg-emerald-50.text-emerald-600 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #6EE7B7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+.dark-mode .bg-white.border-slate-200.rounded-3xl {
+  background-color: #222222 !important;
+  border-color: #333333 !important;
+}

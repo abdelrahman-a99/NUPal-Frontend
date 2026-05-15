@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getToken, parseJwt, removeToken } from "@/lib/auth";
 import { User, Settings, LogOut, Menu, X, Home, Briefcase, MessageSquare, Info, Mail, LayoutDashboard, ChevronRight, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
+import ProfileSettingsModal, { type ModalTab } from "@/components/layout/ProfileSettingsModal";
 
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
@@ -56,6 +57,15 @@ function NavbarInner() {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<'admin' | 'student' | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTab, setModalTab] = useState<ModalTab>('profile');
+
+  const openModal = (tab: ModalTab) => {
+    setModalTab(tab);
+    setModalOpen(true);
+    setProfileMenuOpen(false);
+    setMobileMenuOpen(false);
+  };
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname() || '';
   const router = useRouter();
@@ -169,8 +179,9 @@ function NavbarInner() {
 
   const initial = (userName?.trim()?.charAt(0)?.toUpperCase() ?? '');
 
-  const links = (userName || pathname.startsWith('/dashboard') || pathname.startsWith('/chat') || pathname.startsWith('/career-hub') || pathname.startsWith('/interview') || pathname.startsWith('/scheduling')) 
-    ? (userRole === 'admin' ? navLinks : dashboardLinks) 
+  const isStudentArea = pathname.startsWith('/dashboard') || pathname.startsWith('/chat') || pathname.startsWith('/career-hub') || pathname.startsWith('/interview') || pathname.startsWith('/scheduling') || pathname.startsWith('/profile') || pathname.startsWith('/settings');
+  const links = (userName || isStudentArea)
+    ? (userRole === 'admin' ? navLinks : dashboardLinks)
     : navLinks;
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string, id?: string) => {
@@ -281,7 +292,7 @@ function NavbarInner() {
             </button>
           </div>
 
-          {(userName || pathname.startsWith('/dashboard') || pathname.startsWith('/chat') || pathname.startsWith('/career-hub') || pathname.startsWith('/interview') || pathname.startsWith('/scheduling') || pathname === '/404') ? (
+          {(userName || isStudentArea || pathname === '/404') ? (
             <div className="hidden lg:block relative" ref={menuRef}>
               <Button
                 variant="none"
@@ -308,13 +319,11 @@ function NavbarInner() {
 
                   <div className="my-2 h-px bg-slate-200" />
                   <Button
-                    href={userRole === 'admin' ? "/admin" : "/dashboard"}
+                    href={userRole === 'admin' ? "/admin" : undefined}
                     variant="none"
                     size="none"
                     className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm text-slate-700 transition-all duration-200 hover:bg-slate-50 justify-start"
-                    onClick={() => {
-                      setProfileMenuOpen(false);
-                    }}
+                    onClick={() => userRole === 'admin' ? setProfileMenuOpen(false) : openModal('profile')}
                     role="menuitem"
                   >
                     <User size={16} aria-hidden="true" />
@@ -325,7 +334,7 @@ function NavbarInner() {
                     variant="none"
                     size="none"
                     className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm text-slate-700 transition-all duration-200 hover:bg-slate-50 justify-start"
-                    onClick={() => setProfileMenuOpen(false)}
+                    onClick={() => openModal('settings')}
                     role="menuitem"
                   >
                     <Settings size={16} aria-hidden="true" />
@@ -442,7 +451,7 @@ function NavbarInner() {
 
             {/* Mobile-Native Account Section */}
             <div className="mt-auto px-4 py-4 bg-slate-50/50 border-t border-slate-100">
-              {(userName || pathname.startsWith('/dashboard') || pathname.startsWith('/chat') || pathname.startsWith('/career-hub') || pathname.startsWith('/interview') || pathname === '/404') ? (
+              {(userName || isStudentArea || pathname === '/404') ? (
                 <div className="space-y-3">
                   {/* User Info - Horizontal Layout */}
                   <div className="flex items-center gap-3 px-2">
@@ -458,10 +467,10 @@ function NavbarInner() {
                   {/* Action Buttons - Side by Side */}
                   <div className="grid grid-cols-2 gap-2">
                     <Button
-                      href={userRole === 'admin' ? "/admin" : "/dashboard"}
+                      href={userRole === 'admin' ? "/admin" : undefined}
                       variant="none"
                       className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-white border border-slate-200 px-4 py-3 text-center transition-all duration-200 hover:bg-slate-50 hover:border-blue-300 active:scale-95 shadow-sm"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => userRole === 'admin' ? setMobileMenuOpen(false) : openModal('profile')}
                     >
                       <User size={20} className="text-blue-500" />
                       <span className="text-xs font-semibold text-slate-700">{userRole === 'admin' ? "Admin Dashboard" : "Profile"}</span>
@@ -496,6 +505,13 @@ function NavbarInner() {
           </div>
         </div>
       </div>
+
+      {/* Profile / Settings Modal */}
+      <ProfileSettingsModal
+        open={modalOpen}
+        defaultTab={modalTab}
+        onClose={() => setModalOpen(false)}
+      />
     </>
   );
 }

@@ -10,7 +10,7 @@ import { JobCard } from '@/components/career-hub/JobCard';
 import { FilterSidebar, FilterState } from '@/components/career-hub/FilterSidebar';
 import { Pagination } from '@/components/career-hub/Pagination';
 import { Search, MapPin, SlidersHorizontal, X, FileText, Sparkles, ArrowRight } from 'lucide-react';
-import { BackgroundAnimation } from '@/components/career-hub/BackgroundAnimation';
+// import { BackgroundAnimation } from '@/components/career-hub/BackgroundAnimation';
 import { careerPaths } from '@/data/careerData';
 import { CareerCategoryBox } from '@/components/career-hub/CareerCategoryBox';
 import { CareerPathwaysDisplay } from '@/components/career-hub/CareerPathwaysDisplay';
@@ -23,10 +23,10 @@ function CareerHubPageInner() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const activeTab = searchParams.get('tab');
-    
+
     // Show Job Search only if tab is explicitly 'find-jobs'
     const isFindJobsActive = activeTab === 'find-jobs';
-    
+
     // Default to Resume Analyzer for anything else (including empty tab)
     const isResumeAnalyzerTab = !isFindJobsActive;
 
@@ -191,7 +191,7 @@ function CareerHubPageInner() {
         }
 
         setFilteredJobs(filtered);
-        setCurrentPage(1); 
+        setCurrentPage(1);
     }, [jobs, filters, location]);
 
     const handleFilterChange = (newFilters: SetStateAction<FilterState>) => {
@@ -227,14 +227,13 @@ function CareerHubPageInner() {
 
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Top Section: Career Pathways & Skills Gap Analysis */}
+            {/* Top Section: Career Pathways & Skills Gap Analysis
             <div className="relative overflow-hidden pb-16 pt-8 bg-slate-50">
                 <div className="hidden md:block">
                     <BackgroundAnimation />
                 </div>
 
                 <div className="relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-                    {/* Mobile Header */}
                     <div className="md:hidden text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold uppercase tracking-wide mb-3">
                             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
@@ -248,7 +247,6 @@ function CareerHubPageInner() {
                         </p>
                     </div>
 
-                    {/* Desktop Header */}
                     <div className="hidden md:block text-left mb-8">
                         <h1 className="text-2xl font-bold text-slate-700 sm:text-2xl">
                             Real student results
@@ -256,14 +254,12 @@ function CareerHubPageInner() {
                         <div className="mt-2 h-1.5 w-16 bg-blue-500 rounded-full"></div>
                     </div>
 
-                    {/* Dynamic Skills Analysis Display */}
                     <CareerPathwaysDisplay
                         career={selectedCareer}
                         studentProfile={studentProfile}
                         onViewJobs={handleViewJobs}
                     />
 
-                    {/* Career Selection Strip */}
                     <div className="mt-8 mx-auto w-full max-w-full">
                         <div className="grid grid-cols-2 gap-2 md:flex md:gap-0 md:bg-white md:rounded-xl md:shadow-sm md:w-fit md:mx-auto md:overflow-hidden md:divide-x md:divide-slate-200">
                             {careerPaths.map((career) => (
@@ -283,9 +279,10 @@ function CareerHubPageInner() {
                     </div>
                 </div>
             </div>
+            */}
 
             {/* Bottom Section: Header and Search */}
-            <div className="relative pb-16 pt-6">
+            <div className="relative pb-16 pt-6 bg-slate-50">
                 <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8 z-10">
                     <h2 className="text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
                         Find your{' '}

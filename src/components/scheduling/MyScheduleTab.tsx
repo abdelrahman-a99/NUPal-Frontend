@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Calendar as CalendarIcon, CalendarDays, Check, Info, List, Loader2, ShoppingCart, AlertCircle, Sparkles, Database, X, Clock } from 'lucide-react';
 import { MY_SCHEDULE_COURSES } from '@/data/schedulingData';
 import { CourseSession } from '@/types/scheduling';
@@ -33,6 +33,51 @@ export default function MyScheduleTab({
     const [selectedCourse, setSelectedCourse] = useState<CourseSession | null>(null);
     const [registering, setRegistering] = useState(false);
     const [bannerVisible, setBannerVisible] = useState(false);
+    const [showApprovalAlerts, setShowApprovalAlerts] = useState(() => {
+        if (typeof window === 'undefined') return true;
+        try {
+            const raw = localStorage.getItem('nupal_student_settings');
+            if (raw) {
+                const s = JSON.parse(raw);
+                return s.scheduleApprovalAlerts !== false;
+            }
+        } catch {}
+        return true;
+    });
+
+    const syncSettings = useCallback(() => {
+        try {
+            const raw = localStorage.getItem('nupal_student_settings');
+            if (raw) {
+                const s = JSON.parse(raw);
+                setShowApprovalAlerts(s.scheduleApprovalAlerts !== false);
+                
+                // Persist view mode preference (read-only sync)
+                const savedView = localStorage.getItem('nupal_schedule_view_mode');
+                if (savedView === 'grid' || savedView === 'list') {
+                    setViewMode(savedView as 'list' | 'grid');
+                }
+            }
+        } catch {}
+    }, [setViewMode]);
+
+    useEffect(() => {
+        syncSettings();
+        window.addEventListener('focus', syncSettings);
+        window.addEventListener('storage', syncSettings);
+        window.addEventListener('nupal-settings-updated', syncSettings);
+        return () => {
+            window.removeEventListener('focus', syncSettings);
+            window.removeEventListener('storage', syncSettings);
+            window.removeEventListener('nupal-settings-updated', syncSettings);
+        };
+    }, [syncSettings]);
+
+    // Update persisted view mode when changed
+    const handleSetViewMode = (m: 'list' | 'grid') => {
+        setViewMode(m);
+        localStorage.setItem('nupal_schedule_view_mode', m);
+    };
 
     // One-time notification logic
     useEffect(() => {
@@ -129,8 +174,8 @@ export default function MyScheduleTab({
 
     return (
         <div>
-            {/* 1. Permanent Status Banner for PENDING status */}
-            {registration?.status === 'Pending' && (
+            {/* 1. Permanent Status Banner for PENDING status - Respects settings */}
+            {registration?.status === 'Pending' && showApprovalAlerts && (
                 <div className="mb-4 p-4 rounded-2xl border flex items-center justify-between bg-amber-50 border-amber-100 text-amber-800">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
@@ -144,8 +189,8 @@ export default function MyScheduleTab({
                 </div>
             )}
 
-            {/* 2. One-time Notification Banner for APPROVED/REJECTED status */}
-            {bannerVisible && latestRegistration && (
+            {/* 2. One-time Notification Banner for APPROVED/REJECTED status - Respects settings */}
+            {bannerVisible && latestRegistration && showApprovalAlerts && (
                 <div className={`mb-4 p-4 rounded-2xl border flex items-center justify-between animate-in slide-in-from-top duration-500 ${
                     latestRegistration.status === 'Approved' ? 'bg-emerald-50 border-emerald-100 text-emerald-800' :
                     'bg-rose-50 border-rose-100 text-rose-800'
@@ -182,13 +227,6 @@ export default function MyScheduleTab({
                     <div>
                         <div className="flex items-center gap-3 text-slate-900">
                             <h2 className="text-lg font-bold leading-tight">My Schedule</h2>
-                            {registrationStatus.isFromRec && (
-                                <span className={`ml-2 px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider ${
-                                    registrationStatus.isModified ? 'bg-amber-100 text-amber-700' : 'bg-indigo-100 text-indigo-700'
-                                }`}>
-                                    {registrationStatus.isModified ? 'Modified Recommendation' : 'Perfect Fit'}
-                                </span>
-                            )}
                         </div>
                         <div className="flex items-center gap-1.5 mt-0.5 text-[13px] font-medium text-slate-500">
                             <span className="text-slate-700 font-semibold">{displayCourses.length} <span className="font-medium text-slate-500">Courses</span></span>
@@ -211,13 +249,13 @@ export default function MyScheduleTab({
                     <div className="flex items-center gap-1 bg-white rounded-2xl border border-slate-100 p-1.5 shadow-sm">
                         <button
                             className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'list' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}
-                            onClick={() => setViewMode('list')}
+                            onClick={() => handleSetViewMode('list')}
                         >
                             <List size={18} strokeWidth={2} />
                         </button>
                         <button
                             className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'grid' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}
-                            onClick={() => setViewMode('grid')}
+                            onClick={() => handleSetViewMode('grid')}
                         >
                             <CalendarIcon size={18} strokeWidth={2} />
                         </button>

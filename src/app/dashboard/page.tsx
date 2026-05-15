@@ -79,6 +79,32 @@ export default function DashboardPage() {
         fetchStudentData();
     }, [router]);
 
+    // Theme Management - Ensure synchronization with localStorage settings
+    useEffect(() => {
+        const syncTheme = () => {
+            try {
+                const raw = localStorage.getItem('nupal_student_settings');
+                if (raw) {
+                    const s = JSON.parse(raw);
+                    const isDark = s.theme === 'dark' || (s.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    if (isDark) {
+                        document.documentElement.classList.add('dark', 'dark-mode');
+                    } else {
+                        document.documentElement.classList.remove('dark', 'dark-mode');
+                    }
+                }
+            } catch (e) {}
+        };
+
+        syncTheme();
+        window.addEventListener('nupal-settings-updated', syncTheme);
+        window.addEventListener('storage', syncTheme);
+        return () => {
+            window.removeEventListener('nupal-settings-updated', syncTheme);
+            window.removeEventListener('storage', syncTheme);
+        };
+    }, []);
+
     useEffect(() => {
         if (!studentData) return;
         const observerOptions = {
@@ -239,10 +265,10 @@ export default function DashboardPage() {
                                                 }}
                                                 className={`group cursor-pointer flex items-center gap-4 py-3 border-b transition-all ${activeSection === item.id ? 'border-blue-600' : 'border-slate-100 hover:border-slate-300'}`}
                                             >
-                                                <span className={`text-xs font-bold transition-colors ${activeSection === item.id ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600'}`}>
+                                                <span className={`text-xs font-bold transition-colors ${activeSection === item.id ? 'text-blue-600' : 'text-slate-500 group-hover:text-slate-700'}`}>
                                                     {item.id}
                                                 </span>
-                                                <span className={`text-base font-semibold transition-colors ${activeSection === item.id ? 'text-slate-900' : 'text-slate-400 group-hover:text-slate-600'}`}>
+                                                <span className={`text-base font-semibold transition-colors ${activeSection === item.id ? 'text-slate-900' : 'text-slate-500 group-hover:text-slate-700'}`}>
                                                     {item.label}
                                                 </span>
                                             </div>
@@ -288,7 +314,7 @@ export default function DashboardPage() {
                                             onMouseLeave={feature.id === '03' ? handleAiMouseLeave : undefined}
                                         >
                                             {/* Content Area: Illustration / Chart / Map */}
-                                            <div className={`${feature.id === '03' ? 'order-first mb-6' : 'order-last mt-auto'} relative w-full rounded-2xl overflow-hidden border glass-effect ${feature.isDark ? 'border-white/10' : 'border-slate-900/5'} ${feature.id === '01' ? 'h-[500px]' : feature.id === '03' ? 'h-[280px] !bg-transparent !border-none !shadow-none' : feature.id === '02' ? 'h-[400px]' : 'h-48 md:h-60'}`}>
+                                            <div className={`${feature.id === '03' ? 'order-first mb-6' : 'order-last mt-auto'} relative w-full rounded-2xl overflow-hidden border glass-effect ${feature.id === '01' ? 'h-[500px]' : feature.id === '03' ? 'h-[280px] !bg-transparent !border-none !shadow-none' : feature.id === '02' ? 'h-[400px]' : 'h-48 md:h-60'} ${feature.isDark ? 'border-white/10' : 'border-slate-900/5'}`}>
                                                 {feature.id === '01' ? (
                                                     <AcademicMindMap
                                                         data={studentData}
@@ -308,9 +334,9 @@ export default function DashboardPage() {
                                                         <img
                                                             src={feature.image}
                                                             alt={feature.title}
-                                                            className={`w-full h-full object-cover transition-opacity duration-700 ${feature.isDark ? 'opacity-60 group-hover:opacity-80' : 'opacity-90 group-hover:opacity-100'}`}
+                                                            className={`w-full h-full object-cover transition-opacity duration-700 opacity-90 group-hover:opacity-100`}
                                                         />
-                                                        <div className={`absolute inset-0 ${feature.isDark ? 'bg-gradient-to-t from-black/20 to-transparent' : 'bg-gradient-to-t from-slate-900/10 to-transparent'}`}></div>
+                                                        <div className={`absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent`}></div>
                                                     </>
                                                 )}
                                             </div>
@@ -321,7 +347,7 @@ export default function DashboardPage() {
                                                     <h4 className={`text-2xl md:text-3xl font-bold mb-3 leading-tight ${feature.isDark ? 'text-white' : 'text-slate-900'}`}>
                                                         {feature.title}
                                                     </h4>
-                                                    <p className={`${feature.isDark ? 'text-white/70' : 'text-slate-600'} text-base md:text-lg leading-relaxed max-w-xl`}>
+                                                    <p className={`text-base md:text-lg leading-relaxed max-w-xl ${feature.isDark ? 'text-white/70' : 'text-slate-600'}`}>
                                                         {feature.description}
                                                     </p>
 
@@ -331,7 +357,7 @@ export default function DashboardPage() {
                                                                 onClick={() => router.push('/chat')}
                                                                 variant="primary"
                                                                 size="md"
-                                                                className="px-8 !bg-slate-900 hover:!bg-slate-800"
+                                                                className="px-8 !bg-slate-900 hover:!bg-slate-800 dark:!bg-[#4A9EFF] dark:!text-white dark:hover:!bg-[#3B86E0]"
                                                             >
                                                                 Get recommendations
                                                             </Button>
