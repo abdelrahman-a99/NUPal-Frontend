@@ -173,7 +173,7 @@ export default function ChatMessage({
         className={`max-w-[70%] rounded-2xl px-4 py-3 ${
           isUser
             ? 'bg-blue-400 text-white'
-            : 'bg-slate-100 text-slate-900'
+            : 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
         }`}
       >
         <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
@@ -183,22 +183,22 @@ export default function ChatMessage({
         {!isUser && (label || status || confidence || track) && (
           <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] leading-none">
             {label && (
-              <span className="rounded-full border border-blue-100 bg-blue-50 px-2 py-1 font-medium text-blue-700">
+              <span className="rounded-full border border-blue-100 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/40 px-2 py-1 font-medium text-blue-700 dark:text-blue-300">
                 {label}
               </span>
             )}
             {status && (
-              <span className="rounded-full border border-amber-100 bg-amber-50 px-2 py-1 font-medium text-amber-700">
+              <span className="rounded-full border border-amber-100 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 font-medium text-amber-700 dark:text-amber-300">
                 {status}
               </span>
             )}
             {track && (
-              <span className="rounded-full border border-emerald-100 bg-emerald-50 px-2 py-1 font-medium text-emerald-700">
+              <span className="rounded-full border border-emerald-100 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 font-medium text-emerald-700 dark:text-emerald-300">
                 {track}
               </span>
             )}
             {confidence && (
-              <span className="rounded-full border border-slate-200 bg-white px-2 py-1 font-medium text-slate-600">
+              <span className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-medium text-slate-600 dark:text-slate-300">
                 {confidence}
               </span>
             )}
@@ -206,16 +206,16 @@ export default function ChatMessage({
         )}
 
         {!isUser && SHOW_AGENT_DEBUG && hasDebugDetails && (
-          <div className="mt-3 border-t border-slate-200 pt-2">
+          <div className="mt-3 border-t border-slate-200 dark:border-slate-700 pt-2">
             <button
               type="button"
               onClick={() => setShowDebug((prev) => !prev)}
-              className="text-[11px] font-medium text-slate-500 hover:text-slate-700"
+              className="text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
             >
               {showDebug ? 'Hide routing details' : 'Show routing details'}
             </button>
             {showDebug && (
-              <div className="mt-2 space-y-1 rounded-lg bg-white/70 p-2 text-[11px] text-slate-600">
+              <div className="mt-2 space-y-1 rounded-lg bg-white/70 dark:bg-slate-900/70 p-2 text-[11px] text-slate-600 dark:text-slate-300">
                 {metadata.traceId && <div><span className="font-semibold">Trace:</span> {metadata.traceId}</div>}
                 {metadata.route && <div><span className="font-semibold">Route:</span> {metadata.route}</div>}
                 {metadata.status && <div><span className="font-semibold">Status:</span> {metadata.status}</div>}

@@ -192,16 +192,16 @@ export default function ScheduleAssistantTab({
                         <Sparkles size={18} className="text-[#2F80ED]" />
                     </div>
                     <div>
-                        <div className="flex items-center gap-2.5 text-slate-900">
-                            <h2 className="text-lg font-bold text-slate-900 leading-tight">Schedule Assistant</h2>
+                        <div className="flex items-center gap-2.5 text-slate-900 dark:text-slate-100">
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 leading-tight">Schedule Assistant</h2>
                             <div className="relative group flex items-center mt-0.5">
-                                <Info size={15} className="text-slate-400 hover:text-blue-500 cursor-default transition-colors" />
-                                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 bg-white text-slate-600 text-[13px] leading-relaxed p-3.5 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                <Info size={15} className="text-slate-400 dark:text-slate-400 hover:text-blue-500 cursor-default transition-colors" />
+                                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[13px] leading-relaxed p-3.5 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                     Our smart engine analyzes your preferred courses, instructor ratings, and gap constraints to find the most balanced schedule combinations automatically.
                                 </div>
                             </div>
                         </div>
-                        <p className="text-[13px] font-medium text-slate-500 mt-0.5">Automated conflict-free scheduling based on your profile preferences.</p>
+                        <p className="text-[13px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">Automated conflict-free scheduling based on your profile preferences.</p>
                     </div>
                 </div>
             </div>
@@ -214,22 +214,22 @@ export default function ScheduleAssistantTab({
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
 
-                        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex flex-col h-full space-y-5">
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-5 flex flex-col h-full space-y-5">
 
                             {/* Data Source selector */}
                             <div>
                                 <div className="flex items-center gap-2 mb-2.5">
-                                    <label className="text-sm font-bold text-slate-700 block">Course Source</label>
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200 block">Course Source</label>
                                     <div className="relative group flex items-center">
                                         <Info size={14} className="text-slate-300 hover:text-indigo-500 transition-colors" />
-                                        <div className="absolute left-0 top-full mt-2 w-64 bg-white text-slate-600 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                        <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                             Choose between AI-suggested courses based on your level/advisor or hand-pick from the full catalog.
                                         </div>
                                     </div>
                                 </div>
                                 <div className="space-y-2.5">
                                     <button
-                                        className={`w-full flex items-center gap-3 rounded-xl p-3.5 border-2 text-left transition-all ${useMyData === true ? 'border-[#2F80ED] bg-blue-50/40' : 'border-slate-200 bg-slate-50 hover:border-slate-300'}`}
+                                        className={`w-full flex items-center gap-3 rounded-xl p-3.5 border-2 text-left transition-all ${useMyData === true ? 'border-[#2F80ED] bg-blue-50/40' : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                         onClick={() => {
                                             setUseMyData(true);
                                             if (advisorSelectedNames.length === 0 && rlRecommendedNames.length > 0) {
@@ -237,25 +237,25 @@ export default function ScheduleAssistantTab({
                                             }
                                         }}
                                     >
-                                        <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                        <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center flex-shrink-0">
                                             <UserCheck size={18} className="text-[#2F80ED]" />
                                         </div>
                                         <div className="flex-1">
-                                            <p className="text-sm font-bold text-slate-900">Sync with My Advisor</p>
-                                            <p className="text-xs text-slate-400 mt-0.5">Auto-fill courses based on your recent advisor discussion</p>
+                                            <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Sync with My Advisor</p>
+                                            <p className="text-xs text-slate-400 dark:text-slate-400 mt-0.5">Auto-fill courses based on your recent advisor discussion</p>
                                         </div>
                                         {useMyData === true && <div className="w-5 h-5 rounded-full bg-[#2F80ED] flex items-center justify-center flex-shrink-0"><Check size={11} className="text-white" /></div>}
                                     </button>
                                     <button
-                                        className={`w-full flex items-center gap-3 rounded-xl p-3.5 border-2 text-left transition-all ${useMyData === false ? 'border-[#2F80ED] bg-blue-50/40' : 'border-slate-200 bg-slate-50 hover:border-slate-300'}`}
+                                        className={`w-full flex items-center gap-3 rounded-xl p-3.5 border-2 text-left transition-all ${useMyData === false ? 'border-[#2F80ED] bg-blue-50/40' : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                         onClick={() => setUseMyData(false)}
                                     >
-                                        <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                        <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center flex-shrink-0">
                                             <Search size={18} className="text-[#2F80ED]" />
                                         </div>
                                         <div className="flex-1">
-                                            <p className="text-sm font-bold text-slate-900">Browse Catalog</p>
-                                            <p className="text-xs text-slate-400 mt-0.5">Pick specific courses from the full semester list</p>
+                                            <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Browse Catalog</p>
+                                            <p className="text-xs text-slate-400 dark:text-slate-400 mt-0.5">Pick specific courses from the full semester list</p>
                                         </div>
                                         {useMyData === false && <div className="w-5 h-5 rounded-full bg-[#2F80ED] flex items-center justify-center flex-shrink-0"><Check size={11} className="text-white" /></div>}
                                     </button>
@@ -265,14 +265,14 @@ export default function ScheduleAssistantTab({
                             {/* Level picker â€“ only for manual */}
                             {useMyData === false && (
                                 <div>
-                                    <label className="text-sm font-bold text-slate-700 block mb-2.5">Academic Level</label>
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200 block mb-2.5">Academic Level</label>
                                     <div className="flex flex-wrap gap-2">
                                         {LEVELS.map(l => {
                                             const on = prefs.level === l.id;
                                             return (
                                                 <button
                                                     key={l.id}
-                                                    className={`px-4 py-2 rounded-xl border-2 text-sm font-semibold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`}
+                                                    className={`px-4 py-2 rounded-xl border-2 text-sm font-semibold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                                     onClick={() => setPrefs(p => ({ ...p, level: l.id }))}
                                                 >
                                                     {l.label}
@@ -287,7 +287,7 @@ export default function ScheduleAssistantTab({
                             {useMyData !== null && (
                                 <div>
                                     <div className="flex items-center justify-between mb-2.5">
-                                        <label className="text-sm font-bold text-slate-700">
+                                        <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                                             {useMyData ? 'Eligible Courses' : 'Browse Courses'}
                                         </label>
                                         {useMyData ? (
@@ -301,54 +301,54 @@ export default function ScheduleAssistantTab({
                                     <div className="mb-4">
                                         <button
                                             onClick={() => setPrefs(p => ({ ...p, hideCompleted: !p.hideCompleted }))}
-                                            className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all ${prefs.hideCompleted ? 'bg-indigo-50/50 border-indigo-200' : 'bg-white border-slate-200 hover:border-slate-300'}`}
+                                            className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all ${prefs.hideCompleted ? 'bg-indigo-50/50 border-indigo-200 dark:border-indigo-800/60' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                         >
                                             <div className="flex items-center gap-2">
-                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${prefs.hideCompleted ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-100 text-slate-500'}`}>
+                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${prefs.hideCompleted ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
                                                     <Library size={16} />
                                                 </div>
                                                 <div className="text-left">
-                                                    <p className="text-[11px] font-bold text-slate-700 leading-none">Hide Completed</p>
-                                                    <p className="text-[9px] text-slate-400 mt-0.5">Filter out courses you already passed</p>
+                                                    <p className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-none">Hide Completed</p>
+                                                    <p className="text-[9px] text-slate-400 dark:text-slate-400 mt-0.5">Filter out courses you already passed</p>
                                                 </div>
                                             </div>
-                                            <div className={`w-10 h-5 rounded-full relative transition-colors ${prefs.hideCompleted ? 'bg-indigo-500' : 'bg-slate-200'}`}>
-                                                <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${prefs.hideCompleted ? 'left-6' : 'left-1'}`} />
+                                            <div className={`w-10 h-5 rounded-full relative transition-colors ${prefs.hideCompleted ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                                                <div className={`absolute top-1 w-3 h-3 rounded-full bg-white dark:bg-slate-900 transition-all ${prefs.hideCompleted ? 'left-6' : 'left-1'}`} />
                                             </div>
                                         </button>
                                     </div>
 
-                                    <div className="flex items-center gap-2 border border-slate-200 rounded-xl px-3 py-2 bg-slate-50 mb-3 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
-                                        <Search size={14} className="text-slate-400" />
+                                    <div className="flex items-center gap-2 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-slate-50 dark:bg-slate-900/70 mb-3 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                                        <Search size={14} className="text-slate-400 dark:text-slate-400" />
                                         <input
                                             type="text"
-                                            className="flex-1 text-sm bg-transparent outline-none text-slate-800 placeholder:text-slate-400"
+                                            className="flex-1 text-sm bg-transparent outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                                             placeholder="Search courses"
                                             value={query}
                                             onChange={e => setQuery(e.target.value)}
                                         />
-                                        {query && <button onClick={() => setQuery('')} className="text-slate-400 hover:text-slate-600 text-xs"></button>}
+                                        {query && <button onClick={() => setQuery('')} className="text-slate-400 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs"></button>}
                                     </div>
 
                                     <div className={`${useMyData ? 'flex-1' : 'max-h-[310px]'} overflow-y-auto pr-1 scrollbar-hide space-y-3`}>
                                         {rlLoading && useMyData && rlRecommendedNames.length === 0 && (
-                                            <div className="flex flex-col items-center justify-center py-10 text-slate-400">
+                                            <div className="flex flex-col items-center justify-center py-10 text-slate-400 dark:text-slate-400">
                                                 <Loader2 size={24} className="animate-spin mb-2" />
                                                 <p className="text-xs font-medium">Fetching advisor recommendations...</p>
                                             </div>
                                         )}
                                         
                                         {!rlLoading && useMyData && rlRecommendedNames.length === 0 && (
-                                            <div className="text-center py-10 px-4 bg-slate-50 rounded-xl border border-dashed border-slate-200">
-                                                <p className="text-xs font-bold text-slate-500 mb-1">No Advisor Recommendations Found</p>
-                                                <p className="text-[10px] text-slate-400">Try switching to 'Browse Catalog' to pick courses manually.</p>
+                                            <div className="text-center py-10 px-4 bg-slate-50 dark:bg-slate-900/70 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                                                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">No Advisor Recommendations Found</p>
+                                                <p className="text-[10px] text-slate-400 dark:text-slate-400">Try switching to 'Browse Catalog' to pick courses manually.</p>
                                             </div>
                                         )}
 
                                         {Object.entries(displayCoursesByCategory).map(([category, names]) => (
                                             <div key={category}>
                                                 <div className="flex items-center justify-between mb-1.5 mt-2 first:mt-0">
-                                                    <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{category}</h3>
+                                                    <h3 className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">{category}</h3>
                                                     {category === 'Recommended for You' && (
                                                         <button
                                                             onClick={() => {
@@ -372,15 +372,15 @@ export default function ScheduleAssistantTab({
                                                         return (
                                                             <button
                                                                 key={name}
-                                                                className={`w-full flex items-center gap-2.5 rounded-xl p-2.5 border text-left transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                                                                className={`w-full flex items-center gap-2.5 rounded-xl p-2.5 border text-left transition-all ${isSelected ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                                                 onClick={() => toggleCourseName(name)}
                                                             >
-                                                                <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors flex-shrink-0 ${isSelected ? 'border-[#2F80ED] bg-[#2F80ED]' : 'border-slate-300'}`}>
+                                                                <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors flex-shrink-0 ${isSelected ? 'border-[#2F80ED] bg-[#2F80ED]' : 'border-slate-300 dark:border-slate-600'}`}>
                                                                     {isSelected && <Check size={10} className="text-white" />}
                                                                 </div>
-                                                                <span className={`text-sm font-medium flex-1 ${isSelected ? 'text-blue-900' : 'text-slate-700'}`}>{name}</span>
+                                                                <span className={`text-sm font-medium flex-1 ${isSelected ? 'text-blue-900' : 'text-slate-700 dark:text-slate-200'}`}>{name}</span>
                                                                 {isRecommended && (
-                                                                    <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded-md flex-shrink-0">
+                                                                    <span className="text-[10px] font-bold text-green-600 bg-green-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded-md flex-shrink-0">
                                                                         Suggested ✧
                                                                     </span>
                                                                 )}
@@ -391,7 +391,7 @@ export default function ScheduleAssistantTab({
                                             </div>
                                         ))}
                                         {Object.keys(displayCoursesByCategory).length === 0 && (!useMyData || rlRecommendedNames.length > 0) && (
-                                            <p className="text-center text-sm text-slate-400 py-8">No courses match your search.</p>
+                                            <p className="text-center text-sm text-slate-400 dark:text-slate-400 py-8">No courses match your search.</p>
                                         )}
                                     </div>
                                 </div>
@@ -399,36 +399,36 @@ export default function ScheduleAssistantTab({
                         </div>
 
 
-                        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex flex-col h-full space-y-5">
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-5 flex flex-col h-full space-y-5">
 
                             {/* Instructors */}
                             <div>
                                 <div className="flex items-center gap-2 mb-2.5">
                                     <Users size={14} className="text-[#2F80ED]" />
-                                    <label className="text-sm font-bold text-slate-700">Preferred Instructors</label>
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200">Preferred Instructors</label>
                                     {prefs.preferredInstructors.length > 0 && <span className="text-xs font-semibold text-[#2F80ED] ml-auto">{prefs.preferredInstructors.length} selected</span>}
                                 </div>
-                                <div className="flex items-center gap-2 border border-slate-200 rounded-xl px-3 py-2 bg-slate-50 mb-3 focus-within:border-blue-300 transition-all">
-                                    <Search size={13} className="text-slate-400" />
-                                    <input type="text" className="flex-1 text-xs bg-transparent outline-none text-slate-800 placeholder:text-slate-400" placeholder="Search instructors" value={instrQuery} onChange={e => setInstrQuery(e.target.value)} />
-                                    {instrQuery && <button onClick={() => setInstrQuery('')} className="text-slate-400 text-xs"></button>}
+                                <div className="flex items-center gap-2 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 bg-slate-50 dark:bg-slate-900/70 mb-3 focus-within:border-blue-300 transition-all">
+                                    <Search size={13} className="text-slate-400 dark:text-slate-400" />
+                                    <input type="text" className="flex-1 text-xs bg-transparent outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="Search instructors" value={instrQuery} onChange={e => setInstrQuery(e.target.value)} />
+                                    {instrQuery && <button onClick={() => setInstrQuery('')} className="text-slate-400 dark:text-slate-400 text-xs"></button>}
                                 </div>
                                 {displayInstructors.doctors.length === 0 && displayInstructors.tas.length === 0 ? (
-                                    <div className="text-center py-6 bg-slate-50 rounded-xl border border-dashed border-slate-200">
-                                        <p className="text-[11px] font-bold text-slate-400">Select courses first to view their instructors.</p>
+                                    <div className="text-center py-6 bg-slate-50 dark:bg-slate-900/70 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                                        <p className="text-[11px] font-bold text-slate-400 dark:text-slate-400">Select courses first to view their instructors.</p>
                                     </div>
                                 ) : (
                                     <div className="max-h-[160px] overflow-auto scrollbar-hide">
                                         {displayInstructors.doctors.length > 0 && (
                                             <div className="mb-4">
-                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                                <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div> Doctors
                                                 </h4>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {displayInstructors.doctors.map((instr: string) => {
                                                         const on = prefs.preferredInstructors.includes(instr);
                                                         return (
-                                                            <button key={instr} className={`px-2.5 py-1 rounded-xl border text-xs font-medium transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`} onClick={() => toggleInstructor(instr)}>
+                                                            <button key={instr} className={`px-2.5 py-1 rounded-xl border text-xs font-medium transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'}`} onClick={() => toggleInstructor(instr)}>
                                                                 {instr}
                                                             </button>
                                                         );
@@ -438,14 +438,14 @@ export default function ScheduleAssistantTab({
                                         )}
                                         {displayInstructors.tas.length > 0 && (
                                             <div>
-                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                                <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-amber-400"></div> Teaching Assistants
                                                 </h4>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {displayInstructors.tas.map((instr: string) => {
                                                         const on = prefs.preferredInstructors.includes(instr);
                                                         return (
-                                                            <button key={instr} className={`px-2.5 py-1 rounded-xl border text-xs font-medium transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`} onClick={() => toggleInstructor(instr)}>
+                                                            <button key={instr} className={`px-2.5 py-1 rounded-xl border text-xs font-medium transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'}`} onClick={() => toggleInstructor(instr)}>
                                                                 {instr}
                                                             </button>
                                                         );
@@ -461,10 +461,10 @@ export default function ScheduleAssistantTab({
                             <div>
                                 <div className="flex items-center gap-2 mb-2.5">
                                     <CalendarDays size={14} className="text-[#2F80ED]" />
-                                    <label className="text-sm font-bold text-slate-700">Campus Days</label>
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200">Campus Days</label>
                                     <div className="relative group flex items-center">
                                         <Info size={13} className="text-slate-300 hover:text-blue-500 transition-colors" />
-                                        <div className="absolute left-0 top-full mt-2 w-60 bg-white text-slate-600 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                        <div className="absolute left-0 top-full mt-2 w-60 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                             Total days you prefer to be on campus.
                                         </div>
                                     </div>
@@ -473,26 +473,26 @@ export default function ScheduleAssistantTab({
                                     {(['count', 'specific'] as const).map(mode => {
                                         const on = prefs.dayMode === mode;
                                         return (
-                                            <button key={mode} className={`flex-1 py-2 rounded-xl border-2 text-sm font-bold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`} onClick={() => setPrefs(p => ({ ...p, dayMode: mode }))}>
+                                            <button key={mode} className={`flex-1 py-2 rounded-xl border-2 text-sm font-bold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'}`} onClick={() => setPrefs(p => ({ ...p, dayMode: mode }))}>
                                                 {mode === 'count' ? '# of Days' : 'Specific Days'}
                                             </button>
                                         );
                                     })}
                                 </div>
                                 {prefs.dayMode === 'count' ? (
-                                    <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-1 rounded-2xl w-64 mx-auto px-2">
+                                    <div className="flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 p-1 rounded-2xl w-64 mx-auto px-2">
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-[#2F80ED] hover:border-blue-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2F80ED] hover:border-blue-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, numPreferredDays: Math.max(1, (p.numPreferredDays ?? 3) - 1) }))}
                                         >
                                             <Minus size={14} strokeWidth={3} />
                                         </button>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-base font-bold text-slate-800 leading-none">{prefs.numPreferredDays ?? 3}</span>
-                                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tight mt-0.5">Days</span>
+                                            <span className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{prefs.numPreferredDays ?? 3}</span>
+                                            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-tight mt-0.5">Days</span>
                                         </div>
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-[#2F80ED] hover:border-blue-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2F80ED] hover:border-blue-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, numPreferredDays: Math.min(6, (p.numPreferredDays ?? 3) + 1) }))}
                                         >
                                             <Plus size={14} strokeWidth={3} />
@@ -503,7 +503,7 @@ export default function ScheduleAssistantTab({
                                         {DAYS.map(d => {
                                             const on = prefs.preferredDays.includes(d);
                                             return (
-                                                <button key={d} className={`px-3 py-1.5 rounded-xl border-2 text-xs font-semibold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`} onClick={() => toggleDay(d)}>
+                                                <button key={d} className={`px-3 py-1.5 rounded-xl border-2 text-xs font-semibold transition-all ${on ? 'border-[#2F80ED] bg-[#2F80ED] text-white' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'}`} onClick={() => toggleDay(d)}>
                                                     {d.slice(0, 3)}
                                                 </button>
                                             );
@@ -515,29 +515,29 @@ export default function ScheduleAssistantTab({
                             {/* Hard Limits */}
                             <div className="space-y-6">
                                 <div className="flex flex-col">
-                                    <label className="text-sm font-bold text-slate-700 block mb-3 flex items-center gap-2">
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200 block mb-3 flex items-center gap-2">
                                         <CalendarIcon size={14} className="text-[#2F80ED]" />
-                                        Max Days <span className="text-[10px] bg-red-50 text-red-500 px-2 py-0.5 rounded-md border border-red-100 uppercase tracking-wide">Hard Limit</span>
+                                        Max Days <span className="text-[10px] bg-red-50 dark:bg-red-950/40 text-red-500 px-2 py-0.5 rounded-md border border-red-100 dark:border-red-900/50 uppercase tracking-wide">Hard Limit</span>
                                         <div className="relative group flex items-center">
                                             <Info size={13} className="text-slate-300 hover:text-blue-500 transition-colors" />
-                                            <div className="absolute left-0 top-full mt-2 w-60 bg-white text-slate-600 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                            <div className="absolute left-0 top-full mt-2 w-60 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                                 Strict limit on the number of days per week.
                                             </div>
                                         </div>
                                     </label>
-                                    <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-1 rounded-2xl w-64 mx-auto px-2">
+                                    <div className="flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 p-1 rounded-2xl w-64 mx-auto px-2">
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, maxDaysPerWeek: Math.max(1, p.maxDaysPerWeek - 1) }))}
                                         >
                                             <Minus size={14} strokeWidth={3} />
                                         </button>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-base font-bold text-slate-800 leading-none">{prefs.maxDaysPerWeek}</span>
-                                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tight mt-0.5">Days/Week</span>
+                                            <span className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{prefs.maxDaysPerWeek}</span>
+                                            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-tight mt-0.5">Days/Week</span>
                                         </div>
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, maxDaysPerWeek: Math.min(6, p.maxDaysPerWeek + 1) }))}
                                         >
                                             <Plus size={14} strokeWidth={3} />
@@ -547,27 +547,27 @@ export default function ScheduleAssistantTab({
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2 mb-3">
                                         <Clock size={14} className="text-[#2F80ED]" />
-                                        <label className="text-sm font-bold text-slate-700">Max Gap <span className="text-[10px] bg-red-50 text-red-500 px-2 py-0.5 rounded-md border border-red-100 uppercase tracking-wide ml-1">Hard Limit</span></label>
+                                        <label className="text-sm font-bold text-slate-700 dark:text-slate-200">Max Gap <span className="text-[10px] bg-red-50 dark:bg-red-950/40 text-red-500 px-2 py-0.5 rounded-md border border-red-100 dark:border-red-900/50 uppercase tracking-wide ml-1">Hard Limit</span></label>
                                         <div className="relative group flex items-center">
                                             <Info size={13} className="text-slate-300 hover:text-blue-500 transition-colors" />
-                                            <div className="absolute left-0 top-full mt-2 w-60 bg-white text-slate-600 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                            <div className="absolute left-0 top-full mt-2 w-60 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                                 Strict limit on idle hours between classes.
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-1 rounded-2xl w-64 mx-auto px-2">
+                                    <div className="flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 p-1 rounded-2xl w-64 mx-auto px-2">
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, maxGapHours: Math.max(0, Math.round((p.maxGapHours - 0.5) * 10) / 10) }))}
                                         >
                                             <Minus size={14} strokeWidth={3} />
                                         </button>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-base font-bold text-slate-800 leading-none">{prefs.maxGapHours === 0 ? 'None' : `${prefs.maxGapHours}h`}</span>
-                                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tight mt-0.5">{prefs.maxGapHours === 0 ? 'No Limit' : 'Max Gap'}</span>
+                                            <span className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{prefs.maxGapHours === 0 ? 'None' : `${prefs.maxGapHours}h`}</span>
+                                            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-tight mt-0.5">{prefs.maxGapHours === 0 ? 'No Limit' : 'Max Gap'}</span>
                                         </div>
                                         <button
-                                            className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
+                                            className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 hover:border-red-200 transition-all shadow-sm active:scale-95"
                                             onClick={() => setPrefs(p => ({ ...p, maxGapHours: Math.min(8, Math.round((p.maxGapHours + 0.5) * 10) / 10) }))}
                                         >
                                             <Plus size={14} strokeWidth={3} />
@@ -580,15 +580,15 @@ export default function ScheduleAssistantTab({
                             <div>
                                 <div className="flex items-center gap-2 mb-2">
                                     <Clock size={14} className="text-[#2F80ED]" />
-                                    <label className="text-sm font-bold text-slate-700">Preferred Time Range</label>
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-200">Preferred Time Range</label>
                                 </div>
-                                <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl">
+                                <div className="bg-slate-50 dark:bg-slate-900/70 border border-slate-100 dark:border-slate-800 p-4 rounded-2xl">
                                     <div className="flex items-center gap-4">
                                         <div className="flex-1">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Earliest Start</label>
+                                            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">Earliest Start</label>
                                             <input
                                                 type="time"
-                                                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:border-blue-400 focus:ring-4 focus:ring-blue-100/50 outline-none transition-all"
+                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:border-blue-400 focus:ring-4 focus:ring-blue-100/50 outline-none transition-all"
                                                 value={prefs.earliestTime}
                                                 onChange={e => setPrefs(p => ({ ...p, earliestTime: e.target.value }))}
                                             />
@@ -597,10 +597,10 @@ export default function ScheduleAssistantTab({
                                             <ArrowRight size={18} />
                                         </div>
                                         <div className="flex-1">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Latest End</label>
+                                            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">Latest End</label>
                                             <input
                                                 type="time"
-                                                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:border-blue-400 focus:ring-4 focus:ring-blue-100/50 outline-none transition-all"
+                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:border-blue-400 focus:ring-4 focus:ring-blue-100/50 outline-none transition-all"
                                                 value={prefs.latestTime}
                                                 onChange={e => setPrefs(p => ({ ...p, latestTime: e.target.value }))}
                                             />
@@ -634,25 +634,25 @@ export default function ScheduleAssistantTab({
                     </div>
 
 
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm transition-all duration-500" style={{ minHeight: 440 }}>
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all duration-500" style={{ minHeight: 440 }}>
                         {/* Section Header */}
-                        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-50 bg-slate-50/40">
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-50 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-900/40">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center">
                                     <Sparkles size={18} className="text-[#2F80ED]" />
                                 </div>
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <h3 className="text-base font-bold text-slate-900 leading-tight">Recommended Blocks</h3>
+                                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-tight">Recommended Blocks</h3>
                                         <div className="relative group flex items-center mt-0.5">
                                             <Info size={14} className="text-slate-300 hover:text-blue-500 transition-colors" />
-                                            <div className="absolute left-0 top-full mt-2 w-64 bg-white text-slate-600 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
+                                            <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[12px] leading-snug p-3 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none font-normal">
                                                 These blocks are calculated based on your course priorities and scheduling constraints.
                                             </div>
                                         </div>
                                     </div>
                                     {!computing && results.length > 0 ? (
-                                        <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-medium text-slate-500">
+                                        <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                                             <span>{filteredResults.length} match{filteredResults.length !== 1 ? 'es' : ''} found</span>
                                             {activeSemester && (
                                                 <>
@@ -664,7 +664,7 @@ export default function ScheduleAssistantTab({
                                             <span className="text-[#2F80ED] font-bold">Best {filteredResults[0]?.matchScore}% Match</span>
                                         </div>
                                     ) : (
-                                        <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-medium text-slate-500">
+                                        <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                                             <span>{computing ? 'AI is analyzing preferences...' : 'Results will appear here'}</span>
                                             {activeSemester && (
                                                 <>
@@ -683,16 +683,16 @@ export default function ScheduleAssistantTab({
                             {computing ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {[0, 1, 2, 3].map(i => (
-                                        <div key={i} className="bg-white rounded-2xl border border-slate-50 p-5 animate-pulse">
+                                        <div key={i} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-50 dark:border-slate-800 p-5 animate-pulse">
                                             <div className="flex items-center gap-3 mb-4">
-                                                <div className="w-12 h-12 rounded-full bg-slate-100" />
+                                                <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800" />
                                                 <div className="flex-1 space-y-2">
-                                                    <div className="h-3.5 bg-slate-100 rounded w-1/2" />
-                                                    <div className="h-2.5 bg-slate-50 rounded w-3/4" />
+                                                    <div className="h-3.5 bg-slate-100 dark:bg-slate-800 rounded w-1/2" />
+                                                    <div className="h-2.5 bg-slate-50 dark:bg-slate-900/70 rounded w-3/4" />
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[0, 1, 2].map(j => <div key={j} className="h-10 bg-slate-50 rounded-xl" />)}
+                                                {[0, 1, 2].map(j => <div key={j} className="h-10 bg-slate-50 dark:bg-slate-900/70 rounded-xl" />)}
                                             </div>
                                         </div>
                                     ))}
@@ -713,8 +713,8 @@ export default function ScheduleAssistantTab({
                                     {filteredResults.length === 0 ? (
                                         <div className="col-span-2 flex flex-col items-center justify-center py-16 text-center">
                                             <Search size={48} strokeWidth={1.5} className="text-slate-300 mb-4" />
-                                            <h4 className="text-base font-bold text-slate-600 mb-1">No blocks found for your selected courses</h4>
-                                            <p className="text-[12px] text-slate-400 font-medium">Try selecting different courses or adjusting preferences.</p>
+                                            <h4 className="text-base font-bold text-slate-600 dark:text-slate-300 mb-1">No blocks found for your selected courses</h4>
+                                            <p className="text-[12px] text-slate-400 dark:text-slate-400 font-medium">Try selecting different courses or adjusting preferences.</p>
                                         </div>
                                     ) : (
                                         filteredResults.map((rec, idx) => {
@@ -742,19 +742,19 @@ export default function ScheduleAssistantTab({
                                                 : "Balanced arrangement of courses with efficient gaps.";
 
                                             return (
-                                                <div key={`${rec.block.blockId}-${rec.block.semester}`} className="group bg-white rounded-2xl border border-slate-200 p-4 shadow-sm transition-all duration-300">
+                                                <div key={`${rec.block.blockId}-${rec.block.semester}`} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm transition-all duration-300">
                                                     <div className="relative z-10 flex flex-col gap-3.5">
                                                         {/* Header: All stats in one line */}
-                                                        <div className="flex items-center justify-between pb-3 border-b border-slate-50">
+                                                        <div className="flex items-center justify-between pb-3 border-b border-slate-50 dark:border-slate-800">
                                                             <div className="flex items-center gap-3">
                                                                 <div className="flex flex-col items-center justify-center min-w-[40px] h-10 rounded-lg bg-blue-50/50 border border-blue-100/30">
-                                                                    <span className="text-[8px] font-bold text-slate-400 uppercase leading-none mb-0.5">Rank</span>
+                                                                    <span className="text-[8px] font-bold text-slate-400 dark:text-slate-400 uppercase leading-none mb-0.5">Rank</span>
                                                                     <span className="text-sm font-black text-blue-500 leading-none">#{idx + 1}</span>
                                                                 </div>
-                                                                <div className="w-[1px] h-6 bg-slate-200" />
+                                                                <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-700" />
                                                                 <div>
-                                                                    <h4 className="text-sm font-bold text-slate-800 leading-none mb-1">{rec.block.blockId}</h4>
-                                                                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold uppercase">
+                                                                    <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-none mb-1">{rec.block.blockId}</h4>
+                                                                    <div className="flex items-center gap-2 text-[10px] text-slate-400 dark:text-slate-400 font-bold uppercase">
                                                                         <span>{rec.block.totalCredits} Credits</span>
                                                                         <span className="w-1 h-1 rounded-full bg-slate-300" />
                                                                         <span>{uniqueDaysList.length} Days</span>
@@ -762,7 +762,7 @@ export default function ScheduleAssistantTab({
                                                                 </div>
                                                             </div>
                                                             <div className="text-right">
-                                                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Match</p>
+                                                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest leading-none mb-1">Match</p>
                                                                 <p className="text-2xl font-black text-blue-500 leading-none">{displayScore}%</p>
                                                             </div>
                                                         </div>
@@ -778,10 +778,10 @@ export default function ScheduleAssistantTab({
                                                                             <div
                                                                                 key={courseName}
                                                                                 className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[10px] font-bold transition-all ${isCompleted
-                                                                                    ? 'bg-red-50/50 border-red-100 text-red-400 opacity-80'
+                                                                                    ? 'bg-red-50/50 border-red-100 dark:border-red-900/50 text-red-400 opacity-80'
                                                                                     : isMatched
-                                                                                        ? 'bg-blue-50/50 border-blue-100 text-blue-500'
-                                                                                        : 'bg-slate-50 border-slate-200 text-slate-500'
+                                                                                        ? 'bg-blue-50/50 border-blue-100 dark:border-blue-900/50 text-blue-500'
+                                                                                        : 'bg-slate-50 dark:bg-slate-900/70 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'
                                                                                     }`}
                                                                             >
                                                                                 <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isCompleted ? 'bg-red-300' : isMatched ? 'bg-blue-400' : 'bg-slate-300'}`} />
@@ -798,7 +798,7 @@ export default function ScheduleAssistantTab({
                                                         {/* AI Analysis - Dynamic & Contextual */}
                                                         <div className="bg-blue-50/30 rounded-xl p-2.5 flex items-center gap-2.5 border border-blue-100/20">
                                                             <Sparkles size={14} className="text-blue-400 shrink-0" />
-                                                            <p className="text-[11px] text-slate-600 font-medium leading-tight">
+                                                            <p className="text-[11px] text-slate-600 dark:text-slate-300 font-medium leading-tight">
                                                                 <span className="font-bold text-blue-500">Covers {matchedCount}/{filterKeys.length} courses.</span> {aiInsight}
                                                             </p>
                                                         </div>
@@ -812,8 +812,8 @@ export default function ScheduleAssistantTab({
                                                                         <div
                                                                             key={d}
                                                                             className={`w-6 h-6 rounded-md flex items-center justify-center text-[9px] font-bold transition-all border ${isActive
-                                                                                ? 'bg-slate-100 text-slate-700 border-slate-200'
-                                                                                : 'bg-white text-slate-200 border-slate-100'
+                                                                                ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700'
+                                                                                : 'bg-white dark:bg-slate-900 text-slate-200 border-slate-100 dark:border-slate-800'
                                                                                 }`}
                                                                         >
                                                                             {d.charAt(0)}
@@ -824,7 +824,7 @@ export default function ScheduleAssistantTab({
 
                                                             <div className="flex items-center gap-2">
                                                                 <button
-                                                                    className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-[11px] font-bold transition-all shadow-sm"
+                                                                    className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-[11px] font-bold transition-all shadow-sm"
                                                                     onClick={() => setPreviewBlock(rec.block.courses)}
                                                                 >
                                                                     <Eye size={13} strokeWidth={2.5} />
@@ -863,15 +863,15 @@ export default function ScheduleAssistantTab({
                             {/* Top N Selector */}
                             {!computing && results.length > 0 && (
                                 <div className="mt-6 flex justify-end">
-                                    <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-1">
+                                    <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl p-1">
                                         {[5, 10, 20].map(val => {
                                             const isActive = topN === val;
                                             return (
                                                 <button
                                                     key={val}
                                                     className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${isActive
-                                                        ? 'bg-white text-[#2F80ED] shadow-sm border border-slate-200'
-                                                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-transparent'
+                                                        ? 'bg-white dark:bg-slate-900 text-[#2F80ED] shadow-sm border border-slate-200 dark:border-slate-700'
+                                                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent'
                                                         }`}
                                                     onClick={() => {
                                                         setTopN(val);

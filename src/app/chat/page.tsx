@@ -392,7 +392,7 @@ export default function ChatPage() {
   }, [activeChatId]);
 
   return (
-    <div className="flex h-[calc(100dvh-64px)] w-full overflow-hidden bg-white relative">
+    <div className="flex h-[calc(100dvh-64px)] w-full overflow-hidden bg-white dark:bg-slate-900 relative">
 
 
 
@@ -412,7 +412,7 @@ export default function ChatPage() {
           variant="none"
           size="none"
           onClick={toggleSidebar}
-          className="absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition-all hover:bg-slate-50 hover:text-slate-900"
+          className="absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 shadow-sm transition-all hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900"
           ariaLabel="Open sidebar"
         >
           <svg

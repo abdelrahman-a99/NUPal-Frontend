@@ -26,7 +26,7 @@ export function SkillCard({ skill, index }: SkillCardProps) {
             className={`group relative transform transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
         >
-            <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+            <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -67,17 +67,17 @@ export function SkillCard({ skill, index }: SkillCardProps) {
                         </svg>
                         {/* Percentage text */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-2xl font-bold text-slate-900">{skill.level}%</span>
+                            <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">{skill.level}%</span>
                         </div>
                     </div>
 
                     {/* Skill name */}
-                    <h3 className="text-center text-sm font-semibold text-slate-900">
+                    <h3 className="text-center text-sm font-semibold text-slate-900 dark:text-slate-100">
                         {skill.name}
                     </h3>
 
                     {/* Category badge */}
-                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">
+                    <span className="rounded-full bg-blue-50 dark:bg-blue-950/40 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-300">
                         {skill.category}
                     </span>
                 </div>

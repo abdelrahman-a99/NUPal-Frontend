@@ -25,7 +25,7 @@ export default function ScheduleList({ courses, onCoursePress }: Props) {
                 return (
                     <div
                         key={`${course.courseId}-${idx}`}
-                        className="flex bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
+                        className="flex bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
                         onClick={() => onCoursePress?.(course)}
                     >
                         {/* Left color bar */}
@@ -39,13 +39,13 @@ export default function ScheduleList({ courses, onCoursePress }: Props) {
 
                             {/* Status badge */}
                             {course.status && (
-                                <span className="inline-block px-2 py-0.5 text-[11px] font-bold uppercase rounded bg-emerald-50 text-emerald-700 mb-2">
+                                <span className="inline-block px-2 py-0.5 text-[11px] font-bold uppercase rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 mb-2">
                                     {course.status}
                                 </span>
                             )}
 
                             {/* Details */}
-                            <div className="space-y-0.5 text-xs text-slate-600">
+                            <div className="space-y-0.5 text-xs text-slate-600 dark:text-slate-300">
                                 {(course.section || course.session || course.subtype) && (
                                     <p>
                                         {course.section && `Section: ${course.section}`}
@@ -61,7 +61,7 @@ export default function ScheduleList({ courses, onCoursePress }: Props) {
                                 {course.credits && (
                                     <p>Credits: {course.credits.toFixed(2)}{course.creditType && ` | ${course.creditType}`}</p>
                                 )}
-                                <p className="mt-1 font-medium text-slate-700">
+                                <p className="mt-1 font-medium text-slate-700 dark:text-slate-200">
                                     {hasSchedule
                                         ? `${formatTime(course.start)} - ${formatTime(course.end)} ${course.day}`
                                         : 'No schedule'}

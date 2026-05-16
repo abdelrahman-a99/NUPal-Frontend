@@ -13,6 +13,7 @@ import GPAProgressChart from '../../components/dashboard/GPAProgressChart';
 import AIAvatar from '../../components/dashboard/AIAvatar';
 import AcademicPlanBoard from '../../components/dashboard/AcademicPlanBoard';
 import DashboardSkeleton from '../../components/dashboard/DashboardSkeleton';
+import { syncStoredTheme, watchSystemTheme } from '../../lib/theme';
 
 
 export default function DashboardPage() {
@@ -79,27 +80,15 @@ export default function DashboardPage() {
         fetchStudentData();
     }, [router]);
 
-    // Theme Management - Ensure synchronization with localStorage settings
+    // Theme Management - Keep dashboard synchronized with the shared theme utility
     useEffect(() => {
-        const syncTheme = () => {
-            try {
-                const raw = localStorage.getItem('nupal_student_settings');
-                if (raw) {
-                    const s = JSON.parse(raw);
-                    const isDark = s.theme === 'dark' || (s.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                    if (isDark) {
-                        document.documentElement.classList.add('dark', 'dark-mode');
-                    } else {
-                        document.documentElement.classList.remove('dark', 'dark-mode');
-                    }
-                }
-            } catch (e) {}
-        };
-
+        const syncTheme = () => syncStoredTheme();
         syncTheme();
+        const stopWatchingSystem = watchSystemTheme(syncTheme);
         window.addEventListener('nupal-settings-updated', syncTheme);
         window.addEventListener('storage', syncTheme);
         return () => {
+            stopWatchingSystem();
             window.removeEventListener('nupal-settings-updated', syncTheme);
             window.removeEventListener('storage', syncTheme);
         };
@@ -150,17 +139,17 @@ export default function DashboardPage() {
 
     if (error || !studentData) {
         return (
-            <div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="min-h-screen bg-white dark:bg-slate-900 flex items-center justify-center">
                 <div className="text-red-500">{error || 'Failed to load data'}</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white dark:bg-slate-900">
             <div className="hidden md:block">
                 {/* Top Section: Header with Light Gray Background and Curve */}
-                <div className="relative bg-slate-100 pt-16 pb-32 px-6 md:px-10 overflow-hidden">
+                <div className="relative bg-slate-100 dark:bg-slate-800 pt-16 pb-32 px-6 md:px-10 overflow-hidden">
                     {/* SVG Curve at the bottom */}
                     <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
                         <svg
@@ -180,10 +169,10 @@ export default function DashboardPage() {
                     <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         {/* Welcome Message */}
                         <div className="flex-shrink-0">
-                            <h1 className="text-4xl font-bold text-slate-800 tracking-tight">
+                            <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
                                 Hi, {studentData.account.name}
                             </h1>
-                            <p className="text-slate-500 text-lg mt-2">Welcome back to your academic portal</p>
+                            <p className="text-slate-500 dark:text-slate-400 text-lg mt-2">Welcome back to your academic portal</p>
                         </div>
                     </div>
                 </div>
@@ -192,7 +181,7 @@ export default function DashboardPage() {
                 <div className="px-6 md:px-10 -mt-6 relative z-20">
                     <div className="max-w-5xl mx-auto">
                         {/* Stats Grid - Unified Strip Style (Zero Gaps) */}
-                        <div className="bg-white rounded-[2rem] shadow-2xl border border-slate-100 flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden min-h-[140px]">
+                        <div className="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800 overflow-hidden min-h-[140px]">
                             <div className="flex-1">
                                 <DashboardCard
                                     title="Overall GPA"
@@ -235,13 +224,13 @@ export default function DashboardPage() {
                         {/* Feature Showcase Section - Matching reference style */}
                         <div className="mt-32 mb-10 w-full relative">
                             {/* Visual Separator */}
-                            <div className="w-full h-px bg-slate-100 absolute -top-16 left-0"></div>
+                            <div className="w-full h-px bg-slate-100 dark:bg-slate-800 absolute -top-16 left-0"></div>
 
                             <div className="max-w-4xl mx-auto md:mx-0 text-center md:text-left mb-20">
-                                <h2 className="text-4xl md:text-5xl font-2xl text-slate-900 mb-6 tracking-tight">
+                                <h2 className="text-4xl md:text-5xl font-2xl text-slate-900 dark:text-slate-100 mb-6 tracking-tight">
                                     Advanced tools to master your academic journey
                                 </h2>
-                                <p className="text-slate-500 text-lg md:text-xl max-w-2xl leading-relaxed">
+                                <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed">
                                     Everything you need to track, plan, and optimize your university experience in one sleek, intelligent dashboard.
                                 </p>
                             </div>
@@ -263,12 +252,12 @@ export default function DashboardPage() {
                                                         window.scrollTo({ top, behavior: 'smooth' });
                                                     }
                                                 }}
-                                                className={`group cursor-pointer flex items-center gap-4 py-3 border-b transition-all ${activeSection === item.id ? 'border-blue-600' : 'border-slate-100 hover:border-slate-300'}`}
+                                                className={`group cursor-pointer flex items-center gap-4 py-3 border-b transition-all ${activeSection === item.id ? 'border-blue-600' : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}
                                             >
-                                                <span className={`text-xs font-bold transition-colors ${activeSection === item.id ? 'text-blue-600' : 'text-slate-500 group-hover:text-slate-700'}`}>
+                                                <span className={`text-xs font-bold transition-colors ${activeSection === item.id ? 'text-blue-600 dark:text-blue-300' : 'text-slate-500 dark:text-slate-400 group-hover:text-slate-700'}`}>
                                                     {item.id}
                                                 </span>
-                                                <span className={`text-base font-semibold transition-colors ${activeSection === item.id ? 'text-slate-900' : 'text-slate-500 group-hover:text-slate-700'}`}>
+                                                <span className={`text-base font-semibold transition-colors ${activeSection === item.id ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400 group-hover:text-slate-700'}`}>
                                                     {item.label}
                                                 </span>
                                             </div>
@@ -308,7 +297,7 @@ export default function DashboardPage() {
                                             key={feature.id}
                                             ref={(el) => { sectionRefs.current[idx] = el; }}
                                             data-section-id={feature.id}
-                                            className={`${feature.bgColor} rounded-[2rem] ${feature.id === '01' ? 'p-4 md:p-9' : 'p-8 md:p-14'} min-h-[420px] flex flex-col relative overflow-hidden group transition-all duration-700 ${!feature.isDark ? 'border border-slate-200/50' : ''}`}
+                                            className={`${feature.bgColor} rounded-[2rem] ${feature.id === '01' ? 'p-4 md:p-9' : 'p-8 md:p-14'} min-h-[420px] flex flex-col relative overflow-hidden group transition-all duration-700 ${!feature.isDark ? 'border border-slate-200/50 dark:border-slate-700/50' : ''}`}
                                             onMouseMove={feature.id === '03' ? handleAiMouseMove : undefined}
                                             onMouseEnter={feature.id === '03' ? handleAiMouseEnter : undefined}
                                             onMouseLeave={feature.id === '03' ? handleAiMouseLeave : undefined}
@@ -344,10 +333,10 @@ export default function DashboardPage() {
                                             {/* Text Info Box */}
                                             <div className={`flex justify-between items-end relative z-10 ${feature.id === '03' ? 'order-last' : 'order-first mb-6'}`}>
                                                 <div className="max-w-2xl">
-                                                    <h4 className={`text-2xl md:text-3xl font-bold mb-3 leading-tight ${feature.isDark ? 'text-white' : 'text-slate-900'}`}>
+                                                    <h4 className={`text-2xl md:text-3xl font-bold mb-3 leading-tight ${feature.isDark ? 'text-white' : 'text-slate-900 dark:text-slate-100'}`}>
                                                         {feature.title}
                                                     </h4>
-                                                    <p className={`text-base md:text-lg leading-relaxed max-w-xl ${feature.isDark ? 'text-white/70' : 'text-slate-600'}`}>
+                                                    <p className={`text-base md:text-lg leading-relaxed max-w-xl ${feature.isDark ? 'text-white/70 dark:text-white/70' : 'text-slate-600 dark:text-slate-300'}`}>
                                                         {feature.description}
                                                     </p>
 
@@ -375,12 +364,12 @@ export default function DashboardPage() {
                         <AcademicPlanBoard studentData={studentData} />
 
                         {/* Chatbot Action Section - Minimalist Style with extreme alignment */}
-                        <div className="mt-20 mb-12 flex flex-col items-start gap-8 py-10 border-t border-slate-100 w-full">
+                        <div className="mt-20 mb-12 flex flex-col items-start gap-8 py-10 border-t border-slate-100 dark:border-slate-800 w-full">
                             <div className="text-left">
-                                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                                     Tracks Map
                                 </h3>
-                                <p className="text-slate-500 text-base mt-2 max-w-xl">
+                                <p className="text-slate-500 dark:text-slate-400 text-base mt-2 max-w-xl">
                                     Found your best tracks based on your interests and career goals
                                 </p>
                             </div>
@@ -417,26 +406,26 @@ export default function DashboardPage() {
                                         <div
                                             key={track.id}
                                             onClick={() => setSelectedTrackId(track.id)}
-                                            className="group relative bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
+                                            className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
                                         >
                                             <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${track.color} opacity-5 rounded-bl-[5rem] group-hover:scale-110 transition-transform`} />
 
                                             <div className="flex flex-col h-full relative z-10">
                                                 <div className="flex items-center justify-between mb-6">
 
-                                                    <div className="bg-slate-50 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full text-slate-500 border border-slate-100">
+                                                    <div className="bg-slate-50 dark:bg-slate-900/70 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-800">
                                                         Open Matrix
                                                     </div>
                                                 </div>
 
-                                                <h5 className="text-2xl font-black text-slate-900 mb-3">{track.title}</h5>
-                                                <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-1">
+                                                <h5 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{track.title}</h5>
+                                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-8 flex-1">
                                                     {track.desc}
                                                 </p>
 
-                                                <div className="flex items-center gap-2 text-slate-900 font-bold text-sm group-hover:gap-3 transition-all">
+                                                <div className="flex items-center gap-2 text-slate-900 dark:text-slate-100 font-bold text-sm group-hover:gap-3 transition-all">
                                                     Explore Full Roadmap
-                                                    <ArrowRight size={18} className="text-blue-600" />
+                                                    <ArrowRight size={18} className="text-blue-600 dark:text-blue-300" />
                                                 </div>
                                             </div>
                                         </div>
@@ -449,37 +438,37 @@ export default function DashboardPage() {
             </div>
 
             {/* Mobile View */}
-            <div className="md:hidden pb-10 bg-slate-50 min-h-screen">
+            <div className="md:hidden pb-10 bg-slate-50 dark:bg-slate-900/70 min-h-screen">
                 {/* Mobile Header */}
-                <div className="bg-white px-6 pt-6 pb-6 rounded-b-3xl shadow-sm relative overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 px-6 pt-6 pb-6 rounded-b-3xl shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
                         <div className="flex justify-between items-start mb-6">
                             <div>
-                                <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Hi, {studentData.account.name.split(' ')[0]}</h1>
-                                <p className="text-slate-500 font-medium text-sm mt-0.5">Ready to learn?</p>
+                                <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">Hi, {studentData.account.name.split(' ')[0]}</h1>
+                                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mt-0.5">Ready to learn?</p>
                             </div>
-                            <div onClick={() => router.push('/chat')} className="bg-blue-50 p-2.5 rounded-full text-blue-600 active:scale-95 transition-transform cursor-pointer">
+                            <div onClick={() => router.push('/chat')} className="bg-blue-50 dark:bg-blue-950/40 p-2.5 rounded-full text-blue-600 dark:text-blue-300 active:scale-95 transition-transform cursor-pointer">
                                 <MessageSquare size={20} />
                             </div>
                         </div>
 
                         {/* Stats Grid */}
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex flex-col justify-center">
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">GPA</p>
-                                <p className="text-xl font-black text-slate-900">{stats?.cumulativeGPA.toFixed(2)}</p>
+                            <div className="bg-slate-50 dark:bg-slate-900/70 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col justify-center">
+                                <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">GPA</p>
+                                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{stats?.cumulativeGPA.toFixed(2)}</p>
                             </div>
-                            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex flex-col justify-center">
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Credits</p>
-                                <p className="text-xl font-black text-slate-900">{stats?.totalCredits}</p>
+                            <div className="bg-slate-50 dark:bg-slate-900/70 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col justify-center">
+                                <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Credits</p>
+                                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{stats?.totalCredits}</p>
                             </div>
-                            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex flex-col justify-center">
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Courses</p>
-                                <p className="text-xl font-black text-slate-900">{stats?.totalCourses}</p>
+                            <div className="bg-slate-50 dark:bg-slate-900/70 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col justify-center">
+                                <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Courses</p>
+                                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{stats?.totalCourses}</p>
                             </div>
-                            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex flex-col justify-center">
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Semesters</p>
-                                <p className="text-xl font-black text-slate-900">{stats?.numSemesters}</p>
+                            <div className="bg-slate-50 dark:bg-slate-900/70 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col justify-center">
+                                <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Semesters</p>
+                                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{stats?.numSemesters}</p>
                             </div>
                         </div>
                     </div>
@@ -489,15 +478,15 @@ export default function DashboardPage() {
                 <div className="px-5 mt-6 space-y-6">
 
                     {/* Academic Map Preview */}
-                    <div className="bg-white rounded-3xl p-5 shadow-sm overflow-hidden">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 shadow-sm overflow-hidden">
                         <div className="flex justify-between items-center mb-4">
-                            <h3 className="font-bold text-slate-900 text-lg">Academic Map</h3>
+                            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg">Academic Map</h3>
                             <button onClick={() => {
                                 const el = document.querySelector(`[data-section-id="01"]`);
                                 if (el) el.scrollIntoView({ behavior: 'smooth' });
-                            }} className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full">Explore</button>
+                            }} className="text-xs font-bold text-blue-600 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 rounded-full">Explore</button>
                         </div>
-                        <div className="h-[380px] w-full bg-slate-50 rounded-2xl relative overflow-hidden border-2 border-slate-200">
+                        <div className="h-[380px] w-full bg-slate-50 dark:bg-slate-900/70 rounded-2xl relative overflow-hidden border-2 border-slate-200 dark:border-slate-700">
                             <AcademicMindMap
                                 data={studentData}
                                 selectedTrackId={selectedTrackId}
@@ -507,17 +496,17 @@ export default function DashboardPage() {
                     </div>
 
                     {/* GPA Graph */}
-                    <div className="bg-white rounded-3xl p-3 shadow-sm border border-slate-100">
-                        <h3 className="font-bold text-slate-900 text-lg mb-4">GPA Progress</h3>
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl p-3 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg mb-4">GPA Progress</h3>
                         <div className="h-80 rounded-2xl bg-[#064E3B] overflow-hidden p-3 relative">
                             <GPAProgressChart data={studentData} />
                         </div>
                     </div>
 
                     {/* Academic Plan Board */}
-                    <div className="mt-12 -mx-5 md:mx-0 md:bg-white md:rounded-3xl md:p-5 md:shadow-sm md:border md:border-slate-100">
-                        <h3 className="font-bold text-slate-900 text-lg px-5 md:px-0">Academic Plan</h3>
-                        <p className="text-slate-500 text-sm mb-6 px-5 md:px-0">Visualize and plan your path to graduation</p>
+                    <div className="mt-12 -mx-5 md:mx-0 md:bg-white md:dark:bg-slate-900 md:rounded-3xl md:p-5 md:shadow-sm md:border md:border-slate-100 md:dark:border-slate-800">
+                        <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg px-5 md:px-0">Academic Plan</h3>
+                        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 px-5 md:px-0">Visualize and plan your path to graduation</p>
                         <AcademicPlanBoard
                             studentData={studentData}
                             className="mt-0 [&>div:nth-child(3)]:!shadow-none [&>div:nth-child(3)]:!border-none [&>div:nth-child(3)]:!p-0 [&>div:nth-child(3)]:!bg-transparent"
@@ -526,7 +515,7 @@ export default function DashboardPage() {
 
                     {/* Tracks */}
                     <div className="mt-12">
-                        <h3 className="font-bold text-slate-900 text-lg mb-4 px-1">Specialization Tracks</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg mb-4 px-1">Specialization Tracks</h3>
                         <div className="space-y-3">
                             {[
                                 {
@@ -534,8 +523,8 @@ export default function DashboardPage() {
                                     title: 'General Track',
                                     desc: 'CS foundations',
                                     color: 'from-blue-500 to-blue-600',
-                                    border: 'border-blue-100',
-                                    text: 'text-blue-600'
+                                    border: 'border-blue-100 dark:border-blue-900/50',
+                                    text: 'text-blue-600 dark:text-blue-300'
                                 },
                                 {
                                     id: 'media',
@@ -550,8 +539,8 @@ export default function DashboardPage() {
                                     title: 'Big Data',
                                     desc: 'Data Mining & AI',
                                     color: 'from-amber-500 to-amber-600',
-                                    border: 'border-amber-100',
-                                    text: 'text-amber-600'
+                                    border: 'border-amber-100 dark:border-amber-900/50',
+                                    text: 'text-amber-600 dark:text-amber-300'
                                 }
                             ].map((track) => (
                                 <div
@@ -563,17 +552,17 @@ export default function DashboardPage() {
                                             el.scrollIntoView({ behavior: 'smooth' });
                                         }
                                     }}
-                                    className="bg-white p-4 rounded-[1.5rem] border border-slate-100 relative overflow-hidden active:scale-98 transition-transform shadow-sm flex items-center gap-4"
+                                    className="bg-white dark:bg-slate-900 p-4 rounded-[1.5rem] border border-slate-100 dark:border-slate-800 relative overflow-hidden active:scale-98 transition-transform shadow-sm flex items-center gap-4"
                                 >
                                     {/* Decorative Curve on Left */}
                                     <div className={`absolute top-0 left-0 w-14 h-14 bg-gradient-to-br ${track.color} opacity-10 rounded-br-[3rem] pointer-events-none`} />
 
                                     <div className="relative z-10 flex-1 ml-8">
-                                        <h4 className="font-bold text-slate-900 text-base">{track.title}</h4>
-                                        <p className="text-xs text-slate-500 mt-0.5">{track.desc}</p>
+                                        <h4 className="font-bold text-slate-900 dark:text-slate-100 text-base">{track.title}</h4>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{track.desc}</p>
                                     </div>
 
-                                    <div className={`relative z-10 w-10 h-10 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center ${track.text}`}>
+                                    <div className={`relative z-10 w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-center ${track.text}`}>
                                         <ChevronRight size={18} />
                                     </div>
                                 </div>

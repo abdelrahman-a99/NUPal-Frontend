@@ -2,15 +2,15 @@ import Skeleton from '../ui/Skeleton';
 
 export default function HomeSkeleton() {
     return (
-        <div className="min-h-screen bg-white overflow-hidden">
+        <div className="min-h-screen bg-white dark:bg-slate-900 overflow-hidden">
             {/* Hero Skeleton - Abstract placeholder for the background */}
-            <section className="relative w-full py-20 min-h-[75vh] flex items-center overflow-hidden bg-slate-50">
+            <section className="relative w-full py-20 min-h-[75vh] flex items-center overflow-hidden bg-slate-50 dark:bg-slate-900/70">
                 {/* Abstract "image" placeholder using gradients and shimmers */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-blue-100/30 blur-[100px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[-10%] left-[10%] w-[40%] h-[80%] bg-indigo-50/50 blur-[80px] rounded-full animate-shimmer" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white dark:from-slate-950 via-white/40 to-transparent" />
 
                 <div className="relative z-10 mx-auto max-w-7xl px-6 w-full">
                     <div className="max-w-3xl space-y-10">
@@ -32,7 +32,7 @@ export default function HomeSkeleton() {
             </section>
 
             {/* Services Skeleton - Centered Pills & Grid */}
-            <section className="py-24 bg-white border-t border-slate-50">
+            <section className="py-24 bg-white dark:bg-slate-900 border-t border-slate-50 dark:border-slate-800">
                 <div className="mx-auto max-w-7xl px-6">
                     <div className="flex flex-wrap justify-center gap-4 mb-16">
                         {[1, 2, 3, 4, 5].map(i => (
@@ -42,7 +42,7 @@ export default function HomeSkeleton() {
                     <div className="grid lg:grid-cols-2 gap-16 items-start">
                         <div className="space-y-0">
                             {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="border-b border-slate-100 py-6 space-y-4">
+                                <div key={i} className="border-b border-slate-100 dark:border-slate-800 py-6 space-y-4">
                                     <div className="flex items-center gap-4">
                                         <Skeleton className="h-4 w-4 rounded-full" />
                                         <Skeleton className="h-8 w-48 rounded-lg" />
@@ -63,7 +63,7 @@ export default function HomeSkeleton() {
             </section>
 
             {/* Features Skeleton - Horizontal Scroll Look */}
-            <section className="py-24 bg-slate-50/50">
+            <section className="py-24 bg-slate-50/50 dark:bg-slate-900/50">
                 <div className="mx-auto max-w-7xl px-6">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                         <div className="space-y-4">
@@ -77,7 +77,7 @@ export default function HomeSkeleton() {
                     </div>
                     <div className="flex gap-8 overflow-hidden pointer-events-none">
                         {[1, 2, 3, 4].map(i => (
-                            <div key={i} className="flex-shrink-0 w-[320px] sm:w-[380px] bg-white rounded-3xl p-10 border border-slate-100 shadow-sm space-y-8">
+                            <div key={i} className="flex-shrink-0 w-[320px] sm:w-[380px] bg-white dark:bg-slate-900 rounded-3xl p-10 border border-slate-100 dark:border-slate-800 shadow-sm space-y-8">
                                 <Skeleton className="h-4 w-24 rounded-full" />
                                 <div className="space-y-3">
                                     <Skeleton className="h-10 w-full rounded-xl" />

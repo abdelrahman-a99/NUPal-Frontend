@@ -15,46 +15,46 @@ import {
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function getGPAColor(gpa: number) {
-    if (gpa >= 3.7) return 'text-emerald-600';
-    if (gpa >= 3.0) return 'text-blue-600';
-    if (gpa >= 2.0) return 'text-amber-600';
+    if (gpa >= 3.7) return 'text-emerald-600 dark:text-emerald-300';
+    if (gpa >= 3.0) return 'text-blue-600 dark:text-blue-300';
+    if (gpa >= 2.0) return 'text-amber-600 dark:text-amber-300';
     return 'text-red-500';
 }
 
 function getGPABadge(gpa: number) {
-    if (gpa >= 3.7) return { label: "Excellent", color: "bg-emerald-50 text-emerald-700 border-emerald-200" };
-    if (gpa >= 3.0) return { label: "Good Standing", color: "bg-blue-50 text-blue-700 border-blue-200" };
-    if (gpa >= 2.0) return { label: "Satisfactory", color: "bg-amber-50 text-amber-700 border-amber-200" };
-    return { label: "At Risk", color: "bg-red-50 text-red-700 border-red-200" };
+    if (gpa >= 3.7) return { label: "Excellent", color: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60" };
+    if (gpa >= 3.0) return { label: "Good Standing", color: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800/60" };
+    if (gpa >= 2.0) return { label: "Satisfactory", color: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60" };
+    return { label: "At Risk", color: "bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/60" };
 }
 
 function getAcademicLevel(credits: number) {
-    if (credits <= 35) return { level: "Freshman", short: "FR", color: "bg-violet-100 text-violet-700" };
-    if (credits <= 70) return { level: "Sophomore", short: "SO", color: "bg-blue-100 text-blue-700" };
-    if (credits <= 105) return { level: "Junior", short: "JR", color: "bg-amber-100 text-amber-700" };
-    return { level: "Senior", short: "SR", color: "bg-emerald-100 text-emerald-700" };
+    if (credits <= 35) return { level: "Freshman", short: "FR", color: "bg-violet-100 text-violet-700 dark:text-violet-300" };
+    if (credits <= 70) return { level: "Sophomore", short: "SO", color: "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300" };
+    if (credits <= 105) return { level: "Junior", short: "JR", color: "bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300" };
+    return { level: "Senior", short: "SR", color: "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300" };
 }
 
 function getRegistrationBadge(reg: any) {
     if (!reg) return null;
     const status = reg.status?.toLowerCase();
-    if (status === 'approved') return { label: 'Approved', icon: CheckCircle, color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
-    if (status === 'rejected') return { label: 'Rejected', icon: XCircle, color: 'bg-red-50 text-red-700 border-red-200' };
-    return { label: 'Pending Review', icon: AlertCircle, color: 'bg-amber-50 text-amber-700 border-amber-200' };
+    if (status === 'approved') return { label: 'Approved', icon: CheckCircle, color: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60' };
+    if (status === 'rejected') return { label: 'Rejected', icon: XCircle, color: 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/60' };
+    return { label: 'Pending Review', icon: AlertCircle, color: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60' };
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function StatCard({ icon: Icon, label, value, sub, color = 'text-blue-600', bg = 'bg-blue-50' }: any) {
+function StatCard({ icon: Icon, label, value, sub, color = 'text-blue-600 dark:text-blue-300', bg = 'bg-blue-50 dark:bg-blue-950/40' }: any) {
     return (
-        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-5 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
             <div className={`${bg} p-3 rounded-xl flex-shrink-0`}>
                 <Icon size={20} className={color} />
             </div>
             <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">{label}</p>
-                <p className="text-2xl font-black text-slate-900 leading-tight">{value}</p>
-                {sub && <p className="text-xs text-slate-500 mt-0.5">{sub}</p>}
+                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-0.5">{label}</p>
+                <p className="text-2xl font-black text-slate-900 dark:text-slate-100 leading-tight">{value}</p>
+                {sub && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{sub}</p>}
             </div>
         </div>
     );
@@ -63,56 +63,56 @@ function StatCard({ icon: Icon, label, value, sub, color = 'text-blue-600', bg =
 function SemesterRow({ semester, index }: { semester: any; index: number }) {
     const [open, setOpen] = useState(false);
     return (
-        <div className="border border-slate-100 rounded-2xl overflow-hidden mb-3">
+        <div className="border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden mb-3">
             <button
                 onClick={() => setOpen(v => !v)}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white hover:bg-slate-50 transition-colors text-left"
+                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
             >
                 <div className="flex items-center gap-3">
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 w-6">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-400 w-6">{String(index + 1).padStart(2, '0')}</span>
                     <div>
-                        <p className="font-bold text-slate-900 text-sm">{semester.term}</p>
-                        <p className="text-xs text-slate-400">{semester.courses.length} courses · {semester.semesterCredits} credits</p>
+                        <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{semester.term}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-400">{semester.courses.length} courses · {semester.semesterCredits} credits</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="text-right">
                         <p className={`text-base font-black ${getGPAColor(semester.semesterGpa)}`}>{semester.semesterGpa.toFixed(2)}</p>
-                        <p className="text-[10px] text-slate-400 font-semibold">SEM GPA</p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-400 font-semibold">SEM GPA</p>
                     </div>
                     <div className="text-right">
-                        <p className="text-base font-black text-slate-700">{semester.cumulativeGpa.toFixed(2)}</p>
-                        <p className="text-[10px] text-slate-400 font-semibold">CUM GPA</p>
+                        <p className="text-base font-black text-slate-700 dark:text-slate-200">{semester.cumulativeGpa.toFixed(2)}</p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-400 font-semibold">CUM GPA</p>
                     </div>
-                    {open ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                    {open ? <ChevronUp size={16} className="text-slate-400 dark:text-slate-400" /> : <ChevronDown size={16} className="text-slate-400 dark:text-slate-400" />}
                 </div>
             </button>
             {open && (
-                <div className="px-5 pb-4 bg-slate-50/50">
+                <div className="px-5 pb-4 bg-slate-50/50 dark:bg-slate-900/50">
                     <table className="w-full text-sm mt-2">
                         <thead>
                             <tr className="text-left">
-                                <th className="pb-2 font-semibold text-slate-400 text-xs uppercase tracking-wider">Course</th>
-                                <th className="pb-2 font-semibold text-slate-400 text-xs uppercase tracking-wider text-center">Cr</th>
-                                <th className="pb-2 font-semibold text-slate-400 text-xs uppercase tracking-wider text-center">Grade</th>
-                                <th className="pb-2 font-semibold text-slate-400 text-xs uppercase tracking-wider text-right">Points</th>
+                                <th className="pb-2 font-semibold text-slate-400 dark:text-slate-400 text-xs uppercase tracking-wider">Course</th>
+                                <th className="pb-2 font-semibold text-slate-400 dark:text-slate-400 text-xs uppercase tracking-wider text-center">Cr</th>
+                                <th className="pb-2 font-semibold text-slate-400 dark:text-slate-400 text-xs uppercase tracking-wider text-center">Grade</th>
+                                <th className="pb-2 font-semibold text-slate-400 dark:text-slate-400 text-xs uppercase tracking-wider text-right">Points</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {semester.courses.map((c: any, i: number) => (
                                 <tr key={i} className="group">
-                                    <td className="py-2.5 font-medium text-slate-800 pr-4">{c.courseName}</td>
-                                    <td className="py-2.5 text-center text-slate-500">{c.credit}</td>
+                                    <td className="py-2.5 font-medium text-slate-800 dark:text-slate-100 pr-4">{c.courseName}</td>
+                                    <td className="py-2.5 text-center text-slate-500 dark:text-slate-400">{c.credit}</td>
                                     <td className="py-2.5 text-center">
                                         <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${
-                                            c.grade === 'A' || c.grade === 'A+' ? 'bg-emerald-50 text-emerald-700'
-                                            : c.grade === 'B' || c.grade === 'B+' ? 'bg-blue-50 text-blue-700'
-                                            : c.grade === 'C' || c.grade === 'C+' ? 'bg-amber-50 text-amber-700'
-                                            : c.grade === 'P' ? 'bg-violet-50 text-violet-700'
-                                            : 'bg-red-50 text-red-700'
+                                            c.grade === 'A' || c.grade === 'A+' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
+                                            : c.grade === 'B' || c.grade === 'B+' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
+                                            : c.grade === 'C' || c.grade === 'C+' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
+                                            : c.grade === 'P' ? 'bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300'
+                                            : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300'
                                         }`}>{c.grade}</span>
                                     </td>
-                                    <td className="py-2.5 text-right text-slate-500">{c.gpa != null ? c.gpa.toFixed(2) : '—'}</td>
+                                    <td className="py-2.5 text-right text-slate-500 dark:text-slate-400">{c.gpa != null ? c.gpa.toFixed(2) : '—'}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -165,10 +165,10 @@ export default function ProfilePage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-3">
                     <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                    <p className="text-slate-500 text-sm font-medium">Loading profile…</p>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Loading profile…</p>
                 </div>
             </div>
         );
@@ -176,7 +176,7 @@ export default function ProfilePage() {
 
     if (!student) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70 flex items-center justify-center">
                 <p className="text-red-500">Could not load student profile.</p>
             </div>
         );
@@ -204,7 +204,7 @@ export default function ProfilePage() {
         : 0;
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70">
             {/* Hero Banner */}
             <div className="relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 pt-14 pb-32 overflow-hidden">
                 {/* Decorative blobs */}
@@ -262,17 +262,17 @@ export default function ProfilePage() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     <StatCard icon={BarChart2} label="Cumulative GPA" value={cumGPA.toFixed(2)} sub={gpaBadge.label}
-                        color="text-blue-600" bg="bg-blue-50" />
+                        color="text-blue-600 dark:text-blue-300" bg="bg-blue-50 dark:bg-blue-950/40" />
                     <StatCard icon={TrendingUp} label="Latest Semester GPA" value={latestGPA.toFixed(2)}
                         sub={gpaTrend >= 0 ? `↑ ${gpaTrend.toFixed(2)} vs prev` : `↓ ${Math.abs(gpaTrend).toFixed(2)} vs prev`}
-                        color={gpaTrend >= 0 ? "text-emerald-600" : "text-red-500"}
-                        bg={gpaTrend >= 0 ? "bg-emerald-50" : "bg-red-50"} />
+                        color={gpaTrend >= 0 ? "text-emerald-600 dark:text-emerald-300" : "text-red-500"}
+                        bg={gpaTrend >= 0 ? "bg-emerald-50 dark:bg-emerald-950/40" : "bg-red-50 dark:bg-red-950/40"} />
                     <StatCard icon={BookOpen} label="Total Credits" value={education.totalCredits}
                         sub={`${creditsRemaining > 0 ? creditsRemaining + ' to graduate' : 'Graduation eligible'}`}
-                        color="text-violet-600" bg="bg-violet-50" />
+                        color="text-violet-600" bg="bg-violet-50 dark:bg-violet-950/40" />
                     <StatCard icon={GraduationCap} label="Academic Level" value={level.level}
                         sub={`${education.numSemesters} semester${education.numSemesters !== 1 ? 's' : ''} completed`}
-                        color="text-amber-600" bg="bg-amber-50" />
+                        color="text-amber-600 dark:text-amber-300" bg="bg-amber-50 dark:bg-amber-950/40" />
                 </div>
 
                 {/* Second row stats */}
@@ -284,38 +284,38 @@ export default function ProfilePage() {
                         color="text-pink-600" bg="bg-pink-50" />
                     <StatCard icon={Target} label="Credits Needed" value={creditsRemaining > 0 ? creditsRemaining : 0}
                         sub="to reach 135 credits"
-                        color="text-indigo-600" bg="bg-indigo-50" />
+                        color="text-indigo-600" bg="bg-indigo-50 dark:bg-indigo-950/40" />
                     <StatCard icon={Calendar} label="Semesters" value={education.numSemesters}
                         sub={`${lastSem?.term ?? ''}`}
                         color="text-teal-600" bg="bg-teal-50" />
                 </div>
 
                 {/* Progress bar – credits */}
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm mb-6">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 shadow-sm mb-6">
                     <div className="flex items-center justify-between mb-3">
                         <div>
-                            <h3 className="font-bold text-slate-900 text-base">Graduation Progress</h3>
-                            <p className="text-xs text-slate-400 mt-0.5">Target: 135 credits · Current level: <span className="font-semibold text-slate-600">{level.level}</span></p>
+                            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">Graduation Progress</h3>
+                            <p className="text-xs text-slate-400 dark:text-slate-400 mt-0.5">Target: 135 credits · Current level: <span className="font-semibold text-slate-600 dark:text-slate-300">{level.level}</span></p>
                         </div>
-                        <span className="text-lg font-black text-slate-900">{Math.min(100, Math.round((education.totalCredits / 135) * 100))}%</span>
+                        <span className="text-lg font-black text-slate-900 dark:text-slate-100">{Math.min(100, Math.round((education.totalCredits / 135) * 100))}%</span>
                     </div>
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div
                             className="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full transition-all duration-1000"
                             style={{ width: `${Math.min(100, (education.totalCredits / 135) * 100)}%` }}
                         />
                     </div>
-                    <div className="flex justify-between mt-2 text-[11px] text-slate-400 font-semibold">
+                    <div className="flex justify-between mt-2 text-[11px] text-slate-400 dark:text-slate-400 font-semibold">
                         <span>0 – FR</span><span>36 – SO</span><span>71 – JR</span><span>106 – SR</span><span>135</span>
                     </div>
                 </div>
 
                 {/* Registration Info */}
                 {registration && showRegistrationAlerts && (
-                    <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm mb-6">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 shadow-sm mb-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
-                                <Briefcase size={16} className="text-slate-400" />
+                            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base flex items-center gap-2">
+                                <Briefcase size={16} className="text-slate-400 dark:text-slate-400" />
                                 Current Schedule Registration
                             </h3>
                             {regBadge && (
@@ -327,47 +327,47 @@ export default function ProfilePage() {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                             <div>
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Block ID</p>
-                                <p className="font-bold text-slate-900">{registration.selectedBlock?.blockId ?? '—'}</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Block ID</p>
+                                <p className="font-bold text-slate-900 dark:text-slate-100">{registration.selectedBlock?.blockId ?? '—'}</p>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Semester</p>
-                                <p className="font-bold text-slate-900">{registration.selectedBlock?.semester ?? '—'}</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Semester</p>
+                                <p className="font-bold text-slate-900 dark:text-slate-100">{registration.selectedBlock?.semester ?? '—'}</p>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Credits</p>
-                                <p className="font-bold text-slate-900">{registration.selectedBlock?.totalCredits ?? '—'}</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Credits</p>
+                                <p className="font-bold text-slate-900 dark:text-slate-100">{registration.selectedBlock?.totalCredits ?? '—'}</p>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Method</p>
-                                <p className="font-bold text-slate-900">
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Method</p>
+                                <p className="font-bold text-slate-900 dark:text-slate-100">
                                     {registration.isFromRl ? 'AI-Recommended (RL)' : registration.isFromRecommendation ? 'AI-Recommended' : 'Manual'}
-                                    {registration.isModified && <span className="text-amber-600"> (Modified)</span>}
+                                    {registration.isModified && <span className="text-amber-600 dark:text-amber-300"> (Modified)</span>}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Registered At</p>
-                                <p className="font-bold text-slate-900">{registration.registeredAt ? new Date(registration.registeredAt).toLocaleDateString() : '—'}</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Registered At</p>
+                                <p className="font-bold text-slate-900 dark:text-slate-100">{registration.registeredAt ? new Date(registration.registeredAt).toLocaleDateString() : '—'}</p>
                             </div>
                             {registration.adminNote && (
                                 <div className="md:col-span-2">
-                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Admin Note</p>
-                                    <p className="font-medium text-slate-700 italic">{registration.adminNote}</p>
+                                    <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1">Admin Note</p>
+                                    <p className="font-medium text-slate-700 dark:text-slate-200 italic">{registration.adminNote}</p>
                                 </div>
                             )}
                         </div>
 
                         {/* Courses in the registered block */}
                         {registration.selectedBlock?.courses?.length > 0 && (
-                            <div className="mt-5 border-t border-slate-100 pt-4">
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Registered Courses</p>
+                            <div className="mt-5 border-t border-slate-100 dark:border-slate-800 pt-4">
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-3">Registered Courses</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     {registration.selectedBlock.courses.map((c: any, i: number) => (
-                                        <div key={i} className="flex items-center gap-2 bg-slate-50 rounded-xl p-3 text-sm">
+                                        <div key={i} className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/70 rounded-xl p-3 text-sm">
                                             <div className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0" />
                                             <div className="min-w-0">
-                                                <p className="font-semibold text-slate-800 truncate">{c.courseName}</p>
-                                                <p className="text-xs text-slate-400">{c.day} · {c.start}–{c.end} · {c.instructor}</p>
+                                                <p className="font-semibold text-slate-800 dark:text-slate-100 truncate">{c.courseName}</p>
+                                                <p className="text-xs text-slate-400 dark:text-slate-400">{c.day} · {c.start}–{c.end} · {c.instructor}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -378,14 +378,14 @@ export default function ProfilePage() {
                 )}
 
                 {/* Semester History */}
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 shadow-sm">
                     <div className="flex items-center justify-between mb-5">
                         <div>
-                            <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
-                                <Clock size={16} className="text-slate-400" />
+                            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base flex items-center gap-2">
+                                <Clock size={16} className="text-slate-400 dark:text-slate-400" />
                                 Full Academic Transcript
                             </h3>
-                            <p className="text-xs text-slate-400 mt-0.5">All {education.numSemesters} semesters — click to expand courses</p>
+                            <p className="text-xs text-slate-400 dark:text-slate-400 mt-0.5">All {education.numSemesters} semesters — click to expand courses</p>
                         </div>
                     </div>
                     <div>

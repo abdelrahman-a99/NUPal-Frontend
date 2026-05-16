@@ -30,7 +30,7 @@ export default function CourseDetailPanel({ course, visible, onClose }: Props) {
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-3xl flex flex-col animate-in zoom-in-95 duration-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden w-full max-w-sm"
+                className="bg-white dark:bg-slate-900 rounded-3xl flex flex-col animate-in zoom-in-95 duration-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 dark:border-slate-800 overflow-hidden w-full max-w-sm"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Visual Accent bar */}
@@ -44,16 +44,16 @@ export default function CourseDetailPanel({ course, visible, onClose }: Props) {
                                 Course Details
                             </span>
                             {course.subtype && (
-                                <span className={`inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-widest ${course.subtype.toLowerCase().includes('lecture') ? 'bg-indigo-50 text-indigo-500' : 'bg-amber-50 text-amber-500'}`}>
+                                <span className={`inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-widest ${course.subtype.toLowerCase().includes('lecture') ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-500'}`}>
                                     {course.subtype}
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-xl font-black text-slate-900 leading-tight">{course.courseName}</h3>
+                        <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{course.courseName}</h3>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-1.5 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all"
+                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-400 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all"
                     >
                         <X size={18} strokeWidth={2.5} />
                     </button>
@@ -63,12 +63,12 @@ export default function CourseDetailPanel({ course, visible, onClose }: Props) {
                 <div className="px-5 pb-6 pt-1 space-y-4 overflow-y-auto flex-1">
                     {rows.map(({ icon: Icon, label, value }) => (
                         <div key={label} className="flex items-start gap-4">
-                            <div className="pt-1.5 text-slate-400">
+                            <div className="pt-1.5 text-slate-400 dark:text-slate-400">
                                 <Icon size={18} strokeWidth={2.2} />
                             </div>
                             <div className="pt-0.5">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{label}</p>
-                                <p className="text-sm font-bold text-slate-700 leading-snug">{value}</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-400 mb-0.5">{label}</p>
+                                <p className="text-sm font-bold text-slate-700 dark:text-slate-200 leading-snug">{value}</p>
                             </div>
                         </div>
                     ))}

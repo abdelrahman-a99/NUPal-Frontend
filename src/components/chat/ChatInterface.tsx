@@ -97,7 +97,7 @@ export default function ChatInterface({
       <div className="relative flex items-end">
         <div
           onClick={handleContainerClick}
-          className="flex-1 cursor-text rounded-lg border border-slate-200 bg-slate-50 transition-all hover:border-slate-300 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400/20"
+          className="flex-1 cursor-text rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 transition-all hover:border-slate-300 dark:hover:border-slate-600 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400/20"
         >
           <div className="flex items-center">
             <textarea
@@ -108,7 +108,7 @@ export default function ChatInterface({
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               rows={1}
-              className="w-full resize-none rounded-lg bg-transparent px-5 py-4 pr-14 text-base text-slate-900 placeholder-slate-500 focus:outline-none"
+              className="w-full resize-none rounded-lg bg-transparent px-5 py-4 pr-14 text-base text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none"
               style={{ maxHeight: '150px' }}
               required
             />
@@ -164,14 +164,14 @@ export default function ChatInterface({
   );
 
   return (
-    <div className="flex h-full flex-1 flex-col bg-white overflow-hidden">
+    <div className="flex h-full flex-1 flex-col bg-white dark:bg-slate-900 overflow-hidden">
       {/* Messages Area */}
       <div className={`flex-1 overflow-y-auto px-4 md:px-6 pt-16 md:pt-6 pb-4 md:pb-6 ${!chatId ? 'flex items-center justify-center' : ''}`}>
         {!chatId ? (
           <div className="w-full max-w-2xl px-2 text-center pb-20">
             {/* Centered Initial View */}
             <div className="mb-6">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-800">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100">
                 How can I help you today?
               </h2>
             </div>
@@ -197,7 +197,7 @@ export default function ChatInterface({
             ))}
             {isLoading && (
               <div className="flex justify-start mb-4">
-                <div className="max-w-[70%] rounded-2xl bg-slate-100 px-4 py-3">
+                <div className="max-w-[70%] rounded-2xl bg-slate-100 dark:bg-slate-800 px-4 py-3">
                   <div className="flex space-x-2">
                     <div className="h-2 w-2 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.3s]"></div>
                     <div className="h-2 w-2 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.15s]"></div>
@@ -213,7 +213,7 @@ export default function ChatInterface({
 
       {/* Persistent Bottom Input Area (Only visible when a chat is selected) */}
       {chatId && (
-        <div className="border-t border-slate-200 bg-white px-4 py-3 md:px-6 md:py-4 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 md:px-6 md:py-4 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {renderInputForm(false)}
         </div>
       )}

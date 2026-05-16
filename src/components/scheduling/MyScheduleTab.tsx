@@ -176,9 +176,9 @@ export default function MyScheduleTab({
         <div>
             {/* 1. Permanent Status Banner for PENDING status - Respects settings */}
             {registration?.status === 'Pending' && showApprovalAlerts && (
-                <div className="mb-4 p-4 rounded-2xl border flex items-center justify-between bg-amber-50 border-amber-100 text-amber-800">
+                <div className="mb-4 p-4 rounded-2xl border flex items-center justify-between bg-amber-50 dark:bg-amber-950/40 border-amber-100 dark:border-amber-900/50 text-amber-800 dark:text-amber-200">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100 dark:bg-amber-900/50">
                             <Clock size={20} className="animate-pulse" />
                         </div>
                         <div>
@@ -192,12 +192,12 @@ export default function MyScheduleTab({
             {/* 2. One-time Notification Banner for APPROVED/REJECTED status - Respects settings */}
             {bannerVisible && latestRegistration && showApprovalAlerts && (
                 <div className={`mb-4 p-4 rounded-2xl border flex items-center justify-between animate-in slide-in-from-top duration-500 ${
-                    latestRegistration.status === 'Approved' ? 'bg-emerald-50 border-emerald-100 text-emerald-800' :
-                    'bg-rose-50 border-rose-100 text-rose-800'
+                    latestRegistration.status === 'Approved' ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-100 text-emerald-800 dark:text-emerald-200' :
+                    'bg-rose-50 dark:bg-rose-950/40 border-rose-100 text-rose-800'
                 }`}>
                     <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            latestRegistration.status === 'Approved' ? 'bg-emerald-100' : 'bg-rose-100'
+                            latestRegistration.status === 'Approved' ? 'bg-emerald-100 dark:bg-emerald-900/50' : 'bg-rose-100'
                         }`}>
                             {latestRegistration.status === 'Approved' ? <Check size={20} /> : <AlertCircle size={20} />}
                         </div>
@@ -225,11 +225,11 @@ export default function MyScheduleTab({
                         <ShoppingCart size={18} className="text-[#2F80ED]" />
                     </div>
                     <div>
-                        <div className="flex items-center gap-3 text-slate-900">
+                        <div className="flex items-center gap-3 text-slate-900 dark:text-slate-100">
                             <h2 className="text-lg font-bold leading-tight">My Schedule</h2>
                         </div>
-                        <div className="flex items-center gap-1.5 mt-0.5 text-[13px] font-medium text-slate-500">
-                            <span className="text-slate-700 font-semibold">{displayCourses.length} <span className="font-medium text-slate-500">Courses</span></span>
+                        <div className="flex items-center gap-1.5 mt-0.5 text-[13px] font-medium text-slate-500 dark:text-slate-400">
+                            <span className="text-slate-700 dark:text-slate-200 font-semibold">{displayCourses.length} <span className="font-medium text-slate-500 dark:text-slate-400">Courses</span></span>
                         </div>
                     </div>
                 </div>
@@ -246,15 +246,15 @@ export default function MyScheduleTab({
                         </button>
                     )}
 
-                    <div className="flex items-center gap-1 bg-white rounded-2xl border border-slate-100 p-1.5 shadow-sm">
+                    <div className="flex items-center gap-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-1.5 shadow-sm">
                         <button
-                            className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'list' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}
+                            className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'list' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
                             onClick={() => handleSetViewMode('list')}
                         >
                             <List size={18} strokeWidth={2} />
                         </button>
                         <button
-                            className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'grid' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}
+                            className={`px-4 py-2 rounded-xl transition-all ${viewMode === 'grid' ? 'bg-[#2F80ED] text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
                             onClick={() => handleSetViewMode('grid')}
                         >
                             <CalendarIcon size={18} strokeWidth={2} />
@@ -263,7 +263,7 @@ export default function MyScheduleTab({
                 </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden" style={{ minHeight: 400 }}>
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden" style={{ minHeight: 400 }}>
                 {displayCourses.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-[400px] text-center">
                         <CalendarDays size={72} strokeWidth={1.5} className="text-[#84828f] mb-5 opacity-80" />

@@ -52,7 +52,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                 size="none"
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-600 transition-all hover:border-blue-400 hover:text-blue-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 transition-all hover:border-blue-400 hover:text-blue-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
             >
                 <ChevronLeft className="h-5 w-5" />
             </Button>
@@ -61,7 +61,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
             {getPageNumbers().map((page, index) => (
                 <div key={index}>
                     {page === '...' ? (
-                        <span className="flex h-10 w-10 items-center justify-center text-slate-400">
+                        <span className="flex h-10 w-10 items-center justify-center text-slate-400 dark:text-slate-400">
                             ...
                         </span>
                     ) : (
@@ -71,7 +71,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                             onClick={() => onPageChange(page as number)}
                             className={`flex h-10 w-10 items-center justify-center rounded-lg border font-medium transition-all ${currentPage === page
                                 ? 'border-blue-400 bg-blue-400 text-white'
-                                : 'border-slate-300 bg-white text-slate-600 hover:border-blue-400 hover:text-blue-400'
+                                : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-400'
                                 }`}
                         >
                             {page}
@@ -86,7 +86,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                 size="none"
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-600 transition-all hover:border-blue-400 hover:text-blue-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 transition-all hover:border-blue-400 hover:text-blue-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
             >
                 <ChevronRight className="h-5 w-5" />
             </Button>

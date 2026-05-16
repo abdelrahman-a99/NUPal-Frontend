@@ -622,7 +622,7 @@ export function SchedulingPageInner() {
     const canAdvanceStep0 = useMyData !== null;
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70">
             <SchedulingHeader activeTab={activeTab} setActiveTab={handleTabChange} TABS={TABS} />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
@@ -721,18 +721,18 @@ export default function SchedulingPage() {
 
 function SchedulingSkeleton() {
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70">
             {/* Header Skeleton */}
-            <div className="bg-white border-b border-slate-200 pt-8 pb-0">
+            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 pt-8 pb-0">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex flex-col items-center text-center mb-8 animate-pulse">
-                        <div className="w-12 h-12 bg-blue-100 rounded-2xl mb-4" />
-                        <div className="h-10 w-64 bg-slate-200 rounded-xl mb-3" />
-                        <div className="h-4 w-96 bg-slate-100 rounded-lg" />
+                        <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-2xl mb-4" />
+                        <div className="h-10 w-64 bg-slate-200 dark:bg-slate-700 rounded-xl mb-3" />
+                        <div className="h-4 w-96 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                     </div>
                     <div className="flex justify-center gap-1 mb-0">
                         {[1, 2, 3].map(i => (
-                            <div key={i} className="h-12 w-40 bg-slate-50 border-t border-x border-slate-100 rounded-t-2xl" />
+                            <div key={i} className="h-12 w-40 bg-slate-50 dark:bg-slate-900/70 border-t border-x border-slate-100 dark:border-slate-800 rounded-t-2xl" />
                         ))}
                     </div>
                 </div>
@@ -743,12 +743,12 @@ function SchedulingSkeleton() {
                 <div className="animate-pulse space-y-6">
                     <div className="flex justify-between items-center">
                         <div className="space-y-2">
-                            <div className="h-8 w-48 bg-slate-200 rounded-lg" />
-                            <div className="h-4 w-32 bg-slate-100 rounded-md" />
+                            <div className="h-8 w-48 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                            <div className="h-4 w-32 bg-slate-100 dark:bg-slate-800 rounded-md" />
                         </div>
-                        <div className="h-10 w-32 bg-white border border-slate-100 rounded-2xl" />
+                        <div className="h-10 w-32 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl" />
                     </div>
-                    <div className="h-[500px] bg-white rounded-3xl border border-slate-100 shadow-sm" />
+                    <div className="h-[500px] bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm" />
                 </div>
             </div>
         </div>

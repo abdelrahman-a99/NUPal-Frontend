@@ -1245,3 +1245,37 @@
 .admin-login-link:hover {
     text-decoration: underline;
 }
+/* ── Dark Mode Variables ──────────────────────────────────────
+   Admin pages use CSS variables, so keep dark mode centralized
+   instead of sprinkling Tailwind dark classes through the admin UI. */
+.dark .admin-layout,
+.dark-mode .admin-layout {
+    --adm-bg: #0F172A;
+    --adm-surface: #111827;
+    --adm-surface-2: #1F2937;
+    --adm-border: #334155;
+    --adm-text: #F8FAFC;
+    --adm-text-muted: #CBD5E1;
+    --adm-accent: #4A9EFF;
+    --adm-accent-h: #3B86E0;
+    --adm-green: #34d399;
+    --adm-amber: #fbbf24;
+    --adm-rose: #fb7185;
+    --adm-blue: #60a5fa;
+    --adm-purple: #a78bfa;
+}
+
+.dark .admin-sidebar,
+.dark-mode .admin-sidebar {
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.35);
+}
+
+.dark .admin-sidebar__nav-item--active,
+.dark-mode .admin-sidebar__nav-item--active {
+    background: rgba(74, 158, 255, 0.16);
+}
+
+.dark .admin-login-card,
+.dark-mode .admin-login-card {
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+}

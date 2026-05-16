@@ -63,7 +63,7 @@ export default function AdminMessagesPage() {
                     </div>
                     <button 
                         onClick={() => loadMessages(true)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all shadow-sm ${refreshing ? 'opacity-50' : ''}`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm ${refreshing ? 'opacity-50' : ''}`}
                     >
                         <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
                         Refresh
@@ -72,7 +72,7 @@ export default function AdminMessagesPage() {
             </div>
 
             {/* Toolbar */}
-            <div className="admin-card__toolbar bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <div className="admin-card__toolbar bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
                 <div className="admin-search flex-1 max-w-md">
                     <Search size={18} className="admin-search__icon" />
                     <input 
@@ -87,12 +87,12 @@ export default function AdminMessagesPage() {
 
             {/* Content */}
             {loading ? (
-                <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
                     <div className="w-12 h-12 border-4 border-blue-500/10 border-t-blue-500 rounded-full animate-spin mb-4" />
                     <p className="text-slate-400 font-medium">Loading messages...</p>
                 </div>
             ) : filtered.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
                     <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
                         <Mail size={32} className="text-slate-200" />
                     </div>
@@ -108,7 +108,7 @@ export default function AdminMessagesPage() {
                             : (m.id || `${m.studentEmail}-${idx}`);
                         
                         return (
-                            <div key={uniqueKey} className="admin-card bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-5">
+                            <div key={uniqueKey} className="admin-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all p-5">
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500">
@@ -131,7 +131,7 @@ export default function AdminMessagesPage() {
                             <div className="bg-slate-50/50 rounded-xl p-4 border border-slate-100 relative group">
                                 <MessageSquare size={16} className="absolute top-4 left-4 text-slate-200 group-hover:text-blue-200 transition-colors" />
                                 <div className="pl-7">
-                                    <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                                         {m.message}
                                     </p>
                                 </div>

@@ -68,19 +68,19 @@ export function ProgressOverlay({ isOpen, type, isDataReady = false, onComplete 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Blurred Background */}
-      <div className="absolute inset-0 bg-white/40 backdrop-blur-md transition-all duration-500" />
+      <div className="absolute inset-0 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-500" />
 
       {/* Centered Content */}
       <div className="relative w-full max-w-lg mx-auto flex flex-col items-center animate-in zoom-in-95 duration-500">
 
         <div className="flex items-center justify-center mb-8 relative">
-          <Loader2 className="w-14 h-14 text-blue-600 animate-spin" />
+          <Loader2 className="w-14 h-14 text-blue-600 dark:text-blue-300 animate-spin" />
         </div>
 
-        <h2 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-2">
           {type === 'cv' ? 'Select Resume for Checking' : 'Analyzing Match'}
         </h2>
-        <p className="text-sm font-semibold text-slate-400 mb-12">Please wait while we process your request...</p>
+        <p className="text-sm font-semibold text-slate-400 dark:text-slate-400 mb-12">Please wait while we process your request...</p>
 
         <div className="w-full max-w-md space-y-4">
           {steps.map((step, index) => {
@@ -105,7 +105,7 @@ export function ProgressOverlay({ isOpen, type, isDataReady = false, onComplete 
                 ) : (
                   <Circle className="w-5 h-5 text-slate-300 shrink-0" />
                 )}
-                <span className={`text-[15px] font-bold tracking-wide transition-colors duration-500 ${isCurrent ? 'text-blue-600' : 'text-slate-600'
+                <span className={`text-[15px] font-bold tracking-wide transition-colors duration-500 ${isCurrent ? 'text-blue-600 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'
                   }`}>
                   {step}
                 </span>
@@ -116,10 +116,10 @@ export function ProgressOverlay({ isOpen, type, isDataReady = false, onComplete 
 
         {/* Fake Progress Bar */}
         <div className="w-full max-w-xs mt-16 flex flex-col items-center gap-3">
-          <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
+          <span className="text-xs font-bold tracking-widest text-slate-400 dark:text-slate-400 uppercase">
             {Math.round(((currentStepIndex + 0.5) / steps.length) * 100)}% Complete
           </span>
-          <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
               className="h-full bg-blue-500 rounded-full transition-all duration-1000 ease-out"
               style={{ width: `${Math.min(100, ((currentStepIndex + 0.5) / steps.length) * 100)}%` }}

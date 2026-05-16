@@ -37,8 +37,8 @@ export default function Button({
   const variants = {
     primary: 'justify-center bg-blue-400 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500 hover:shadow-blue-600/40 hover:-translate-y-0.5 rounded-xl backdrop-blur-sm',
     secondary: 'justify-center bg-indigo-600 text-white shadow-lg shadow-indigo-600/25 hover:bg-indigo-700 hover:shadow-indigo-600/40 hover:-translate-y-0.5 rounded-xl backdrop-blur-sm',
-    outline: 'justify-center border-2 border-blue-400 text-blue-400 bg-white/80 hover:bg-blue-50 hover:-translate-y-0.5 shadow-sm rounded-xl backdrop-blur-sm',
-    ghost: 'justify-center text-slate-600 hover:bg-slate-100/80 rounded-xl',
+    outline: 'justify-center border-2 border-blue-400 text-blue-400 bg-white/80 dark:bg-slate-900/80 hover:bg-blue-50 hover:-translate-y-0.5 shadow-sm rounded-xl backdrop-blur-sm',
+    ghost: 'justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 rounded-xl',
     none: '',
   };
 
