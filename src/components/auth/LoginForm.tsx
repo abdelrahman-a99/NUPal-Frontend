@@ -85,7 +85,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="h-screen bg-white relative overflow-hidden overflow-x-hidden flex items-center justify-center px-6">
+    <div className="h-screen bg-white dark:bg-slate-900 relative overflow-hidden overflow-x-hidden flex items-center justify-center px-6">
       <div className="absolute bottom-0 left-0 right-0 h-[700px] overflow-hidden pointer-events-none">
         <svg
           className="absolute bottom-0 w-full h-full"
@@ -134,7 +134,7 @@ export default function LoginForm() {
           </defs>
         </svg>
       </div>
-      <div className="relative z-10 w-full max-w-l md:max-w-md rounded-2xl border border-slate-200 bg-white p-5 md:p-8 shadow-xl">
+      <div className="relative z-10 w-full max-w-l md:max-w-md rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 md:p-8 shadow-xl">
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" aria-label="Home" className="inline-block">
@@ -144,7 +144,7 @@ export default function LoginForm() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-700">
+            <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
               Email
             </label>
             <input
@@ -154,12 +154,12 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+              className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 shadow-sm transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
               placeholder="Email or ID"
             />
           </div>
           <div>
-            <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-900">
+            <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
               Password
             </label>
             <div className="relative">
@@ -170,7 +170,7 @@ export default function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 shadow-sm transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
                 placeholder="password"
               />
             </div>
@@ -185,7 +185,7 @@ export default function LoginForm() {
             {isSubmitting ? 'LOGGING IN...' : 'LOGIN'}
           </Button>
         </form>
-        {err && <div className="mt-4 text-red-600 text-sm mb-2 text-center">{err}</div>}
+        {err && <div className="mt-4 text-red-600 dark:text-red-300 text-sm mb-2 text-center">{err}</div>}
       </div>
     </div>
   );

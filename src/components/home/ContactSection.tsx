@@ -32,7 +32,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="bg-white py-20 relative overflow-hidden">
+    <section id="contact" className="bg-white dark:bg-slate-900 py-20 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 right-0 h-[700px] overflow-hidden">
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1440 700" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,200L60,190C120,180,240,160,360,150C480,140,600,140,720,155C840,170,960,200,1080,210C1200,220,1320,210,1380,205L1440,200L1440,700L1380,700C1320,700,1200,700,1080,700C960,700,840,700,720,700C600,700,480,700,360,700C240,700,120,700,60,700L0,700Z" fill="url(#gradient1-home)" style={{ animation: 'waveFloat 7s ease-in-out infinite' }} />
@@ -49,29 +49,29 @@ export default function ContactSection() {
       </div>
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 relative z-10">
-        <div className="rounded-[2.5rem] bg-white p-6 shadow-[0_0_80px_-10px_rgba(0,0,0,0.08),0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 sm:p-12 sm:rounded-2xl">
+        <div className="rounded-[2.5rem] bg-white dark:bg-slate-900 p-6 shadow-[0_0_80px_-10px_rgba(0,0,0,0.08),0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 sm:p-12 sm:rounded-2xl">
           <div className="mb-10 text-center sm:text-left">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-4xl tracking-tight">Contact Us</h2>
-            <p className="mt-4 text-sm sm:text-lg leading-relaxed text-slate-600 max-w-2xl mx-auto sm:mx-0">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl tracking-tight">Contact Us</h2>
+            <p className="mt-4 text-sm sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300 max-w-2xl mx-auto sm:mx-0">
               Have questions about your academic journey? Fill out the form below
             </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label htmlFor="studentName" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500">Student Name</label>
+                <label htmlFor="studentName" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Student Name</label>
                 <input
                   id="studentName"
                   name="studentName"
                   value={formData.studentName}
                   onChange={handleInputChange}
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-white px-5 py-4 text-slate-900 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-300"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-slate-900 dark:text-slate-100 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-300"
                   placeholder="Enter your full name"
                 />
               </div>
               <div>
-                <label htmlFor="studentEmail" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500">Student Email</label>
+                <label htmlFor="studentEmail" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Student Email</label>
                 <input
                   id="studentEmail"
                   name="studentEmail"
@@ -79,13 +79,13 @@ export default function ContactSection() {
                   value={formData.studentEmail}
                   onChange={handleInputChange}
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-white px-5 py-4 text-slate-900 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-300"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-slate-900 dark:text-slate-100 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-300"
                   placeholder="student@nu.edu.eg"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="message" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500">Message</label>
+              <label htmlFor="message" className="mb-2.5 block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Message</label>
               <textarea
                 id="message"
                 name="message"
@@ -93,7 +93,7 @@ export default function ContactSection() {
                 value={formData.message}
                 onChange={handleInputChange}
                 required
-                className="w-full rounded-xl border border-slate-200 bg-white px-5 py-4 text-slate-900 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 resize-none placeholder:text-slate-300"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-slate-900 dark:text-slate-100 shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 resize-none placeholder:text-slate-300"
                 placeholder="How can we help you with your academic journey..."
               />
             </div>
@@ -108,7 +108,7 @@ export default function ContactSection() {
                 {isSubmitting ? 'SUBMITTING...' : 'SEND MESSAGE'}
               </Button>
               {statusMessage && (
-                <div className={`w-full rounded-xl p-4 text-sm font-bold text-center sm:text-left ${statusMessage.type === 'success' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
+                <div className={`w-full rounded-xl p-4 text-sm font-bold text-center sm:text-left ${statusMessage.type === 'success' ? 'bg-green-50 dark:bg-emerald-950/40 text-green-600' : 'bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-300'}`}>
                   {statusMessage.text}
                 </div>
               )}

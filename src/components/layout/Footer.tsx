@@ -24,7 +24,7 @@ export function Footer() {
     return null;
   }
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
       {/* DESKTOP VIEW - Original Layout */}
       <div className="hidden md:block mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
@@ -41,19 +41,19 @@ export function Footer() {
                 <Image src="/logo.svg" alt="NUPal" width={100} height={34} priority />
               </Link>
             </div>
-            <p className="text-sm leading-relaxed text-slate-600">
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
               Empowering students to make informed academic decisions and achieve their educational goals.
             </p>
           </div>
 
           {/* Platform Column */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">Platform</h3>
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Platform</h3>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   Dashboard
                 </Link>
@@ -61,7 +61,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/chat"
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   Chatbot
                 </Link>
@@ -69,7 +69,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/career-hub"
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   Career Hub
                 </Link>
@@ -79,14 +79,14 @@ export function Footer() {
 
           {/* Company Column */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">Company</h3>
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Company</h3>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
                   href="/#services"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'services')}
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   Services
                 </Link>
@@ -96,7 +96,7 @@ export function Footer() {
                   href="/#about"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'about')}
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   About
                 </Link>
@@ -106,7 +106,7 @@ export function Footer() {
                   href="/#contact"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'contact')}
-                  className="text-slate-600 transition hover:text-blue-400"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-400"
                 >
                   Contact
                 </Link>
@@ -116,11 +116,11 @@ export function Footer() {
 
           {/* Social Media Column */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">Follow Us</h3>
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Follow Us</h3>
             <div className="flex gap-4">
               <a
                 href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
                 aria-label="Facebook"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -130,7 +130,7 @@ export function Footer() {
 
               <a
                 href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
                 aria-label="Twitter"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -140,7 +140,7 @@ export function Footer() {
 
               <a
                 href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
                 aria-label="LinkedIn"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -150,7 +150,7 @@ export function Footer() {
 
               <a
                 href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white"
                 aria-label="Instagram"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -162,11 +162,11 @@ export function Footer() {
         </div>
 
         {/* Separator */}
-        <div className="my-8 border-t border-slate-200" />
+        <div className="my-8 border-t border-slate-200 dark:border-slate-700" />
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="text-sm text-slate-600">© {new Date().getFullYear()} NUPal. All rights reserved.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-300">© {new Date().getFullYear()} NUPal. All rights reserved.</p>
         </div>
       </div>
 
@@ -185,7 +185,7 @@ export function Footer() {
           >
             <Image src="/logo.svg" alt="NUPal" width={90} height={30} priority />
           </Link>
-          <p className="text-xs leading-relaxed text-slate-600 max-w-xs mx-auto">
+          <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300 max-w-xs mx-auto">
             Empowering students to make informed academic decisions and achieve their educational goals.
           </p>
         </div>
@@ -199,7 +199,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   Dashboard
                 </Link>
@@ -207,7 +207,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/chat"
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   Chatbot
                 </Link>
@@ -215,7 +215,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/career-hub"
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   Career Hub
                 </Link>
@@ -232,7 +232,7 @@ export function Footer() {
                   href="/#services"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'services')}
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   Services
                 </Link>
@@ -242,7 +242,7 @@ export function Footer() {
                   href="/#about"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'about')}
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   About
                 </Link>
@@ -252,7 +252,7 @@ export function Footer() {
                   href="/#contact"
                   scroll={false}
                   onClick={(e) => handleNavClick(e, 'contact')}
-                  className="text-slate-600 transition hover:text-blue-500 font-medium"
+                  className="text-slate-600 dark:text-slate-300 transition hover:text-blue-500 font-medium"
                 >
                   Contact
                 </Link>
@@ -267,7 +267,7 @@ export function Footer() {
           <div className="flex gap-3 justify-center">
             <a
               href="#"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
               aria-label="Facebook"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -277,7 +277,7 @@ export function Footer() {
 
             <a
               href="#"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
               aria-label="Twitter"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -287,7 +287,7 @@ export function Footer() {
 
             <a
               href="#"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
               aria-label="LinkedIn"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -297,7 +297,7 @@ export function Footer() {
 
             <a
               href="#"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
               aria-label="Instagram"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -308,11 +308,11 @@ export function Footer() {
         </div>
 
         {/* Separator */}
-        <div className="my-8 border-t border-slate-200" />
+        <div className="my-8 border-t border-slate-200 dark:border-slate-700" />
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="text-xs text-slate-500 font-medium">© {new Date().getFullYear()} NUPal. All rights reserved.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">© {new Date().getFullYear()} NUPal. All rights reserved.</p>
         </div>
       </div>
     </footer>

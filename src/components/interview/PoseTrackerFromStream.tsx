@@ -168,7 +168,7 @@ export default function PoseTrackerFromStream({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-900 shadow-inner">
+    <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-900 shadow-inner">
       <video
         ref={videoRef}
         className="aspect-video w-full object-cover opacity-90"

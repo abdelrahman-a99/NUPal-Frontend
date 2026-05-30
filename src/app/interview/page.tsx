@@ -15,7 +15,7 @@ export default function InterviewRedirectPage() {
   }, [router]);
 
   return (
-    <div className="mx-auto flex min-h-[40vh] max-w-lg flex-col items-center justify-center px-4 text-center text-slate-600">
+    <div className="mx-auto flex min-h-[40vh] max-w-lg flex-col items-center justify-center px-4 text-center text-slate-600 dark:text-slate-300">
       <p className="text-sm">Redirecting to Career Hub…</p>
     </div>
   );

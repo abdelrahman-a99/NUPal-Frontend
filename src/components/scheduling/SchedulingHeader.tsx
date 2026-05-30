@@ -19,17 +19,17 @@ export default function SchedulingHeader({
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
                 <div className="mb-6 flex flex-col items-center text-center">
-                    <h1 className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-                        <CalendarDays className="h-7 w-7 sm:h-9 sm:w-9 text-[#2F80ED] drop-shadow-sm shrink-0" strokeWidth={2.5} />
-                        <span>Build your perfect <span className="text-[#2F80ED]">schedule</span></span>
+                    <h1 className="flex items-center justify-center gap-3 text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+                        <CalendarDays className="h-9 w-9 text-[#2F80ED] drop-shadow-sm" strokeWidth={2.5} />
+                        Build your perfect <span className="text-[#2F80ED]">schedule</span>
                     </h1>
-                    <p className="text-slate-500 mt-3 text-sm sm:text-base max-w-lg leading-relaxed px-2">
+                    <p className="text-slate-500 dark:text-slate-400 mt-3 text-base max-w-lg leading-relaxed">
                         Explore available blocks, customize your courses, and let AI build your conflict-free timetable.
                     </p>
                 </div>
 
                 <div className="flex justify-center z-20 relative">
-                    <div className="inline-flex overflow-x-auto hide-scrollbar bg-slate-100 p-1.5 rounded-2xl border border-slate-200/60 shadow-inner max-w-full">
+                    <div className="inline-flex overflow-x-auto hide-scrollbar bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 shadow-inner max-w-full">
                         {TABS.map(({ id, label, icon: Icon }) => {
                             const active = activeTab === id;
                             return (
@@ -37,8 +37,8 @@ export default function SchedulingHeader({
                                     key={id}
                                     onClick={() => setActiveTab(id)}
                                     className={`relative flex items-center whitespace-nowrap gap-2.5 px-6 py-3 text-sm font-bold transition-all duration-300 rounded-xl ${active
-                                        ? 'bg-white text-[#2F80ED] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]'
-                                        : 'text-slate-500 hover:text-slate-800 hover:bg-slate-200/50'
+                                        ? 'bg-white dark:bg-slate-900 text-[#2F80ED] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]'
+                                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-200/50'
                                         }`}
                                 >
                                     <Icon size={18} strokeWidth={active ? 2.5 : 2} className={`transition-transform duration-300 ${active ? 'scale-110' : 'group-hover:scale-110'}`} />

@@ -403,7 +403,7 @@ function ResumeAnalyzerPageInner() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8 career-hub-container">
+    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-900/50 py-12 px-4 sm:px-6 lg:px-8 career-hub-container">
       {!hideChrome && (
         <div className="max-w-7xl mx-auto mb-12 text-center">
           {activeTab !== 'interview-prep' && (
@@ -412,11 +412,11 @@ function ResumeAnalyzerPageInner() {
               animate={{ y: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                 {activeTab === 'resume-checking' && 'Resume Checking'}
                 {activeTab === 'job-fit' && 'Job Match Analysis'}
               </h1>
-              <p className="mt-2 text-slate-500 font-semibold text-sm sm:text-base">
+              <p className="mt-2 text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base">
                 {activeTab === 'resume-checking' && 'Get deep AI-powered insights on your CV structure'}
                 {activeTab === 'job-fit' && 'Measure your fit against any job description'}
               </p>
@@ -444,7 +444,7 @@ function ResumeAnalyzerPageInner() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="mb-8 flex items-start gap-3 bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700 w-full max-w-4xl"
+                className="mb-8 flex items-start gap-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 rounded-2xl p-4 text-sm text-red-700 dark:text-red-300 w-full max-w-4xl"
               >
                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                 <div>
@@ -536,7 +536,7 @@ function ResumeAnalyzerPageInner() {
 
                 {(!isJobFitDetailsLoading || isSilentJobFitLoad) && (isHistoryLoading || jobFitHistory.length > 0) && !currentJobFitId && (
                   <div className="w-full mt-4">
-                    <h3 className="text-lg font-bold text-slate-900 mb-4 ml-1">Recent Job Fit Analyses</h3>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 ml-1">Recent Job Fit Analyses</h3>
                     <JobFitHistoryList
                       history={jobFitHistory}
                       isLoading={isHistoryLoading}
@@ -600,50 +600,50 @@ function DetailsSkeleton({ kind }: { kind: 'resume' | 'jobfit' }) {
       <div className="w-full max-w-7xl space-y-6 animate-pulse">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-2">
           <div className="space-y-3">
-            <div className="h-6 w-28 rounded-full bg-slate-200" />
-            <div className="h-10 w-80 rounded-xl bg-slate-200" />
-            <div className="h-4 w-52 rounded-lg bg-slate-100" />
+            <div className="h-6 w-28 rounded-full bg-slate-200 dark:bg-slate-700" />
+            <div className="h-10 w-80 rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-52 rounded-lg bg-slate-100 dark:bg-slate-800" />
           </div>
-          <div className="w-24 h-24 rounded-full bg-slate-100 border border-slate-200" />
+          <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-8 space-y-4">
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-3">
-              <div className="h-5 w-44 rounded-lg bg-slate-200" />
-              <div className="h-4 w-full rounded-md bg-slate-100" />
-              <div className="h-4 w-11/12 rounded-md bg-slate-100" />
-              <div className="h-4 w-9/12 rounded-md bg-slate-100" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 space-y-3">
+              <div className="h-5 w-44 rounded-lg bg-slate-200 dark:bg-slate-700" />
+              <div className="h-4 w-full rounded-md bg-slate-100 dark:bg-slate-800" />
+              <div className="h-4 w-11/12 rounded-md bg-slate-100 dark:bg-slate-800" />
+              <div className="h-4 w-9/12 rounded-md bg-slate-100 dark:bg-slate-800" />
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-8">
-              <div className="h-5 w-40 rounded-lg bg-slate-200 mb-6" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8">
+              <div className="h-5 w-40 rounded-lg bg-slate-200 dark:bg-slate-700 mb-6" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="h-28 rounded-2xl bg-slate-100" />
-                <div className="h-28 rounded-2xl bg-slate-100" />
-                <div className="h-24 rounded-2xl bg-slate-100" />
-                <div className="h-24 rounded-2xl bg-slate-100" />
+                <div className="h-28 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+                <div className="h-28 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+                <div className="h-24 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+                <div className="h-24 rounded-2xl bg-slate-100 dark:bg-slate-800" />
               </div>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-4">
-              <div className="h-5 w-52 rounded-lg bg-slate-200" />
-              <div className="h-20 rounded-2xl bg-slate-100" />
-              <div className="h-20 rounded-2xl bg-slate-100" />
-              <div className="h-20 rounded-2xl bg-slate-100" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 space-y-4">
+              <div className="h-5 w-52 rounded-lg bg-slate-200 dark:bg-slate-700" />
+              <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
             </div>
           </div>
 
           <div className="lg:col-span-4 space-y-4">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
-              <div className="h-4 w-32 rounded bg-slate-200" />
-              <div className="h-10 rounded-xl bg-slate-100" />
-              <div className="h-10 rounded-xl bg-slate-100" />
-              <div className="h-10 rounded-xl bg-slate-100" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 space-y-4">
+              <div className="h-4 w-32 rounded bg-slate-200 dark:bg-slate-700" />
+              <div className="h-10 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-10 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-10 rounded-xl bg-slate-100 dark:bg-slate-800" />
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
-              <div className="h-4 w-28 rounded bg-slate-200" />
-              <div className="h-11 rounded-xl bg-slate-100" />
-              <div className="h-11 rounded-xl bg-slate-100" />
-              <div className="h-11 rounded-xl bg-slate-100" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 space-y-3">
+              <div className="h-4 w-28 rounded bg-slate-200 dark:bg-slate-700" />
+              <div className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800" />
             </div>
           </div>
         </div>
@@ -653,17 +653,17 @@ function DetailsSkeleton({ kind }: { kind: 'resume' | 'jobfit' }) {
 
   return (
     <div className="w-full max-w-7xl space-y-6 animate-pulse">
-      <div className="rounded-2xl border border-slate-200 bg-white p-8">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-slate-200 shrink-0" />
+          <div className="w-20 h-20 rounded-2xl bg-slate-200 dark:bg-slate-700 shrink-0" />
           <div className="w-full space-y-3">
-            <div className="h-8 w-72 rounded-lg bg-slate-200" />
-            <div className="h-4 w-64 rounded-md bg-slate-100" />
-            <div className="h-4 w-56 rounded-md bg-slate-100" />
+            <div className="h-8 w-72 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-64 rounded-md bg-slate-100 dark:bg-slate-800" />
+            <div className="h-4 w-56 rounded-md bg-slate-100 dark:bg-slate-800" />
             <div className="flex gap-2 pt-2">
-              <div className="h-7 w-20 rounded-xl bg-slate-100" />
-              <div className="h-7 w-20 rounded-xl bg-slate-100" />
-              <div className="h-7 w-20 rounded-xl bg-slate-100" />
+              <div className="h-7 w-20 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-7 w-20 rounded-xl bg-slate-100 dark:bg-slate-800" />
+              <div className="h-7 w-20 rounded-xl bg-slate-100 dark:bg-slate-800" />
             </div>
           </div>
         </div>
@@ -671,31 +671,31 @@ function DetailsSkeleton({ kind }: { kind: 'resume' | 'jobfit' }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-8 space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-3">
-            <div className="h-5 w-44 rounded-lg bg-slate-200" />
-            <div className="h-4 w-full rounded-md bg-slate-100" />
-            <div className="h-4 w-11/12 rounded-md bg-slate-100" />
-            <div className="h-4 w-8/12 rounded-md bg-slate-100" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 space-y-3">
+            <div className="h-5 w-44 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-full rounded-md bg-slate-100 dark:bg-slate-800" />
+            <div className="h-4 w-11/12 rounded-md bg-slate-100 dark:bg-slate-800" />
+            <div className="h-4 w-8/12 rounded-md bg-slate-100 dark:bg-slate-800" />
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-4">
-            <div className="h-5 w-36 rounded-lg bg-slate-200" />
-            <div className="h-20 rounded-2xl bg-slate-100" />
-            <div className="h-20 rounded-2xl bg-slate-100" />
-            <div className="h-20 rounded-2xl bg-slate-100" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 space-y-4">
+            <div className="h-5 w-36 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-20 rounded-2xl bg-slate-100 dark:bg-slate-800" />
           </div>
         </div>
         <div className="lg:col-span-4 space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
-            <div className="h-5 w-32 rounded-lg bg-slate-200" />
-            <div className="h-9 rounded-xl bg-slate-100" />
-            <div className="h-9 rounded-xl bg-slate-100" />
-            <div className="h-9 rounded-xl bg-slate-100" />
-            <div className="h-9 rounded-xl bg-slate-100" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 space-y-3">
+            <div className="h-5 w-32 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="h-9 rounded-xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-9 rounded-xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-9 rounded-xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-9 rounded-xl bg-slate-100 dark:bg-slate-800" />
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
-            <div className="h-5 w-28 rounded-lg bg-slate-200" />
-            <div className="h-10 rounded-xl bg-slate-100" />
-            <div className="h-10 rounded-xl bg-slate-100" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 space-y-3">
+            <div className="h-5 w-28 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="h-10 rounded-xl bg-slate-100 dark:bg-slate-800" />
+            <div className="h-10 rounded-xl bg-slate-100 dark:bg-slate-800" />
           </div>
         </div>
       </div>
@@ -707,16 +707,16 @@ export default function ResumeAnalyzerPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-slate-50/50 py-12 px-4">
+        <div className="min-h-screen bg-slate-50/50 dark:bg-slate-900/50 py-12 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="animate-pulse space-y-8">
                <div className="flex flex-col items-center gap-4 mb-12">
-                  <div className="h-10 w-64 bg-slate-200 rounded-lg" />
-                  <div className="h-4 w-96 bg-slate-100 rounded-md" />
+                  <div className="h-10 w-64 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                  <div className="h-4 w-96 bg-slate-100 dark:bg-slate-800 rounded-md" />
                </div>
                <div className="flex gap-8">
-                  <div className="w-64 h-[400px] bg-white rounded-2xl border border-slate-100 shadow-sm shrink-0" />
-                  <div className="flex-1 h-[600px] bg-white rounded-3xl border border-slate-100 shadow-sm" />
+                  <div className="w-64 h-[400px] bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm shrink-0" />
+                  <div className="flex-1 h-[600px] bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm" />
                </div>
             </div>
           </div>

@@ -20,7 +20,7 @@ const RoadmapGroupItem = ({ group }: { group: { title: string; courses: Course[]
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between cursor-pointer hover:bg-slate-100/50 p-1.5 rounded-lg transition-colors group/header select-none"
             >
-                <h5 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover/header:text-slate-600 transition-colors">
+                <h5 className="text-[11px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider group-hover/header:text-slate-600 transition-colors">
                     {group.title}
                 </h5>
                 <div className="text-slate-300 group-hover/header:text-slate-500 transition-colors">
@@ -53,7 +53,7 @@ const RoadmapColumn: React.FC<RoadmapColumnProps> = ({
     return (
         <div className={`
             flex flex-col w-full
-            bg-slate-50/50 border border-slate-200 rounded-3xl p-4
+            bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-3xl p-4
             transition-all duration-300 h-fit shadow-sm
         `}>
             {/* Column Header */}
@@ -62,12 +62,12 @@ const RoadmapColumn: React.FC<RoadmapColumnProps> = ({
                 onClick={() => setIsCollapsed(!isCollapsed)}
             >
                 <div className="flex items-center gap-2">
-                    <h4 className="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">{title}</h4>
-                    <span className="bg-slate-200 text-slate-500 text-[10px] font-bold px-1.5 py-0.5 rounded-sm min-w-[20px] text-center">
+                    <h4 className="font-bold text-slate-700 dark:text-slate-200 text-sm group-hover:text-slate-900 transition-colors">{title}</h4>
+                    <span className="bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-[10px] font-bold px-1.5 py-0.5 rounded-sm min-w-[20px] text-center">
                         {totalCourses}
                     </span>
                 </div>
-                <div className="text-slate-400 group-hover:text-slate-600 transition-colors">
+                <div className="text-slate-400 dark:text-slate-400 group-hover:text-slate-600 transition-colors">
                     {isCollapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
                 </div>
             </div>
@@ -82,8 +82,8 @@ const RoadmapColumn: React.FC<RoadmapColumnProps> = ({
                     ) : (
                         // Render Flat List
                         courses.length === 0 ? (
-                            <div className="text-center py-8 border-2 border-dashed border-slate-100 rounded-md">
-                                <p className="text-slate-400 text-xs font-medium">Empty</p>
+                            <div className="text-center py-8 border-2 border-dashed border-slate-100 dark:border-slate-800 rounded-md">
+                                <p className="text-slate-400 dark:text-slate-400 text-xs font-medium">Empty</p>
                             </div>
                         ) : (
                             courses.map((course) => (

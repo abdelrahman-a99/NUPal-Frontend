@@ -72,12 +72,12 @@ export default function FeaturesSection() {
   };
 
   return (
-    <section className="bg-slate-50/50 py-24 overflow-hidden">
+    <section className="bg-slate-50/50 dark:bg-slate-900/50 py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl tracking-tight mb-4">Platform Features</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl tracking-tight mb-4">Platform Features</h2>
+            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
               Discover the powerful tools that help you succeed in your academic journey and career planning.
             </p>
           </div>
@@ -87,8 +87,8 @@ export default function FeaturesSection() {
               size="none"
               onClick={() => canScrollLeft && scroll('left')}
               className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${canScrollLeft
-                ? 'bg-blue-50 text-blue-500 hover:bg-blue-100 active:scale-90 cursor-pointer'
-                : 'bg-slate-50 text-slate-300 cursor-default opacity-50'
+                ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500 hover:bg-blue-100 active:scale-90 cursor-pointer'
+                : 'bg-slate-50 dark:bg-slate-900/70 text-slate-300 cursor-default opacity-50'
                 }`}
               ariaLabel="Scroll left"
             >
@@ -99,8 +99,8 @@ export default function FeaturesSection() {
               size="none"
               onClick={() => canScrollRight && scroll('right')}
               className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${canScrollRight
-                ? 'bg-blue-50 text-blue-500 hover:bg-blue-100 active:scale-90 cursor-pointer'
-                : 'bg-slate-50 text-slate-300 cursor-default opacity-50'
+                ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500 hover:bg-blue-100 active:scale-90 cursor-pointer'
+                : 'bg-slate-50 dark:bg-slate-900/70 text-slate-300 cursor-default opacity-50'
                 }`}
               ariaLabel="Scroll right"
             >
@@ -129,7 +129,7 @@ export default function FeaturesSection() {
                 e.preventDefault();
               }
             }}
-            className="group relative flex-shrink-0 w-[280px] sm:w-[380px] flex flex-col rounded-2xl bg-white p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)] hover:-translate-y-1 block overflow-hidden"
+            className="group relative flex-shrink-0 w-[280px] sm:w-[380px] flex flex-col rounded-2xl bg-white dark:bg-slate-900 p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)] hover:-translate-y-1 block overflow-hidden"
           >
             {/* Blue Accent Top Border */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-blue-500 rounded-t-2xl opacity-80 group-hover:opacity-100 transition-opacity" />
@@ -138,11 +138,11 @@ export default function FeaturesSection() {
               {feature.title.split(' ')[0]}
             </div>
 
-            <h3 className="mb-3 text-2xl font-bold text-slate-900 leading-snug">
+            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-slate-100 leading-snug">
               {feature.title}
             </h3>
 
-            <p className="mb-8 text-base leading-relaxed text-slate-600">
+            <p className="mb-8 text-base leading-relaxed text-slate-600 dark:text-slate-300">
               {feature.description}
             </p>
 
@@ -160,7 +160,7 @@ export default function FeaturesSection() {
 
       {/* Mobile Progress Bar Indicator */}
       <div className="lg:hidden flex justify-center mt-2 px-6">
-        <div className="h-[2px] w-32 bg-slate-200 rounded-full overflow-hidden relative">
+        <div className="h-[2px] w-32 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden relative">
           <div
             className="absolute top-0 h-full bg-blue-500 transition-all duration-150 rounded-full"
             style={{

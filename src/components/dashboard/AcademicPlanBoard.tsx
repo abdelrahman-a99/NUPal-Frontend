@@ -418,33 +418,33 @@ const AcademicPlanBoard: React.FC<AcademicPlanBoardProps> = ({ studentData, clas
     return (
         <div className={`w-full ${className || 'mt-24'}`}>
             {/* Visual Separator */}
-            <div className="w-full h-px bg-slate-200 mb-12"></div>
+            <div className="w-full h-px bg-slate-200 dark:bg-slate-700 mb-12"></div>
 
             {/* Header Section - Outside the Board Box */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 px-5 md:px-0">
                 <div className="hidden md:block">
-                    <h3 className="text-3xl font-bold text-slate-900 tracking-tight">Academic Plan</h3>
-                    <p className="text-slate-500 mt-2 text-lg">Visualize and plan your path to graduation</p>
+                    <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Academic Plan</h3>
+                    <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">Visualize and plan your path to graduation</p>
                 </div>
 
                 <div className="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto">
                     <div className="relative flex-1 md:flex-none">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-400" />
                         <input
                             type="text"
                             placeholder="Search..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 transition-all w-full md:w-64 shadow-sm"
+                            className="pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 transition-all w-full md:w-64 shadow-sm"
                         />
                     </div>
 
-                    <div className="flex items-center bg-white p-1 rounded-lg border border-slate-200 shadow-sm shrink-0">
+                    <div className="flex items-center bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm shrink-0">
                         <Button
                             variant="none"
                             size="none"
                             onClick={() => setViewMode('category')}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${viewMode === 'category' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${viewMode === 'category' ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}
                         >
                             <LayoutGrid className="w-4 h-4" />
                             <span className="hidden md:inline">Category</span>
@@ -453,7 +453,7 @@ const AcademicPlanBoard: React.FC<AcademicPlanBoardProps> = ({ studentData, clas
                             variant="none"
                             size="none"
                             onClick={() => setViewMode('semester')}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${viewMode === 'semester' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${viewMode === 'semester' ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}
                         >
                             <List className="w-4 h-4" />
                             <span className="hidden md:inline">Semester</span>
@@ -463,7 +463,7 @@ const AcademicPlanBoard: React.FC<AcademicPlanBoardProps> = ({ studentData, clas
             </div>
 
             {/* The "Big Box" containing ONLY the columns */}
-            <div className="md:bg-white md:rounded-[2.5rem] md:border md:border-slate-200 md:shadow-xl md:overflow-hidden md:p-8 md:bg-slate-50/20">
+            <div className="md:bg-white md:dark:bg-slate-900 md:rounded-[2.5rem] md:border md:border-slate-200 md:dark:border-slate-700 md:shadow-xl md:overflow-hidden md:p-8 md:bg-slate-50/20 md:dark:bg-slate-900/20">
                 <div className={`
                     flex gap-4 pb-6 scrollbar-thin scrollbar-thumb-slate-200 min-h-[500px] px-5 md:px-0
                     ${viewMode === 'category'
@@ -482,10 +482,10 @@ const AcademicPlanBoard: React.FC<AcademicPlanBoardProps> = ({ studentData, clas
 
                             {/* Goals Box for Category View - Anchored to bottom */}
                             {viewMode === 'category' && column.stats && (
-                                <div className="mt-auto bg-white border border-slate-100 rounded-2xl p-5 shadow-lg ring-1 ring-slate-200/50">
+                                <div className="mt-auto bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-5 shadow-lg ring-1 ring-slate-200/50">
                                     <div className="flex flex-col gap-3">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Goals</span>
+                                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Goals</span>
                                             <Trophy size={14} className="text-amber-400" />
                                         </div>
 
@@ -493,17 +493,17 @@ const AcademicPlanBoard: React.FC<AcademicPlanBoardProps> = ({ studentData, clas
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2">
                                                     <Flag size={14} className="text-emerald-500 fill-emerald-500" />
-                                                    <span className="text-sm font-bold text-slate-700">Completed:</span>
+                                                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Completed:</span>
                                                 </div>
-                                                <span className="text-sm font-black text-slate-900">{column.stats.completed} hours</span>
+                                                <span className="text-sm font-black text-slate-900 dark:text-slate-100">{column.stats.completed} hours</span>
                                             </div>
 
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2">
                                                     <Flag size={14} className="text-slate-300" />
-                                                    <span className="text-sm font-bold text-slate-500">Remaining:</span>
+                                                    <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Remaining:</span>
                                                 </div>
-                                                <span className="text-sm font-black text-slate-900">{Math.max(0, column.stats.min - column.stats.completed)} hours</span>
+                                                <span className="text-sm font-black text-slate-900 dark:text-slate-100">{Math.max(0, column.stats.min - column.stats.completed)} hours</span>
                                             </div>
                                         </div>
                                     </div>

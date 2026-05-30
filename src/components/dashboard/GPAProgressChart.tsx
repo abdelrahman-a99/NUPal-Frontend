@@ -29,16 +29,16 @@ interface GPAProgressChartProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
-                <p className="text-slate-900 font-bold mb-2">{label}</p>
+            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-200">
+                <p className="text-slate-900 dark:text-slate-100 font-bold mb-2">{label}</p>
                 {payload.map((entry: any, index: number) => (
                     <div key={index} className="flex items-center gap-2 mb-1">
                         <div
                             className="w-2.5 h-2.5 rounded-full"
                             style={{ backgroundColor: entry.color }}
                         />
-                        <span className="text-slate-600 text-sm font-medium">{entry.name}:</span>
-                        <span className="text-slate-900 text-sm font-bold">{entry.value.toFixed(2)}</span>
+                        <span className="text-slate-600 dark:text-slate-300 text-sm font-medium">{entry.name}:</span>
+                        <span className="text-slate-900 dark:text-slate-100 text-sm font-bold">{entry.value.toFixed(2)}</span>
                     </div>
                 ))}
             </div>
@@ -141,7 +141,7 @@ export default function GPAProgressChart({ data }: GPAProgressChartProps) {
                                                 className="w-2 h-2 rounded-full"
                                                 style={{ backgroundColor: entry.color }}
                                             />
-                                            <span className="text-white/90 font-bold text-[10px]">
+                                            <span className="text-white/90 dark:text-white/90 font-bold text-[10px]">
                                                 {entry.value}
                                             </span>
                                         </div>

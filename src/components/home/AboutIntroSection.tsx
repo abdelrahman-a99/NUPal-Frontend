@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function AboutIntroSection() {
   return (
-    <section id="about" className="relative bg-white pt-16 pb-24 overflow-hidden">
+    <section id="about" className="relative bg-white dark:bg-slate-900 pt-16 pb-24 overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, #3b82f6 1px, transparent 0)',
@@ -19,7 +19,7 @@ export default function AboutIntroSection() {
             <span className="text-sm font-semibold uppercase tracking-wider text-blue-400">About Us</span>
             <div className="mt-2 h-1 w-16 bg-gradient-to-r from-blue-400 to-indigo-600" />
           </div>
-          <h2 className="text-3xl font-bold text-slate-900 sm:text-2xl lg:text-3xl max-w-3xl leading-tight">NUPal empowers everyone to build their academic success</h2>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-2xl lg:text-3xl max-w-3xl leading-tight">NUPal empowers everyone to build their academic success</h2>
         </div>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           <div className="relative">
@@ -37,43 +37,43 @@ export default function AboutIntroSection() {
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <div className="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-400" />
-                <p className="text-lg leading-relaxed text-slate-700">NUPal is a cutting-edge academic advising platform that leverages artificial intelligence to transform how students navigate their educational journey. </p>
+                <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-200">NUPal is a cutting-edge academic advising platform that leverages artificial intelligence to transform how students navigate their educational journey. </p>
               </div>
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <div className="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-600" />
-                <p className="text-lg leading-relaxed text-slate-600">We empower students to make confident, informed decisions about their academic path. Through intelligent course recommendations, comprehensive progress tracking, and intuitive semester planning tools, NU PAL eliminates the complexity and uncertainty from academic planning.</p>
+                <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">We empower students to make confident, informed decisions about their academic path. Through intelligent course recommendations, comprehensive progress tracking, and intuitive semester planning tools, NU PAL eliminates the complexity and uncertainty from academic planning.</p>
               </div>
             </div>
-            <div className="pt-8 border-t border-slate-100 pb-8 sm:pb-0">
+            <div className="pt-8 border-t border-slate-100 dark:border-slate-800 pb-8 sm:pb-0">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4">
                 <Link href="/chat" className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center transition-colors group-hover:bg-blue-200">
+                  <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center transition-colors group-hover:bg-blue-200">
                     <span className="text-blue-400 text-[10px] font-bold">AI</span>
                   </div>
-                  <span className="text-[12px] font-bold text-slate-700 whitespace-nowrap group-hover:text-blue-500 transition-colors">AI-Powered</span>
+                  <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap group-hover:text-blue-500 transition-colors">AI-Powered</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex items-center gap-3 group">
                   <div className="w-8 h-8 flex-shrink-0 rounded-full bg-indigo-100 flex items-center justify-center transition-colors group-hover:bg-indigo-200">
                     <span className="text-indigo-600 text-[10px] font-bold">P</span>
                   </div>
-                  <span className="text-[12px] font-bold text-slate-700 whitespace-nowrap group-hover:text-indigo-500 transition-colors">Personalized</span>
+                  <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap group-hover:text-indigo-500 transition-colors">Personalized</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex items-center gap-3 group">
                   <div className="w-8 h-8 flex-shrink-0 rounded-full bg-purple-100 flex items-center justify-center transition-colors group-hover:bg-purple-200">
                     <span className="text-purple-600 text-[10px] font-bold">C</span>
                   </div>
-                  <span className="text-[12px] font-bold text-slate-700 whitespace-nowrap group-hover:text-purple-500 transition-colors">Comprehensive</span>
+                  <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap group-hover:text-purple-500 transition-colors">Comprehensive</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center transition-colors group-hover:bg-blue-200">
+                  <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center transition-colors group-hover:bg-blue-200">
                     <span className="text-blue-400 text-[10px] font-bold">I</span>
                   </div>
-                  <span className="text-[12px] font-bold text-slate-700 whitespace-nowrap group-hover:text-blue-500 transition-colors">Intuitive</span>
+                  <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap group-hover:text-blue-500 transition-colors">Intuitive</span>
                 </Link>
               </div>
             </div>
@@ -88,14 +88,14 @@ export default function AboutIntroSection() {
             <span className="text-sm font-bold uppercase tracking-[0.2em] text-blue-500">About Us</span>
             <div className="mt-2 h-1 w-12 bg-blue-500 mx-auto rounded-full" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 leading-[1.15] tracking-tight">
+          <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100 leading-[1.15] tracking-tight">
             NUPal empowers everyone to build their academic success
           </h2>
         </div>
         <div className="space-y-12">
           {/* Image First */}
           <div className="relative">
-            <div className="relative overflow-hidden rounded-[2.5rem] group shadow-2xl shadow-blue-500/10 border border-slate-100">
+            <div className="relative overflow-hidden rounded-[2.5rem] group shadow-2xl shadow-blue-500/10 border border-slate-100 dark:border-slate-800">
               <Image
                 src="/nile4.jpg"
                 alt="Nile University Campus"
@@ -115,41 +115,41 @@ export default function AboutIntroSection() {
           {/* Text Second */}
           <div className="space-y-10">
             <div className="space-y-6 text-center">
-              <p className="text-base sm:text-lg leading-relaxed text-slate-700 font-medium">
+              <p className="text-base sm:text-lg leading-relaxed text-slate-700 dark:text-slate-200 font-medium">
                 NUPal is a cutting-edge academic advising platform that leverages artificial intelligence to transform how students navigate their educational journey.
               </p>
-              <p className="text-sm sm:text-base leading-relaxed text-slate-500">
+              <p className="text-sm sm:text-base leading-relaxed text-slate-500 dark:text-slate-400">
                 We empower students to make confident, informed decisions about their academic path. Through intelligent course recommendations, comprehensive progress tracking, and intuitive semester planning tools, NUPal eliminates the complexity and uncertainty from academic planning.
               </p>
             </div>
-            <div className="pt-8 border-t border-slate-100">
+            <div className="pt-8 border-t border-slate-100 dark:border-slate-800">
               <div className="grid grid-cols-2 gap-y-8 gap-x-4 sm:grid-cols-4">
                 <Link href="/chat" className="flex flex-col items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/30">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/30">
                     <span className="text-blue-500 text-xs font-black group-hover:text-white transition-colors">AI</span>
                   </div>
-                  <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors text-center">AI-Powered</span>
+                  <span className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors text-center">AI-Powered</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex flex-col items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-600 group-hover:shadow-lg group-hover:shadow-indigo-600/30">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-600 group-hover:shadow-lg group-hover:shadow-indigo-600/30">
                     <span className="text-indigo-600 text-xs font-black group-hover:text-white transition-colors">P</span>
                   </div>
-                  <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-indigo-600 transition-colors text-center">Personalized</span>
+                  <span className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest group-hover:text-indigo-600 transition-colors text-center">Personalized</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex flex-col items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center transition-all duration-300 group-hover:bg-purple-600 group-hover:shadow-lg group-hover:shadow-purple-600/30">
+                  <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 flex items-center justify-center transition-all duration-300 group-hover:bg-purple-600 group-hover:shadow-lg group-hover:shadow-purple-600/30">
                     <span className="text-purple-600 text-xs font-black group-hover:text-white transition-colors">C</span>
                   </div>
-                  <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-purple-600 transition-colors text-center">Comprehensive</span>
+                  <span className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest group-hover:text-purple-600 transition-colors text-center">Comprehensive</span>
                 </Link>
 
                 <Link href="/dashboard" className="flex flex-col items-center gap-3 group">
                   <div className="w-12 h-12 rounded-2xl bg-cyan-50 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:shadow-lg group-hover:shadow-cyan-500/30">
                     <span className="text-cyan-500 text-xs font-black group-hover:text-white transition-colors">I</span>
                   </div>
-                  <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-cyan-500 transition-colors text-center">Intuitive</span>
+                  <span className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest group-hover:text-cyan-500 transition-colors text-center">Intuitive</span>
                 </Link>
               </div>
             </div>

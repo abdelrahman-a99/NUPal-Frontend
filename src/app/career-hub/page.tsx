@@ -226,29 +226,29 @@ function CareerHubPageInner() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70">
             {/* Top Section: Career Pathways & Skills Gap Analysis
-            <div className="relative overflow-hidden pb-16 pt-8 bg-slate-50">
+            <div className="relative overflow-hidden pb-16 pt-8 bg-slate-50 dark:bg-slate-900/70">
                 <div className="hidden md:block">
                     <BackgroundAnimation />
                 </div>
 
                 <div className="relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
                     <div className="md:hidden text-center mb-10">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold uppercase tracking-wide mb-3">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 text-blue-600 dark:text-blue-300 text-xs font-semibold uppercase tracking-wide mb-3">
                             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
                             Career Compass
                         </div>
-                        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
                             Real student results
                         </h1>
-                        <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
+                        <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                             Explore how your current skills align with market demands and discover your personalized path to success.
                         </p>
                     </div>
 
                     <div className="hidden md:block text-left mb-8">
-                        <h1 className="text-2xl font-bold text-slate-700 sm:text-2xl">
+                        <h1 className="text-2xl font-bold text-slate-700 dark:text-slate-200 sm:text-2xl">
                             Real student results
                         </h1>
                         <div className="mt-2 h-1.5 w-16 bg-blue-500 rounded-full"></div>
@@ -261,10 +261,10 @@ function CareerHubPageInner() {
                     />
 
                     <div className="mt-8 mx-auto w-full max-w-full">
-                        <div className="grid grid-cols-2 gap-2 md:flex md:gap-0 md:bg-white md:rounded-xl md:shadow-sm md:w-fit md:mx-auto md:overflow-hidden md:divide-x md:divide-slate-200">
+                        <div className="grid grid-cols-2 gap-2 md:flex md:gap-0 md:bg-white md:dark:bg-slate-900 md:rounded-xl md:shadow-sm md:w-fit md:mx-auto md:overflow-hidden md:divide-x md:divide-slate-200 md:dark:divide-slate-700">
                             {careerPaths.map((career) => (
                                 <div key={career.id} className="md:min-w-0">
-                                    <div className="h-full md:h-auto bg-white rounded-xl md:rounded-none border border-slate-200 md:border-0 shadow-sm md:shadow-none overflow-hidden transition-shadow md:transition-none hover:shadow-md md:hover:shadow-none">
+                                    <div className="h-full md:h-auto bg-white dark:bg-slate-900 rounded-xl md:rounded-none border border-slate-200 dark:border-slate-700 md:border-0 shadow-sm md:shadow-none overflow-hidden transition-shadow md:transition-none hover:shadow-md md:hover:shadow-none">
                                         <CareerCategoryBox
                                             id={career.id}
                                             title={career.title}
@@ -282,9 +282,9 @@ function CareerHubPageInner() {
             */}
 
             {/* Bottom Section: Header and Search */}
-            <div className="relative pb-16 pt-6 bg-slate-50">
+            <div className="relative pb-16 pt-6 bg-slate-50 dark:bg-slate-900/70">
                 <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8 z-10">
-                    <h2 className="text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                    <h2 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 mb-6 tracking-tight">
                         Find your{' '}
                         <span className="relative inline-block text-blue-500">
                             dream jobs
@@ -293,36 +293,36 @@ function CareerHubPageInner() {
                             </svg>
                         </span>
                     </h2>
-                    <p className="mt-2 text-lg text-slate-600">
+                    <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">
                         Find real opportunities at top companies
                     </p>
 
                     <form onSubmit={handleSearch} className="mt-10 w-full max-w-full px-1">
-                        <div className="mx-auto flex flex-col md:flex-row max-w-3xl items-center gap-3 rounded-lg bg-white p-2 shadow-lg w-full overflow-hidden">
+                        <div className="mx-auto flex flex-col md:flex-row max-w-3xl items-center gap-3 rounded-lg bg-white dark:bg-slate-900 p-2 shadow-lg w-full overflow-hidden">
                             <div className="relative w-full md:flex-1 min-w-0">
-                                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-slate-400" />
                                 <input
                                     type="text"
                                     placeholder="Job title or keyword"
                                     value={jobType}
                                     onChange={(e) => setJobType(e.target.value)}
-                                    className="w-full rounded-md border-0 bg-transparent py-3 pl-12 pr-4 text-slate-900 placeholder-slate-400 focus:outline-none"
+                                    className="w-full rounded-md border-0 bg-transparent py-3 pl-12 pr-4 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none"
                                 />
                             </div>
-                            <div className="hidden md:block h-8 w-px bg-slate-200"></div>
+                            <div className="hidden md:block h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
                             <div className="relative w-full md:flex-1 min-w-0">
-                                <MapPin className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                                <MapPin className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-slate-400" />
                                 <select
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
-                                    className="w-full appearance-none rounded-md border-0 bg-transparent py-3 pl-12 pr-10 text-slate-900 focus:outline-none truncate relative z-10"
+                                    className="w-full appearance-none rounded-md border-0 bg-transparent py-3 pl-12 pr-10 text-slate-900 dark:text-slate-100 focus:outline-none truncate relative z-10"
                                 >
                                     <option value="">All Locations</option>
                                     <option value="Cairo">Cairo</option>
                                     <option value="Alexandria">Alexandria</option>
                                     <option value="Giza">Giza</option>
                                 </select>
-                                <svg className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 z-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-400 z-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </svg>
                             </div>
@@ -335,7 +335,7 @@ function CareerHubPageInner() {
             </div>
 
             {/* Job Results Section with Sidebar */}
-            <div id="jobs-section" className="bg-slate-50 py-12">
+            <div id="jobs-section" className="bg-slate-50 dark:bg-slate-900/70 py-12">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex gap-8">
                         <div className="hidden md:block w-64 flex-shrink-0">
@@ -344,10 +344,14 @@ function CareerHubPageInner() {
                         <div className="flex-1 min-w-0">
                             <div className="mb-6 flex items-center justify-between gap-4">
                                 <div>
-                                    <h2 className="text-xl md:text-2xl font-bold text-slate-900">All Jobs</h2>
-                                    <p className="mt-0.5 text-[10px] md:text-sm text-slate-600">Showing {filteredJobs.length} result{filteredJobs.length !== 1 ? 's' : ''}</p>
+                                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-slate-100">All Jobs</h2>
+                                    <p className="mt-0.5 text-[10px] md:text-sm text-slate-600 dark:text-slate-300">Showing {filteredJobs.length} result{filteredJobs.length !== 1 ? 's' : ''}</p>
                                 </div>
-                                <Button onClick={() => setIsFilterOpen(true)} variant="none" className="md:hidden flex items-center gap-1.5 px-4 py-2 bg-blue-50/80 text-blue-600 rounded-full font-semibold text-xs shadow-sm hover:bg-blue-100 transition-all border border-blue-100/50">
+                                <Button
+                                    onClick={() => setIsFilterOpen(true)}
+                                    variant="none"
+                                    className="md:hidden flex items-center gap-1.5 px-4 py-2 bg-blue-50/80 text-blue-600 border border-blue-100/50 rounded-full font-semibold text-xs shadow-sm hover:bg-blue-100 transition-all dark:bg-[#1E2F4D] dark:text-[#BFDBFE] dark:border-[#355578] dark:hover:bg-[#2B466D] dark:shadow-none"
+                                >
                                     <SlidersHorizontal className="h-3.5 w-3.5" />
                                     <span>Filters</span>
                                 </Button>
@@ -356,18 +360,18 @@ function CareerHubPageInner() {
                             {isFilterOpen && (
                                 <div className="fixed inset-0 z-[100] md:hidden">
                                     <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]" onClick={() => setIsFilterOpen(false)} />
-                                    <div className="absolute left-0 right-0 bottom-0 bg-white rounded-t-[2.5rem] shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-500 max-h-[50vh]">
-                                        <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-4 mb-2" />
-                                        <div className="flex items-center justify-between px-8 py-3 border-b border-slate-50">
-                                            <h3 className="text-xl font-bold text-slate-900">Filters</h3>
-                                            <Button variant="none" size="none" onClick={() => setIsFilterOpen(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-                                                <X className="h-6 w-6 text-slate-500" />
+                                    <div className="absolute left-0 right-0 bottom-0 bg-white dark:bg-slate-900 rounded-t-[2.5rem] shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-500 max-h-[50vh]">
+                                        <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mt-4 mb-2" />
+                                        <div className="flex items-center justify-between px-8 py-3 border-b border-slate-50 dark:border-slate-800">
+                                            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Filters</h3>
+                                            <Button variant="none" size="none" onClick={() => setIsFilterOpen(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-full transition-colors">
+                                                <X className="h-6 w-6 text-slate-500 dark:text-slate-400" />
                                             </Button>
                                         </div>
                                         <div className="flex-1 overflow-y-auto px-8 py-4">
                                             <FilterSidebar onFilterChange={setTempFilters} topCompanies={topCompanies} selectedFilters={tempFilters} />
                                         </div>
-                                        <div className="p-4 pb-8 px-8 border-t border-slate-50 bg-white">
+                                        <div className="p-4 pb-8 px-8 border-t border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900">
                                             <Button className="w-full py-3.5 text-base font-bold shadow-lg shadow-blue-100 rounded-2xl" onClick={() => { setFilters(tempFilters); setIsFilterOpen(false); }}>
                                                 Show Results
                                             </Button>
@@ -377,7 +381,7 @@ function CareerHubPageInner() {
                             )}
 
                             {error && (
-                                <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+                                <div className="mb-6 rounded-lg border border-red-200 dark:border-red-800/60 bg-red-50 dark:bg-red-950/40 p-4 text-red-800 dark:text-red-200">
                                     <p className="text-sm font-medium">{error}</p>
                                 </div>
                             )}
@@ -385,7 +389,7 @@ function CareerHubPageInner() {
                             {loading && (
                                 <div className="space-y-4">
                                     {[1, 2, 3].map((i) => (
-                                        <div key={i} className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-4">
+                                        <div key={i} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm space-y-4">
                                             <div className="flex gap-4">
                                                 <Skeleton className="h-12 w-12 rounded-xl" />
                                                 <div className="flex-1 space-y-2">
@@ -410,12 +414,12 @@ function CareerHubPageInner() {
                             )}
 
                             {!loading && filteredJobs.length === 0 && !error && (
-                                <div className="rounded-lg border-2 border-dashed border-slate-300 bg-white p-12 text-center">
-                                    <div className="mx-auto h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center">
-                                        <Search className="h-6 w-6 text-slate-400" />
+                                <div className="rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 p-12 text-center">
+                                    <div className="mx-auto h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                        <Search className="h-6 w-6 text-slate-400 dark:text-slate-400" />
                                     </div>
-                                    <h3 className="mt-4 text-lg font-semibold text-slate-900">No jobs found</h3>
-                                    <p className="mt-2 text-sm text-slate-600">Try adjusting your search criteria or filters.</p>
+                                    <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">No jobs found</h3>
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Try adjusting your search criteria or filters.</p>
                                 </div>
                             )}
                         </div>
@@ -429,14 +433,14 @@ function CareerHubPageInner() {
 export default function CareerHubPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-slate-50 py-12">
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-900/70 py-12">
                 <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
                     <div className="animate-pulse space-y-8">
-                        <div className="h-10 w-64 bg-slate-200 rounded-lg mb-8" />
-                        <div className="h-[400px] bg-white rounded-3xl border border-slate-100 shadow-sm" />
+                        <div className="h-10 w-64 bg-slate-200 dark:bg-slate-700 rounded-lg mb-8" />
+                        <div className="h-[400px] bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm" />
                         <div className="flex gap-4">
                             {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="h-20 flex-1 bg-white rounded-xl border border-slate-100 shadow-sm" />
+                                <div key={i} className="h-20 flex-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm" />
                             ))}
                         </div>
                     </div>

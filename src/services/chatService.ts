@@ -13,6 +13,23 @@ export interface ChatReply {
   kind: string;
   content: string;
   metadata_json?: string;
+  agent_trace_id?: string;
+  agent_route?: string;
+  agent_status?: string;
+}
+
+export interface ChatHistoryMessage {
+  id: string;
+  role: 'user' | 'assistant' | string;
+  kind?: string;
+  content: string;
+  metadata_json?: string;
+  agent_trace_id?: string;
+  agent_route?: string;
+  agent_status?: string;
+  route_confidence?: number;
+  route_reason?: string;
+  created_at: string;
 }
 
 export interface ChatSendResponse {
@@ -74,7 +91,7 @@ export async function getConversations() {
   return await response.json();
 }
 
-export async function getMessages(conversationId: string) {
+export async function getMessages(conversationId: string): Promise<ChatHistoryMessage[]> {
   const token = getToken();
   if (!token) return [];
 

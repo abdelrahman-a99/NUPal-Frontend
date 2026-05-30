@@ -800,16 +800,16 @@ export default function VoiceInterviewPage() {
 
   if (phase === "feedback" || phase === "report") {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-8 lg:px-12 bg-white min-h-screen">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-8 lg:px-12 bg-white dark:bg-slate-900 min-h-screen">
         <div className="mb-8">
           <button
             onClick={() => {
               sessionStorage.removeItem(STORAGE_KEY);
               router.push(CAREER_INTERVIEW_SETUP);
             }}
-            className="group flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-all duration-300"
+            className="group flex items-center gap-2.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all duration-300"
           >
-            <div className="p-2 rounded-xl bg-slate-50 group-hover:bg-slate-100 border border-slate-100 group-hover:scale-110 transition-all">
+            <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-900/70 group-hover:bg-slate-100 border border-slate-100 dark:border-slate-800 group-hover:scale-110 transition-all">
               <ArrowLeft className="h-4 w-4" />
             </div>
             <span className="text-sm font-bold tracking-tight">Back to Dashboard</span>
@@ -832,23 +832,23 @@ export default function VoiceInterviewPage() {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-50 text-slate-900 font-sans flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-900/70 text-slate-900 dark:text-slate-100 font-sans flex flex-col overflow-hidden">
       {/* ── PREMIUM HEADER ────────────────────────────────────────── */}
-      <header className="shrink-0 z-50 border-b border-slate-200 bg-white px-6 py-4">
+      <header className="shrink-0 z-50 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-4">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <button
               type="button"
               onClick={abandon}
-              className="group flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-all shadow-sm"
+              className="group flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all shadow-sm"
             >
-              <ArrowLeft className="h-5 w-5 text-slate-600 group-hover:text-slate-900 transition-colors" />
+              <ArrowLeft className="h-5 w-5 text-slate-600 dark:text-slate-300 group-hover:text-slate-900 transition-colors" />
             </button>
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 {formData.jobTitle || formData.topic || "Technical Interview"}
               </h1>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-blue-500" />
                 Live AI Session · {formData.difficulty} level
               </p>
@@ -857,8 +857,8 @@ export default function VoiceInterviewPage() {
 
           <div className="flex items-center gap-4">
             {isConnected && timeLeft !== null && (
-              <div className="flex items-center gap-2 text-slate-600 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-                <Clock className="h-3.5 w-3.5 text-blue-600" />
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/70 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                <Clock className="h-3.5 w-3.5 text-blue-600 dark:text-blue-300" />
                 <span className="font-mono text-sm font-bold">
                   {formatTime(timeLeft)}
                 </span>
@@ -879,9 +879,9 @@ export default function VoiceInterviewPage() {
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="shrink-0 mb-6 rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-sm text-red-800 flex items-center gap-3 shadow-sm"
+            className="shrink-0 mb-6 rounded-2xl border border-red-200 dark:border-red-800/60 bg-red-50 dark:bg-red-950/40 px-6 py-4 text-sm text-red-800 dark:text-red-200 flex items-center gap-3 shadow-sm"
           >
-            <div className="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+            <div className="h-8 w-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center shrink-0">
                <ArrowLeft className="h-4 w-4 bg-red-500 rotate-180" />
             </div>
             <p className="font-semibold">{error}</p>
@@ -898,30 +898,30 @@ export default function VoiceInterviewPage() {
               
               {/* SIMPLIFIED REAL-TIME ANALYSIS (Moved to top for better eye-contact UX) */}
               <div className="shrink-0 grid grid-cols-2 gap-4">
-                 <div className="flex items-center justify-between p-5 rounded-[2rem] bg-white border border-slate-200 shadow-sm transition-all hover:shadow-md">
+                 <div className="flex items-center justify-between p-5 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
                     <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100/50">
-                          <Target className="h-5 w-5 text-blue-600" />
+                       <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center border border-blue-100/50">
+                          <Target className="h-5 w-5 text-blue-600 dark:text-blue-300" />
                        </div>
                        <div>
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Movement Symmetry</p>
-                          <h4 className="text-sm font-black text-slate-900 tracking-tight">Body Stability</h4>
+                          <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest leading-none mb-1">Movement Symmetry</p>
+                          <h4 className="text-sm font-black text-slate-900 dark:text-slate-100 tracking-tight">Body Stability</h4>
                        </div>
                     </div>
-                    <span className="text-lg font-black text-blue-600">{isConnected ? `${livePoseStats.symmetry}%` : '—'}</span>
+                    <span className="text-lg font-black text-blue-600 dark:text-blue-300">{isConnected ? `${livePoseStats.symmetry}%` : '—'}</span>
                  </div>
 
-                 <div className="flex items-center justify-between p-5 rounded-[2rem] bg-white border border-slate-200 shadow-sm transition-all hover:shadow-md">
+                 <div className="flex items-center justify-between p-5 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
                     <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center border border-emerald-100/50">
-                          <Eye className="h-5 w-5 text-emerald-600" />
+                       <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center border border-emerald-100/50">
+                          <Eye className="h-5 w-5 text-emerald-600 dark:text-emerald-300" />
                        </div>
                        <div>
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Gaze Alignment</p>
-                          <h4 className="text-sm font-black text-slate-900 tracking-tight">Focus Score</h4>
+                          <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest leading-none mb-1">Gaze Alignment</p>
+                          <h4 className="text-sm font-black text-slate-900 dark:text-slate-100 tracking-tight">Focus Score</h4>
                        </div>
                     </div>
-                    <span className="text-lg font-black text-emerald-600">{isConnected ? `${livePoseStats.gaze}%` : '—'}</span>
+                    <span className="text-lg font-black text-emerald-600 dark:text-emerald-300">{isConnected ? `${livePoseStats.gaze}%` : '—'}</span>
                  </div>
               </div>
 
@@ -940,20 +940,20 @@ export default function VoiceInterviewPage() {
                 ) : (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-indigo-950">
                     <div className="relative block h-40 w-40 rounded-full border-4 border-white/5 bg-white/10 backdrop-blur-lg p-1.5 shadow-2xl">
-                       <div className="h-full w-full rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
+                       <div className="h-full w-full rounded-full bg-white/20 dark:bg-slate-900/20 flex items-center justify-center overflow-hidden">
                           <User className="h-16 w-16 text-white/40" />
                        </div>
                        <motion.div 
                           animate={isConnected ? { scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] } : {}}
                           transition={{ duration: 2, repeat: Infinity }}
-                          className="absolute -inset-2 rounded-full border border-white/20"
+                          className="absolute -inset-2 rounded-full border border-white/20 dark:border-white/10"
                        />
                     </div>
                     <div className="mt-8 text-center px-10 text-white">
                        <p className="text-lg font-bold tracking-wide opacity-90 leading-tight">
                          {isConnected ? "Camera Feed Protected" : "Initialize Camera Permissions"}
                        </p>
-                       <p className="text-sm text-slate-400 mt-2 font-medium">Standard audio-first AI protocols are active.</p>
+                       <p className="text-sm text-slate-400 dark:text-slate-400 mt-2 font-medium">Standard audio-first AI protocols are active.</p>
                     </div>
                   </div>
                 )}
@@ -983,7 +983,7 @@ export default function VoiceInterviewPage() {
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       className="absolute top-8 right-8 z-30 overflow-hidden"
                     >
-                       <div className="relative w-64 h-48 rounded-[2.5rem] bg-indigo-900/30 backdrop-blur-2xl border border-white/20 overflow-hidden p-1.5">
+                       <div className="relative w-64 h-48 rounded-[2.5rem] bg-indigo-900/30 backdrop-blur-2xl border border-white/20 dark:border-white/10 overflow-hidden p-1.5">
                           <div className="relative h-full w-full rounded-[2.2rem] bg-gradient-to-br from-indigo-500/80 to-blue-600/80 overflow-hidden flex items-center justify-center group/bot">
                              {/* Mock AI Avatar - using a glowing Bot icon for now */}
                              <motion.div 
@@ -994,7 +994,7 @@ export default function VoiceInterviewPage() {
                                 className="relative flex items-center justify-center h-20 w-20 rounded-full bg-white/10"
                              >
                                 <Bot className={`h-10 w-10 ${isInterviewerSpeaking ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'text-white/40'}`} />
-                                <div className="absolute -inset-2 rounded-full border border-white/20 opacity-0 group-hover/bot:opacity-100 transition-opacity" />
+                                <div className="absolute -inset-2 rounded-full border border-white/20 dark:border-white/10 opacity-0 group-hover/bot:opacity-100 transition-opacity" />
                              </motion.div>
                              
                              {/* Label */}
@@ -1011,7 +1011,7 @@ export default function VoiceInterviewPage() {
                                       key={i}
                                       animate={{ height: ["40%", "100%", "40%"] }}
                                       transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
-                                      className="w-1 rounded-full bg-white"
+                                      className="w-1 rounded-full bg-white dark:bg-slate-900"
                                     />
                                   ))}
                                </div>
@@ -1068,11 +1068,11 @@ export default function VoiceInterviewPage() {
 
             {/* ── RIGHT COLUMN: SMART TRANSCRIPT (Question List) ──────── */}
             <div className="lg:col-span-4 h-full relative min-h-0">
-              <div className="absolute inset-0 flex flex-col bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+              <div className="absolute inset-0 flex flex-col bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
                 
                 {/* Tabs / Header */}
-                <div className="shrink-0 p-5 pb-3 border-b border-slate-100 flex items-center justify-between">
-                   <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.15em]">Question List</h3>
+                <div className="shrink-0 p-5 pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                   <h3 className="text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-[0.15em]">Question List</h3>
                    <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
                 </div>
 
@@ -1080,11 +1080,11 @@ export default function VoiceInterviewPage() {
                 <div className="flex-1 overflow-y-auto p-5 custom-scrollbar min-h-0">
                    {transcript.length === 0 ? (
                       <div className="h-full flex flex-col items-center justify-center text-center p-6 grayscale">
-                         <div className="h-12 w-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-4">
+                         <div className="h-12 w-12 rounded-2xl bg-slate-50 dark:bg-slate-900/70 flex items-center justify-center mb-4">
                             <MessageSquare className="h-6 w-6 text-slate-300" />
                          </div>
-                         <h4 className="text-xs font-bold text-slate-900 mb-1">Begin Session</h4>
-                         <p className="text-[10px] font-semibold text-slate-400 leading-relaxed uppercase tracking-widest">Connect to start the dialogue stream.</p>
+                         <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mb-1">Begin Session</h4>
+                         <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-400 leading-relaxed uppercase tracking-widest">Connect to start the dialogue stream.</p>
                       </div>
                    ) : (
                      <div className="flex flex-col gap-4">
@@ -1094,20 +1094,20 @@ export default function VoiceInterviewPage() {
                                key={`${t.timestamp}-${i}`}
                                initial={{ opacity: 0, scale: 0.95 }}
                                animate={{ opacity: 1, scale: 1 }}
-                               className={`relative flex flex-col gap-2 p-4 rounded-2xl border transition-all ${t.speaker === 'user' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/5 self-end w-[90%]' : 'bg-white text-slate-800 border-slate-100 shadow-sm self-start w-[90%]'}`}
+                               className={`relative flex flex-col gap-2 p-4 rounded-2xl border transition-all ${t.speaker === 'user' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/5 self-end w-[90%]' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-slate-100 dark:border-slate-800 shadow-sm self-start w-[90%]'}`}
                              >
                                 <div className="flex items-start justify-between gap-3">
-                                   <div className={`h-6 w-6 shrink-0 rounded-lg flex items-center justify-center text-[9px] font-black ${t.speaker === 'user' ? 'bg-white/20 text-white' : 'bg-slate-900 text-white'}`}>
+                                   <div className={`h-6 w-6 shrink-0 rounded-lg flex items-center justify-center text-[9px] font-black ${t.speaker === 'user' ? 'bg-white/20 dark:bg-slate-900/20 text-white' : 'bg-slate-900 text-white'}`}>
                                       {(i + 1).toString().padStart(2, '0')}
                                    </div>
                                    <div className="flex-1">
-                                      <p className={`text-[12px] font-bold leading-relaxed ${t.speaker === 'user' ? 'text-white' : 'text-slate-900'}`}>
+                                      <p className={`text-[12px] font-bold leading-relaxed ${t.speaker === 'user' ? 'text-white' : 'text-slate-900 dark:text-slate-100'}`}>
                                          {t.text}
                                       </p>
                                    </div>
                                    {t.speaker === 'interviewer' && (
-                                      <div className="h-5 w-5 rounded-full bg-emerald-100 flex items-center justify-center">
-                                         <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                                      <div className="h-5 w-5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+                                         <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-300" />
                                       </div>
                                    )}
                                 </div>
@@ -1124,7 +1124,7 @@ export default function VoiceInterviewPage() {
                    <motion.div 
                      initial={{ y: 20 }}
                      animate={{ y: 0 }}
-                     className="px-6 py-4 bg-emerald-50/50 border-t border-slate-100 flex items-center justify-between"
+                     className="px-6 py-4 bg-emerald-50/50 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between"
                    >
                       <div className="flex items-center gap-2">
                          <div className="flex gap-1 items-center h-3">
@@ -1137,7 +1137,7 @@ export default function VoiceInterviewPage() {
                                />
                             ))}
                          </div>
-                         <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Mic Active</span>
+                         <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-300 uppercase tracking-widest">Mic Active</span>
                       </div>
                       <Smile className="h-3.5 w-3.5 text-emerald-500" />
                    </motion.div>

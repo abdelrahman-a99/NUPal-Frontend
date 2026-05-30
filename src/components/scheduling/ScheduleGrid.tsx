@@ -82,17 +82,17 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
     const totalHeight = HEADER_HEIGHT + HOURS.length * ROW_HEIGHT;
 
     return (
-        <div className="flex-1 bg-white rounded-2xl border border-slate-100 overflow-x-auto md:overflow-hidden shadow-inner">
-            <div className="relative min-w-[750px] md:min-w-0 md:w-full overflow-hidden" style={{ height: totalHeight }}>
+        <div className="flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-inner">
+            <div className="relative w-full overflow-hidden" style={{ height: totalHeight }}>
                 {/* Header row */}
-                <div className="flex sticky top-0 z-30 bg-slate-50/95 backdrop-blur-sm border-b border-slate-200" style={{ height: HEADER_HEIGHT }}>
-                    <div className="flex-shrink-0 border-r border-slate-200" style={{ width: TIME_COL_WIDTH }} />
+                <div className="flex sticky top-0 z-30 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700" style={{ height: HEADER_HEIGHT }}>
+                    <div className="flex-shrink-0 border-r border-slate-200 dark:border-slate-700" style={{ width: TIME_COL_WIDTH }} />
                     <div className="flex-1 flex">
                         {daysToShow.map((day, idx) => (
                             <div
                                 key={day}
-                                className={`flex-1 flex items-center justify-center text-[11px] font-bold text-slate-500 uppercase tracking-wider ${
-                                    idx !== daysToShow.length - 1 ? 'border-r border-slate-100' : ''
+                                className={`flex-1 flex items-center justify-center text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider ${
+                                    idx !== daysToShow.length - 1 ? 'border-r border-slate-100 dark:border-slate-800' : ''
                                 }`}
                             >
                                 {day.slice(0, 3)}
@@ -106,7 +106,7 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                     {HOURS.map(hour => (
                         <div key={hour} className="flex border-b border-slate-100/60" style={{ height: ROW_HEIGHT }}>
                             <div
-                                className="flex-shrink-0 flex items-center justify-center border-r border-slate-200 text-[10px] font-bold text-slate-400 bg-slate-50/30"
+                                className="flex-shrink-0 flex items-center justify-center border-r border-slate-200 dark:border-slate-700 text-[10px] font-bold text-slate-400 dark:text-slate-400 bg-slate-50/30 dark:bg-slate-900/30"
                                 style={{ width: TIME_COL_WIDTH }}
                             >
                                 {formatHour(hour)}
@@ -132,7 +132,7 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                             return (
                                 <div
                                     key={`${course.courseId}-${idx}`}
-                                    className="rounded-lg bg-white shadow-sm border border-slate-200/60 cursor-pointer overflow-hidden group pointer-events-auto"
+                                    className="rounded-lg bg-white dark:bg-slate-900 shadow-sm border border-slate-200/60 dark:border-slate-700/60 cursor-pointer overflow-hidden group pointer-events-auto"
                                     style={{ ...style, borderLeftWidth: 4, borderLeftColor: color }}
                                     onClick={() => onCoursePress?.(course)}
                                 >
@@ -140,7 +140,7 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                                         <div className="absolute top-1 right-1 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             {onCourseRemove && (
                                                 <button 
-                                                    className="w-5 h-5 rounded flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-100"
+                                                    className="w-5 h-5 rounded flex items-center justify-center bg-red-50 dark:bg-red-950/40 text-red-500 hover:bg-red-100"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         onCourseRemove(course);
@@ -154,7 +154,7 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                                             )}
                                             {onCourseEdit && (
                                                 <button 
-                                                    className="w-5 h-5 rounded flex items-center justify-center bg-blue-50 text-blue-500 hover:bg-blue-100"
+                                                    className="w-5 h-5 rounded flex items-center justify-center bg-blue-50 dark:bg-blue-950/40 text-blue-500 hover:bg-blue-100"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         onCourseEdit(course);
@@ -168,10 +168,10 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                                                 </button>
                                             )}
                                         </div>
-                                        <p className="text-[10px] text-slate-400 font-bold leading-none pr-4">
+                                        <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold leading-none pr-4">
                                             {formatTime(course.start)}
                                         </p>
-                                        <p className="text-[11px] font-bold text-slate-800 leading-tight mt-0.5 truncate pr-4 group-hover:text-blue-600 transition-colors">
+                                        <p className="text-[11px] font-bold text-slate-800 dark:text-slate-100 leading-tight mt-0.5 truncate pr-4 group-hover:text-blue-600 transition-colors">
                                             {course.courseName}
                                         </p>
                                         <div className="flex items-center gap-1.5 mt-0.5 pr-4">
@@ -179,7 +179,7 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
                                                 {course.section ? `Sec ${course.section}` : course.room || ''}
                                             </p>
                                             {course.subtype && (
-                                                <span className={`text-[8px] font-bold px-1 rounded-sm uppercase ${course.subtype.toLowerCase().includes('lecture') ? 'bg-indigo-50 text-indigo-500' : 'bg-amber-50 text-amber-500'}`}>
+                                                <span className={`text-[8px] font-bold px-1 rounded-sm uppercase ${course.subtype.toLowerCase().includes('lecture') ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-500'}`}>
                                                     {course.subtype}
                                                 </span>
                                             )}

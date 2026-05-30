@@ -76,9 +76,9 @@ const AIAvatar = ({ mouseX, mouseY, isActive }: AIAvatarProps = {}) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {/* Actual Background Image from public/omni-bg.png */}
+            {/* Background image only for light mode; dark mode inherits the card background */}
             <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 pointer-events-none"
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 pointer-events-none dark:hidden"
                 style={{ backgroundImage: 'url("/omni-bg.png")' }}
             ></div>
 
