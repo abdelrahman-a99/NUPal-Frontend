@@ -315,7 +315,11 @@ export function SchedulingPageInner() {
                 setRlLoading(true);
                 try {
                     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-                    const url = `${baseUrl}/api/students/${data.account.id}/rl-recommendation`;
+                    const params = new URLSearchParams({
+                        targetTrack: 'general',
+                        objectiveProfile: 'balanced',
+                    });
+                    const url = `${baseUrl}/api/students/${data.account.id}/rl-recommendation?${params.toString()}`;
 
                     const res = await fetch(url, {
                         headers: { 'Authorization': `Bearer ${token}` }
