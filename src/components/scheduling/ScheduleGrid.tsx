@@ -82,8 +82,8 @@ export default function ScheduleGrid({ courses, onCoursePress, onCourseRemove, o
     const totalHeight = HEADER_HEIGHT + HOURS.length * ROW_HEIGHT;
 
     return (
-        <div className="flex-1 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-inner">
-            <div className="relative w-full overflow-hidden" style={{ height: totalHeight }}>
+        <div className="flex-1 bg-white rounded-2xl border border-slate-100 overflow-x-auto md:overflow-hidden shadow-inner">
+            <div className="relative min-w-[750px] md:min-w-0 md:w-full overflow-hidden" style={{ height: totalHeight }}>
                 {/* Header row */}
                 <div className="flex sticky top-0 z-30 bg-slate-50/95 backdrop-blur-sm border-b border-slate-200" style={{ height: HEADER_HEIGHT }}>
                     <div className="flex-shrink-0 border-r border-slate-200" style={{ width: TIME_COL_WIDTH }} />

@@ -58,13 +58,48 @@ export function setToken(token: string) {
   }
 }
 
+export function isTokenExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    if (!payload.exp) return true;
+    return payload.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+}
+
 export function getToken(): string | null {
   if (typeof window !== 'undefined') {
     const sessionToken = sessionStorage.getItem(AUTH_TOKEN_KEY);
-    if (sessionToken) return sessionToken;
+    if (sessionToken) {
+      if (isTokenExpired(sessionToken)) {
+        removeToken();
+        return null;
+      }
+      if (!getCookie('token')) {
+        document.cookie = `token=${sessionToken};path=/;SameSite=Lax`;
+      }
+      return sessionToken;
+    }
     const localToken = localStorage.getItem(AUTH_TOKEN_KEY);
-    if (localToken) return localToken;
-    return getCookie('token');
+    if (localToken) {
+      if (isTokenExpired(localToken)) {
+        removeToken();
+        return null;
+      }
+      if (!getCookie('token')) {
+        setCookie('token', localToken, 7);
+      }
+      return localToken;
+    }
+    const cookieToken = getCookie('token');
+    if (cookieToken) {
+      if (isTokenExpired(cookieToken)) {
+        removeToken();
+        return null;
+      }
+      return cookieToken;
+    }
   }
   return null;
 }

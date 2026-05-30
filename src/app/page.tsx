@@ -13,25 +13,41 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export default function Home() {
   const { scrollToId } = useSmoothScroll(70);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
+    let timer: NodeJS.Timeout;
+    const checkAuth = async () => {
+      const { getToken, parseJwt } = await import('@/lib/auth');
+      const token = getToken();
+      if (token) {
+        const user = parseJwt(token);
+        const destination = user?.role === 'admin' ? '/admin' : '/dashboard';
+        window.location.href = destination;
+      } else {
+        setCheckingAuth(false);
+        timer = setTimeout(() => setLoading(false), 1500);
+      }
+    };
+    checkAuth();
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && !loading) {
+    if (hash && !loading && !checkingAuth) {
       // Small delay to ensure content is rendered on initial mount
       const timer = setTimeout(() => {
         scrollToId(hash);
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [scrollToId, loading]);
+  }, [scrollToId, loading, checkingAuth]);
 
-  if (loading) {
+  if (checkingAuth || loading) {
     return <HomeSkeleton />;
   }
 

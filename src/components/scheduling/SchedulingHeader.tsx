@@ -19,11 +19,11 @@ export default function SchedulingHeader({
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
                 <div className="mb-6 flex flex-col items-center text-center">
-                    <h1 className="flex items-center justify-center gap-3 text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-                        <CalendarDays className="h-9 w-9 text-[#2F80ED] drop-shadow-sm" strokeWidth={2.5} />
-                        Build your perfect <span className="text-[#2F80ED]">schedule</span>
+                    <h1 className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+                        <CalendarDays className="h-7 w-7 sm:h-9 sm:w-9 text-[#2F80ED] drop-shadow-sm shrink-0" strokeWidth={2.5} />
+                        <span>Build your perfect <span className="text-[#2F80ED]">schedule</span></span>
                     </h1>
-                    <p className="text-slate-500 mt-3 text-base max-w-lg leading-relaxed">
+                    <p className="text-slate-500 mt-3 text-sm sm:text-base max-w-lg leading-relaxed px-2">
                         Explore available blocks, customize your courses, and let AI build your conflict-free timetable.
                     </p>
                 </div>

@@ -17,14 +17,10 @@ export async function fetchDynamicSkillsProfile(): Promise<DynamicSkillsProfile 
     try {
         const token = getToken();
 
-        console.log('Token found:', token ? 'Yes' : 'No');
-
         if (!token) {
-            console.warn('No authentication token found');
             return null;
         }
 
-        console.log('Fetching dynamic skills profile from API...');
         const response = await fetch(`${API_ENDPOINTS.SKILLS}/profile`, {
 
             headers: {
@@ -33,21 +29,16 @@ export async function fetchDynamicSkillsProfile(): Promise<DynamicSkillsProfile 
             },
         });
 
-        console.log('API Response status:', response.status);
-
         if (!response.ok) {
             if (response.status === 401) {
-                console.warn('Unauthorized - token may be invalid');
                 return null;
             }
             throw new Error(`Failed to fetch dynamic skills profile: ${response.statusText}`);
         }
 
         const data = await response.json();
-        console.log('Dynamic skills profile data:', data);
         return data;
     } catch (error) {
-        console.error('Error fetching dynamic skills profile:', error);
         return null;
     }
 }

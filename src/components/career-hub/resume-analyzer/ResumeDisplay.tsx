@@ -41,8 +41,8 @@ export function ResumeDisplay({ data, fileName, onReset }: ResumeDisplayProps) {
               <div className="w-20 h-20 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-3xl shrink-0 uppercase">
                 {data.fullName?.[0] ?? '?'}
               </div>
-              <div className="text-center sm:text-left flex-1 min-w-0">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-950">{data.fullName ?? 'Candidate Name'}</h2>
+              <div className="text-center sm:text-left flex-1 min-w-0 w-full">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 break-words">{data.fullName ?? 'Candidate Name'}</h2>
                 <div className="mt-4 flex flex-wrap justify-center sm:justify-start gap-y-3 gap-x-5">
                   {data.email && (
                     <a href={`mailto:${data.email}`} className="flex items-center gap-2 text-sm text-slate-950 font-medium hover:text-blue-600">

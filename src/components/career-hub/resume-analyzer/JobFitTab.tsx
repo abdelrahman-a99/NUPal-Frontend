@@ -133,11 +133,11 @@ export function JobFitTab({
         </div>
       </div>
 
-      <div className="mt-12 flex justify-center pt-8 border-t border-slate-50">
+      <div className="mt-12 flex justify-center pt-8 border-t border-slate-50 w-full">
         <button
           onClick={onAnalyze}
           disabled={!canAnalyze || isAnalyzing || !selectedResumeId}
-          className="px-12 py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:opacity-50 disabled:active:scale-100 text-white font-bold text-sm rounded-2xl transition-all tracking-wide shadow-lg shadow-blue-500/20 flex items-center gap-3"
+          className="w-full sm:w-auto px-12 py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:opacity-50 disabled:active:scale-100 text-white font-bold text-sm rounded-2xl transition-all tracking-wide shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3"
         >
           {isAnalyzing ? (
             <>
