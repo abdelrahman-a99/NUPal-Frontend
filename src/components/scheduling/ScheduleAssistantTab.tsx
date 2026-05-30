@@ -186,9 +186,9 @@ export default function ScheduleAssistantTab({
     return (
         <div className="w-full">
             {/* Single-page form header */}
-            <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-3 pl-2">
-                    <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                <div className="flex items-center gap-3 pl-0 sm:pl-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center shrink-0">
                         <Sparkles size={18} className="text-[#2F80ED]" />
                     </div>
                     <div>
@@ -611,9 +611,9 @@ export default function ScheduleAssistantTab({
                         </div>
                     </div>
 
-                    <div className="flex justify-end">
+                    <div className="flex justify-end w-full">
                         <button
-                            className={`flex items-center justify-center gap-2.5 py-3 px-8 rounded-xl text-sm font-bold text-white transition-all shadow-md active:scale-95 ${computing || useMyData === null || (useMyData ? advisorSelectedNames.length === 0 : manualSelectedNames.length === 0)
+                            className={`flex items-center justify-center gap-2.5 py-3 px-8 rounded-xl text-sm font-bold text-white transition-all shadow-md active:scale-95 w-full sm:w-auto ${computing || useMyData === null || (useMyData ? advisorSelectedNames.length === 0 : manualSelectedNames.length === 0)
                                 ? 'bg-slate-300 cursor-not-allowed opacity-70'
                                 : results.length > 0 && !isDirty
                                     ? 'bg-slate-800 hover:bg-slate-900 shadow-slate-200/50'
@@ -804,8 +804,8 @@ export default function ScheduleAssistantTab({
                                                         </div>
 
                                                         {/* Bottom Row: Days and Button on same line */}
-                                                        <div className="flex items-center justify-between mt-1">
-                                                            <div className="flex items-center gap-1">
+                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
+                                                            <div className="flex items-center gap-1 overflow-x-auto py-0.5 scrollbar-none">
                                                                 {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Saturday'].map((d: any) => {
                                                                     const isActive = uniqueDaysList.includes(d);
                                                                     return (
@@ -822,7 +822,7 @@ export default function ScheduleAssistantTab({
                                                                 })}
                                                             </div>
 
-                                                            <div className="flex items-center gap-2">
+                                                            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                                 <button
                                                                     className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-[11px] font-bold transition-all shadow-sm"
                                                                     onClick={() => setPreviewBlock(rec.block.courses)}
@@ -831,7 +831,7 @@ export default function ScheduleAssistantTab({
                                                                     Preview
                                                                 </button>
                                                                 <button
-                                                                    className={`flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-white text-[11px] font-bold transition-all shadow-md ${
+                                                                    className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-white text-[11px] font-bold transition-all shadow-md ${
                                                                         registeringId === rec.block.blockId ? 'bg-blue-300' : 
                                                                         (myRegistration?.status === 'Pending' || myRegistration?.status === 'Approved') ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20' :
                                                                         'bg-blue-500 hover:bg-blue-600 shadow-blue-500/20'

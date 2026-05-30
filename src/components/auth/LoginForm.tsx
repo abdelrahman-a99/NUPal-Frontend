@@ -10,8 +10,24 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   const [err, setErr] = useState('');
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { getToken, parseJwt } = await import('@/lib/auth');
+      const token = getToken();
+      if (token) {
+        const user = parseJwt(token);
+        const destination = user?.role === 'admin' ? '/admin' : '/dashboard';
+        window.location.href = destination;
+      } else {
+        setCheckingAuth(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -63,6 +79,10 @@ export default function LoginForm() {
       setIsSubmitting(false);
     }
   };
+
+  if (checkingAuth) {
+    return null;
+  }
 
   return (
     <div className="h-screen bg-white dark:bg-slate-900 relative overflow-hidden overflow-x-hidden flex items-center justify-center px-6">
@@ -121,15 +141,6 @@ export default function LoginForm() {
               <Image src="/logo.svg" alt="NUPal" width={100} height={34} priority className="cursor-pointer" />
             </Link>
           </div>
-          {/* <Link
-            href="/"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur ring-1 ring-slate-200 dark:ring-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-700 hover:bg-white dark:hover:bg-slate-800 transition"
-            aria-label="Back to home"
-          > */}
-          {/* <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-            </svg> */}
-          {/* </Link> */}
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>

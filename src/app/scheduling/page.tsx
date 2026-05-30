@@ -221,10 +221,9 @@ export function SchedulingPageInner() {
                 if (draft.advisorSelectedNames) setAdvisorSelectedNames(draft.advisorSelectedNames);
                 if (draft.prefs) setPrefs(prev => ({ ...prev, ...draft.prefs }));
                 if (draft.useMyData !== undefined) setUseMyData(draft.useMyData);
-                console.log('[Draft] Restored scheduling progress');
             }
         } catch (e) {
-            console.warn('Failed to load scheduling draft:', e);
+            // Silently catch error
         } finally {
             setHasRestored(true);
         }
@@ -284,7 +283,7 @@ export function SchedulingPageInner() {
                 mappings = await schedulingApi.getCourseMappings();
                 setCourseMappings(mappings);
             } catch (e) {
-                console.warn('Failed to load course mappings:', e);
+                // Silently handle error
             }
 
             const token = getToken();
@@ -307,7 +306,7 @@ export function SchedulingPageInner() {
                     setMyRegistration(reg);
                     setLatestRegistration(latest);
                 } catch (e) {
-                    console.error("Error loading registration:", e);
+                    // Silently handle error
                 } finally {
                     setRegsLoading(false);
                 }
@@ -317,7 +316,6 @@ export function SchedulingPageInner() {
                 try {
                     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
                     const url = `${baseUrl}/api/students/${data.account.id}/rl-recommendation`;
-                    console.log('[DEBUG] Fetching RL Recommendation from:', url);
 
                     const res = await fetch(url, {
                         headers: { 'Authorization': `Bearer ${token}` }
@@ -325,7 +323,6 @@ export function SchedulingPageInner() {
 
                     if (res.ok) {
                         const rlRaw = await res.json();
-                        console.log('[DEBUG] RL Data Fetched:', rlRaw);
 
                         if (rlRaw && rlRaw.courses && Array.isArray(rlRaw.courses)) {
                             const recommendedList = Array.from(new Set(rlRaw.courses.map((c: any) => typeof c === 'string' ? c : c.id || c.name || c.courseId)));
@@ -342,17 +339,15 @@ export function SchedulingPageInner() {
                             setRlRecommendedNames([]);
                             setAdvisorSelectedNames([]);
                         }
-                    } else {
-                        console.warn('[DEBUG] RL Fetch response not OK:', res.status, await res.text());
                     }
                 } catch (e) {
-                    console.error('[DEBUG] RL Fetch Exception:', e);
+                    // Silently handle error
                 } finally {
                     setRlLoading(false);
                 }
             }
         } catch (err) {
-            console.error('Failed to initialize scheduling data:', err);
+            // Silently handle error
         }
     }, [activeSemester]);
 
@@ -410,13 +405,13 @@ export function SchedulingPageInner() {
                     setAvailableBlocks(blocks);
                     setActiveSemester(semester);
                 })
-                .catch(e => console.warn('Failed to load blocks or semester:', e))
+                .catch(() => {})
                 .finally(() => setBlocksLoading(false));
         } else if (!activeSemester) {
             // Just fetch semester if not already fetched
             schedulingApi.getActiveSemester()
                 .then(setActiveSemester)
-                .catch(e => console.warn('Failed to fetch active semester:', e));
+                .catch(() => {});
         }
     }, [activeTab, activeSemester, hasAttemptedFetch]);
 
@@ -433,7 +428,7 @@ export function SchedulingPageInner() {
                 setAllInstructors(Array.from(new Set(instructors)));
                 setAvailableBlocks(blocks);
             })
-            .catch(e => console.warn('Failed to load course metadata:', e));
+            .catch(() => {});
     }, [prefs.level, activeSemester]);
 
     useEffect(() => {
@@ -531,7 +526,7 @@ export function SchedulingPageInner() {
         const lvl = prefs.level || undefined;
         schedulingApi.getCategorizedInstructors(activeSelectedCourses, lvl)
             .then(res => setCategorizedInstructors(res))
-            .catch(e => console.warn('Failed to load categorized instructors:', e));
+            .catch(() => {});
     }, [useMyData, advisorSelectedNames, manualSelectedNames, prefs.level]);
 
     const displayInstructors = useMemo(() => {
@@ -597,7 +592,6 @@ export function SchedulingPageInner() {
                 setActiveSemester(res[0].block.semester);
             }
         } catch (e) {
-            console.warn('Recommender error:', e);
             setResults([]);
         } finally {
             setComputing(false);

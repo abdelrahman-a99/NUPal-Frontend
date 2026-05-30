@@ -219,8 +219,8 @@ export default function MyScheduleTab({
                 </div>
             )}
 
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3 pl-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-3 pl-0 sm:pl-2">
                     <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center">
                         <ShoppingCart size={18} className="text-[#2F80ED]" />
                     </div>
@@ -234,12 +234,12 @@ export default function MyScheduleTab({
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                     {!registration && displayCourses.length > 0 && (
                         <button 
                             onClick={handleRegisterCurrent}
                             disabled={registering}
-                            className="mr-2 px-6 py-2.5 rounded-xl bg-[#2F80ED] hover:bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-200 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                            className="px-6 py-2.5 rounded-xl bg-[#2F80ED] hover:bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-200 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 w-full sm:w-auto"
                         >
                             {registering ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} strokeWidth={2.5} />}
                             Submit for Approval ({registrationStatus.label})

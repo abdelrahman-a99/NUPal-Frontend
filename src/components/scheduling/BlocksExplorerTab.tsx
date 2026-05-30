@@ -51,9 +51,9 @@ export default function BlocksExplorerTab({
 }) {
     return (
         <div>
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3 pl-2">
-                    <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-3 pl-0 md:pl-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100/50 flex items-center justify-center shrink-0">
                         <Layers size={18} className="text-[#2F80ED]" />
                     </div>
                     <div>
@@ -78,16 +78,16 @@ export default function BlocksExplorerTab({
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full md:w-auto">
                     {/* Level Tabs - Minimal Scroll-style */}
-                    <div className="flex items-center gap-5 mr-2">
+                    <div className="flex items-center justify-center sm:justify-start gap-5 overflow-x-auto py-1 scrollbar-none">
                         {(['FR', 'SO', 'JR', 'SR', 'ALL'] as const).map((lvl) => {
                             const isActive = blockLevelTab === lvl;
                             return (
                                 <button
                                     key={lvl}
                                     onClick={() => setBlockLevelTab(lvl)}
-                                    className={`relative py-1.5 text-sm font-bold transition-all ${isActive
+                                    className={`relative py-1.5 text-sm font-bold transition-all shrink-0 ${isActive
                                         ? 'text-[#2F80ED]'
                                         : 'text-slate-400 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
                                         }`}

@@ -314,7 +314,7 @@ export function JobFitReport({ data, onBack, onDelete, onStartInterviewPrep }: J
               {onStartInterviewPrep && (
                 <button
                   onClick={onStartInterviewPrep}
-                  className="group relative w-fit mx-auto mt-6 mb-2 flex items-center justify-center gap-3 py-3 px-8 bg-slate-900 text-white rounded-xl font-bold text-xs uppercase tracking-[0.1em] overflow-hidden transition-all hover:bg-slate-800 hover:shadow-xl hover:shadow-blue-500/10 active:scale-[0.98]"
+                  className="group relative w-full sm:w-fit mx-auto mt-6 mb-2 flex items-center justify-center gap-3 py-3 px-8 bg-slate-900 text-white rounded-xl font-bold text-xs uppercase tracking-[0.1em] overflow-hidden transition-all hover:bg-slate-800 hover:shadow-xl hover:shadow-blue-500/10 active:scale-[0.98]"
                 >
                   {/* Subtle shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
