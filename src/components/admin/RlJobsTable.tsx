@@ -35,10 +35,15 @@ export default function RlJobsTable({ jobs, onRefresh, refreshing, onDeleteJob }
         <div className="admin-card">
             <div className="admin-card__toolbar">
                 <h2 className="admin-card__title">Job Queue</h2>
-                <button onClick={onRefresh} disabled={refreshing} className="admin-btn admin-btn--ghost admin-btn--sm">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    {jobs.some(j => j.status === 'Queued' || j.status === 'Running') && (
+                        <span className="admin-badge admin-badge--blue">Processing…</span>
+                    )}
+                    <button onClick={onRefresh} disabled={refreshing} className="admin-btn admin-btn--ghost admin-btn--sm">
                     <RefreshCw size={14} className={refreshing ? 'admin-spin' : ''} />
                     Refresh
-                </button>
+                    </button>
+                </div>
             </div>
 
             <div className="admin-table-wrapper">

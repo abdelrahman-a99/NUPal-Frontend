@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { adminApi } from '@/services/adminApi';
 import RlJobsTable from '@/components/admin/RlJobsTable';
 import RlEngineControls from '@/components/admin/RlEngineControls';
 import type { AdminRlJob } from '@/types/admin';
+
+const POLL_INTERVAL_MS = 5000;
 
 export default function AdminRlEnginePage() {
     const [jobs, setJobs] = useState<AdminRlJob[]>([]);
@@ -12,12 +14,14 @@ export default function AdminRlEnginePage() {
     const [refreshing, setRefreshing] = useState(false);
     const [syncing, setSyncing] = useState(false);
     const [syncResult, setSyncResult] = useState<{ totalStudents: number; triggeredJobs: number } | null>(null);
+    const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const loadJobs = useCallback(async (isRefresh = false) => {
         isRefresh ? setRefreshing(true) : setLoading(true);
         try {
             const data = await adminApi.getRlJobs();
             setJobs(data);
+            return data;
         } finally {
             setRefreshing(false);
             setLoading(false);
@@ -25,6 +29,25 @@ export default function AdminRlEnginePage() {
     }, []);
 
     useEffect(() => { loadJobs(); }, [loadJobs]);
+
+    const hasActiveJobs = jobs.some(j => j.status === 'Queued' || j.status === 'Running');
+
+    useEffect(() => {
+        if (pollRef.current) {
+            clearInterval(pollRef.current);
+            pollRef.current = null;
+        }
+
+        if (!hasActiveJobs) return;
+
+        pollRef.current = setInterval(() => {
+            loadJobs(true);
+        }, POLL_INTERVAL_MS);
+
+        return () => {
+            if (pollRef.current) clearInterval(pollRef.current);
+        };
+    }, [hasActiveJobs, loadJobs]);
 
     const handleSyncAll = async (isSimulation: boolean) => {
         setSyncing(true);
