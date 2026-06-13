@@ -52,7 +52,7 @@ export function JobFitHistoryList({ history, isLoading, onLoad, onDelete }: JobF
                 <h3 className="font-bold text-[16px] text-slate-900 dark:text-slate-100 tracking-tight">
                   {item.jobTitle || 'Untitled Role'}
                 </h3>
-                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 font-bold text-[10px] uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300 font-bold text-[10px] uppercase tracking-wider">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Ready
                 </span>
               </div>
