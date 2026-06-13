@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { getAgentTrace, type AgentPipelineTrace } from '@/services/chatService';
 
 interface AgentMessageMetadata {
   kind?: string;
@@ -142,6 +143,15 @@ function formatConfidence(confidence?: number): string | null {
   return `${Math.round(clamped * 100)}% confidence`;
 }
 
+function prettyJson(value?: string): string {
+  if (!value) return '';
+  try {
+    return JSON.stringify(JSON.parse(value), null, 2);
+  } catch {
+    return value;
+  }
+}
+
 export default function ChatMessage({
   message,
   isUser,
@@ -154,6 +164,9 @@ export default function ChatMessage({
   routeReason,
 }: ChatMessageProps) {
   const [showDebug, setShowDebug] = useState(false);
+  const [trace, setTrace] = useState<AgentPipelineTrace | null>(null);
+  const [isTraceLoading, setIsTraceLoading] = useState(false);
+  const [traceError, setTraceError] = useState<string | null>(null);
   const metadata = useMemo(
     () => parseMetadata({ kind, metadataJson, agentTraceId, agentRoute, agentStatus, routeConfidence, routeReason }),
     [kind, metadataJson, agentTraceId, agentRoute, agentStatus, routeConfidence, routeReason]
@@ -164,6 +177,26 @@ export default function ChatMessage({
   const confidence = !isUser ? formatConfidence(metadata.confidence) : null;
   const track = !isUser ? trackLabel(metadata.targetTrack) : null;
   const hasDebugDetails = Boolean(metadata.traceId || metadata.route || metadata.reason || metadata.resultService || metadata.targetTrack || metadata.objectiveProfile || metadata.raw);
+
+  const handleLoadTrace = async () => {
+    if (!metadata.traceId) return;
+
+    setIsTraceLoading(true);
+    setTraceError(null);
+
+    try {
+      const fullTrace = await getAgentTrace(metadata.traceId);
+      if (!fullTrace) {
+        setTraceError('Trace not found or not available yet.');
+      } else {
+        setTrace(fullTrace);
+      }
+    } catch (error) {
+      setTraceError(error instanceof Error ? error.message : 'Failed to load trace.');
+    } finally {
+      setIsTraceLoading(false);
+    }
+  };
 
   return (
     <div
@@ -215,14 +248,81 @@ export default function ChatMessage({
               {showDebug ? 'Hide routing details' : 'Show routing details'}
             </button>
             {showDebug && (
-              <div className="mt-2 space-y-1 rounded-lg bg-white/70 dark:bg-slate-900/70 p-2 text-[11px] text-slate-600 dark:text-slate-300">
-                {metadata.traceId && <div><span className="font-semibold">Trace:</span> {metadata.traceId}</div>}
+              <div className="mt-2 space-y-2 rounded-lg bg-white/70 dark:bg-slate-900/70 p-2 text-[11px] text-slate-600 dark:text-slate-300">
+                {metadata.traceId && <div><span className="font-semibold">Agent trace:</span> {metadata.traceId}</div>}
                 {metadata.route && <div><span className="font-semibold">Route:</span> {metadata.route}</div>}
                 {metadata.status && <div><span className="font-semibold">Status:</span> {metadata.status}</div>}
                 {metadata.reason && <div><span className="font-semibold">Reason:</span> {metadata.reason}</div>}
                 {metadata.resultService && <div><span className="font-semibold">Service:</span> {metadata.resultService}</div>}
                 {metadata.targetTrack && <div><span className="font-semibold">Track:</span> {metadata.targetTrack}</div>}
                 {metadata.objectiveProfile && <div><span className="font-semibold">Profile:</span> {metadata.objectiveProfile}</div>}
+
+                {metadata.traceId && (
+                  <button
+                    type="button"
+                    onClick={handleLoadTrace}
+                    disabled={isTraceLoading}
+                    className="rounded-md border border-slate-200 dark:border-slate-700 px-2 py-1 text-[11px] font-medium hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-60"
+                  >
+                    {isTraceLoading ? 'Loading full pipeline trace...' : 'Load full pipeline trace'}
+                  </button>
+                )}
+
+                {traceError && (
+                  <div className="rounded-md border border-red-200 bg-red-50 p-2 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300">
+                    {traceError}
+                  </div>
+                )}
+
+                {trace && (
+                  <div className="space-y-2">
+                    <div className="rounded-md border border-slate-200 dark:border-slate-700 p-2">
+                      <div><span className="font-semibold">Backend trace:</span> {trace.trace_id}</div>
+                      <div><span className="font-semibold">Total:</span> {trace.total_duration_ms ? Math.round(trace.total_duration_ms) : 'n/a'} ms</div>
+                      <div><span className="font-semibold">Events:</span> {trace.events?.length ?? 0}</div>
+                    </div>
+
+                    <div className="space-y-1">
+                      {trace.events?.map((event) => (
+                        <details
+                          key={`${event.order}-${event.stage}`}
+                          className="rounded-md border border-slate-200 dark:border-slate-700 p-2"
+                        >
+                          <summary className="cursor-pointer font-semibold">
+                            {event.order}. {event.stage}
+                            {event.duration_ms ? ` · ${Math.round(event.duration_ms)} ms` : ''}
+                          </summary>
+                          {event.error && (
+                            <div className="mt-1 text-red-600 dark:text-red-300">{event.error}</div>
+                          )}
+                          {event.data_json && (
+                            <pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded bg-slate-50 dark:bg-slate-950 p-2">
+                              {prettyJson(event.data_json)}
+                            </pre>
+                          )}
+                        </details>
+                      ))}
+                    </div>
+
+                    {trace.agent_request_json && (
+                      <details className="rounded-md border border-slate-200 dark:border-slate-700 p-2">
+                        <summary className="cursor-pointer font-semibold">Full agent request JSON</summary>
+                        <pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words rounded bg-slate-50 dark:bg-slate-950 p-2">
+                          {prettyJson(trace.agent_request_json)}
+                        </pre>
+                      </details>
+                    )}
+
+                    {trace.agent_response_json && (
+                      <details className="rounded-md border border-slate-200 dark:border-slate-700 p-2">
+                        <summary className="cursor-pointer font-semibold">Full agent response JSON</summary>
+                        <pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words rounded bg-slate-50 dark:bg-slate-950 p-2">
+                          {prettyJson(trace.agent_response_json)}
+                        </pre>
+                      </details>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

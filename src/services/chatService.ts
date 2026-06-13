@@ -32,6 +32,41 @@ export interface ChatHistoryMessage {
   created_at: string;
 }
 
+export interface AgentPipelineTraceEvent {
+  order: number;
+  stage: string;
+  status: string;
+  at: string;
+  duration_ms?: number;
+  data_json?: string;
+  error?: string;
+}
+
+export interface AgentPipelineTrace {
+  id: string;
+  trace_id: string;
+  agent_trace_id?: string;
+  student_id: string;
+  conversation_id: string;
+  user_message: string;
+  user_message_id?: string;
+  assistant_message_ids: string[];
+  status: string;
+  agent_route?: string;
+  agent_intent?: string;
+  agent_user_kind?: string;
+  agent_status?: string;
+  route_confidence?: number;
+  route_reason?: string;
+  total_duration_ms?: number;
+  agent_request_json?: string;
+  agent_response_json?: string;
+  error?: string;
+  events: AgentPipelineTraceEvent[];
+  created_at: string;
+  completed_at?: string;
+}
+
 export interface ChatSendResponse {
   conversation_id: string;
   replies: ChatReply[];
@@ -143,4 +178,18 @@ export async function renameConversation(conversationId: string, newTitle: strin
     },
     body: JSON.stringify(newTitle)
   });
+}
+
+export async function getAgentTrace(traceId: string): Promise<AgentPipelineTrace | null> {
+  const token = getToken();
+  if (!token || !traceId) return null;
+
+  const response = await fetch(`${API_ENDPOINTS.CHAT}/traces/${encodeURIComponent(traceId)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) return null;
+  return await response.json();
 }
