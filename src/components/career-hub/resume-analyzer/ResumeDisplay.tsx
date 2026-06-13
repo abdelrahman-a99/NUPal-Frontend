@@ -263,11 +263,11 @@ export function ResumeDisplay({ data, fileName, onReset }: ResumeDisplayProps) {
                 {data.softSkills?.length > 0 && (
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-slate-100 mb-4 flex items-center gap-2">
-                      <div className="w-1 h-3 bg-emerald-500 rounded-full"></div> Soft Skills
+                      <div className="w-1 h-3 bg-blue-500 rounded-full"></div> Soft Skills
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {data.softSkills.map((s) => (
-                        <span key={s} className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-xl shadow-none hover:bg-white dark:hover:bg-slate-800 hover:border-emerald-400 cursor-default">
+                        <span key={s} className="px-3 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold rounded-xl shadow-none hover:bg-white dark:hover:bg-slate-800 hover:border-blue-400 cursor-default">
                           {s}
                         </span>
                       ))}
@@ -282,12 +282,12 @@ export function ResumeDisplay({ data, fileName, onReset }: ResumeDisplayProps) {
           {data.languages?.length > 0 && (
             <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-none">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-100 text-emerald-600 dark:text-emerald-300"><Languages className="w-5 h-5" /></div>
+                <div className="p-2 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-100 dark:border-blue-900/50 text-blue-600 dark:text-blue-300"><Languages className="w-5 h-5" /></div>
                 <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">Languages</h2>
               </div>
               <div className="flex flex-wrap gap-2">
                 {data.languages.map((l) => (
-                  <span key={l} className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-xl shadow-none">
+                  <span key={l} className="px-3 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold rounded-xl shadow-none">
                     {l}
                   </span>
                 ))}
@@ -317,8 +317,8 @@ export function ResumeDisplay({ data, fileName, onReset }: ResumeDisplayProps) {
                 {data.awards?.length > 0 && (
                   <ul className="space-y-3">
                     {data.awards.map((a, i) => (
-                      <li key={i} className="flex items-start gap-3 p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-emerald-200 transition-none group shadow-none">
-                        <div className="p-1.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 rounded-lg text-emerald-500 group-hover:scale-110 transition-none"><Star className="w-4 h-4" /></div>
+                      <li key={i} className="flex items-start gap-3 p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-blue-200 transition-none group shadow-none">
+                        <div className="p-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 rounded-lg text-blue-500 group-hover:scale-110 transition-none"><Star className="w-4 h-4" /></div>
                         <span className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">{a}</span>
                       </li>
                     ))}

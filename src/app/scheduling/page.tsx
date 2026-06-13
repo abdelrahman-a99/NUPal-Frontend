@@ -9,6 +9,7 @@ import {
     Minus, Plus, ArrowRight, RotateCcw
 } from 'lucide-react';
 import { getToken, parseJwt, removeToken } from '@/lib/auth';
+import { hasScheduleCache, loadScheduleFromCache, saveScheduleToCache, clearScheduleCache } from '@/lib/scheduleCache';
 import { MY_SCHEDULE_COURSES } from '@/data/schedulingData';
 import { Block, CourseSession, DayOfWeek, SchedulePreferences, RecommendationResult } from '@/types/scheduling';
 import { schedulingApi } from '@/services/schedulingApi';
@@ -154,10 +155,17 @@ export function SchedulingPageInner() {
     const [allCourseNames, setAllCourseNames] = useState<string[]>([]);
     const [allInstructors, setAllInstructors] = useState<string[]>([]);
     const [studentData, setStudentData] = useState<any>(null);
-    const [myRegistration, setMyRegistration] = useState<any | null>(null);
-    const [latestRegistration, setLatestRegistration] = useState<any | null>(null);
+    const [myRegistration, setMyRegistration] = useState<any | null>(() => {
+        const cached = loadScheduleFromCache();
+        return cached?.fetchedOk ? cached.activeRegistration ?? null : null;
+    });
+    const [latestRegistration, setLatestRegistration] = useState<any | null>(() => {
+        const cached = loadScheduleFromCache();
+        return cached?.fetchedOk ? cached.latestRegistration ?? null : null;
+    });
     const [originalRecBlock, setOriginalRecBlock] = useState<any | null>(null);
-    const [regsLoading, setRegsLoading] = useState(false);
+    const [regsLoading, setRegsLoading] = useState(true);
+    const [scheduleLoading, setScheduleLoading] = useState(() => !hasScheduleCache());
     const [lastConfig, setLastConfig] = useState<string | null>(null);
     const [appliedCourses, setAppliedCourses] = useState<string[]>([]);
     const [appliedPrefs, setAppliedPrefs] = useState<SchedulePreferences>(DEFAULT_PREFS);
@@ -276,6 +284,8 @@ export function SchedulingPageInner() {
 
     // Load Student Profile & RL Recommendation
     const initializeData = useCallback(async () => {
+        const showScheduleLoading = !hasScheduleCache();
+        if (showScheduleLoading) setScheduleLoading(true);
         try {
             // Fetch course mappings first
             let mappings: any[] = [];
@@ -299,14 +309,16 @@ export function SchedulingPageInner() {
                 // Fetch registration
                 setRegsLoading(true);
                 try {
-                    const [reg, latest] = await Promise.all([
-                        schedulingApi.getMyRegistration(),
-                        schedulingApi.getLatestRegistration()
-                    ]);
-                    setMyRegistration(reg);
-                    setLatestRegistration(latest);
+                    const schedule = await schedulingApi.getMySchedule();
+                    setMyRegistration(schedule.activeRegistration);
+                    setLatestRegistration(schedule.latestRegistration);
+                    saveScheduleToCache(
+                        schedule.activeRegistration,
+                        schedule.latestRegistration,
+                        true,
+                    );
                 } catch (e) {
-                    // Silently handle error
+                    console.error('Failed to load student schedule', e);
                 } finally {
                     setRegsLoading(false);
                 }
@@ -352,12 +364,22 @@ export function SchedulingPageInner() {
             }
         } catch (err) {
             // Silently handle error
+        } finally {
+            setScheduleLoading(false);
         }
     }, [activeSemester]);
 
     useEffect(() => {
         initializeData();
     }, [initializeData]);
+
+    // Drop stale local schedule cache written before fetchedOk flag existed.
+    useEffect(() => {
+        const cached = loadScheduleFromCache();
+        if (cached && cached.fetchedOk !== true) {
+            clearScheduleCache();
+        }
+    }, []);
 
 
 
@@ -636,6 +658,7 @@ export function SchedulingPageInner() {
                         originalRecBlock={originalRecBlock}
                         useMyData={useMyData}
                         rlRecommendedNames={rlRecommendedNames}
+                        loading={scheduleLoading}
                     />
                 )}
 

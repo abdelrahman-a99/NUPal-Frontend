@@ -167,14 +167,14 @@ export function JobFitReport({ data, onBack, onDelete, onStartInterviewPrep }: J
               </div>
 
               {/* Matched Keywords Box */}
-              <div className="group bg-emerald-50/30 hover:bg-emerald-50/60 border border-emerald-100/50 hover:border-emerald-200 rounded-2xl p-6 transition-all duration-200 dark:bg-emerald-400/10 dark:hover:bg-emerald-400/15 dark:border-emerald-400/25 dark:hover:border-emerald-400/35">
+              <div className="group bg-blue-50/30 hover:bg-blue-50/60 border border-blue-100/50 hover:border-blue-200 rounded-2xl p-6 transition-all duration-200 dark:bg-blue-400/10 dark:hover:bg-blue-400/15 dark:border-blue-400/25 dark:hover:border-blue-400/35">
                 <div className="flex items-center gap-2 mb-5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                  <h4 className="text-xs font-bold text-emerald-600 dark:text-emerald-300 uppercase tracking-[0.15em]">Matched Keywords</h4>
+                  <CheckCircle2 className="w-4 h-4 text-blue-500" />
+                  <h4 className="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-[0.15em]">Matched Keywords</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {data.breakdown.matchedSkills.filter(s => s && typeof s === 'object' && s.skill).map((s, i) => (
-                    <span key={i} className="px-3 py-1.5 bg-white dark:bg-[#1E2F4D] border border-emerald-100 dark:border-emerald-400/25 text-emerald-700 dark:text-emerald-200 text-[11px] font-bold rounded-xl shadow-sm dark:shadow-none hover:scale-105 transition-transform cursor-default">
+                    <span key={i} className="px-3 py-1.5 bg-white dark:bg-[#1E2F4D] border border-blue-100 dark:border-blue-400/25 text-blue-700 dark:text-blue-200 text-[11px] font-bold rounded-xl shadow-sm dark:shadow-none hover:scale-105 transition-transform cursor-default">
                       {s.skill}
                     </span>
                   ))}
@@ -264,14 +264,14 @@ export function JobFitReport({ data, onBack, onDelete, onStartInterviewPrep }: J
           {/* Highlights & Opportunities - Moved to Sidebar */}
           <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
             <div>
-              <div className="flex items-center gap-3 mb-4 text-emerald-600 dark:text-emerald-300">
-                <div className="p-2 bg-emerald-50 dark:bg-emerald-950/40 rounded-lg"><Sparkles className="w-4 h-4" /></div>
+              <div className="flex items-center gap-3 mb-4 text-blue-600 dark:text-blue-300">
+                <div className="p-2 bg-blue-50 dark:bg-blue-950/40 rounded-lg"><Sparkles className="w-4 h-4" /></div>
                 <h3 className="text-xs font-bold uppercase tracking-widest text-slate-950 dark:text-slate-100">Key Highlights</h3>
               </div>
               <ul className="space-y-3">
                 {data.highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
                     <span className="text-[11px] font-bold text-slate-900 dark:text-slate-100 leading-snug">{h}</span>
                   </li>
                 ))}

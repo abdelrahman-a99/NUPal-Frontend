@@ -49,7 +49,7 @@ export function InterviewFeedbackSkeleton() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-5 space-y-3">
-                  <div className="h-3 w-24 bg-emerald-50 dark:bg-emerald-950/40 rounded" />
+                  <div className="h-3 w-24 bg-blue-50 dark:bg-blue-950/40 rounded" />
                   <div className="h-4 w-full bg-slate-100 dark:bg-slate-800 rounded" />
                 </div>
                 <div className="p-5 space-y-3 bg-slate-50/20 dark:bg-slate-900/20 md:border-l border-slate-100 dark:border-slate-800">

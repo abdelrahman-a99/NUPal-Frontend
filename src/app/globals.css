@@ -1250,34 +1250,7 @@
   color: var(--nupal-dark-text) !important;
 }
 
-/* Career Hub - Global Neutralization (Light & Dark) */
-.career-hub-container .text-blue-900,
-.career-hub-container .text-blue-600,
-.career-hub-container .text-blue-500 {
-  color: #334155 !important;
-}
 
-.dark-mode .career-hub-container .text-blue-900,
-.dark-mode .career-hub-container .text-blue-600,
-.dark-mode .career-hub-container .text-blue-500 {
-  color: #E2E8F0 !important;
-}
-
-.career-hub-container .bg-blue-600,
-.career-hub-container .bg-blue-500 {
-  background-color: #059669 !important;
-}
-
-.career-hub-container .bg-blue-50.text-blue-600 {
-  background-color: #ECFDF5 !important;
-  color: #059669 !important;
-  border: 1px solid #D1FAE5 !important;
-}
-
-.dark-mode .career-hub-container .bg-blue-50.text-blue-600 {
-  background-color: rgba(16, 185, 129, 0.1) !important;
-  color: #34D399 !important;
-}
 
 .career-hub-container .animate-spin.text-blue-600 {
   color: #0F172A !important;
@@ -1302,11 +1275,11 @@
   color: var(--nupal-dark-text-subtle) !important;
 }
 
-/* Emerald Ready Badge Dark Mode */
-.dark-mode .bg-emerald-50.text-emerald-600 {
-  background-color: rgba(16, 185, 129, 0.1) !important;
-  color: #6EE7B7 !important;
-  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+/* Blue Ready Badge Dark Mode */
+.dark-mode .bg-blue-50.text-blue-600 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
 }
 
 .dark-mode .bg-white.border-slate-200.rounded-3xl {

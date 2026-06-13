@@ -17,7 +17,8 @@ export default function MyScheduleTab({
     activeSemester,
     originalRecBlock,
     useMyData,
-    rlRecommendedNames
+    rlRecommendedNames,
+    loading = false,
 }: {
     viewMode: 'list' | 'grid';
     setViewMode: (m: 'list' | 'grid') => void;
@@ -29,6 +30,7 @@ export default function MyScheduleTab({
     originalRecBlock?: any | null;
     useMyData?: boolean | null;
     rlRecommendedNames?: string[];
+    loading?: boolean;
 }) {
     const [selectedCourse, setSelectedCourse] = useState<CourseSession | null>(null);
     const [registering, setRegistering] = useState(false);
@@ -94,7 +96,9 @@ export default function MyScheduleTab({
         }
     }, [latestRegistration]);
 
-    const registeredCourses = registration?.selectedBlock?.courses?.map((c: any) => ({
+    const selectedBlock = registration?.selectedBlock ?? registration?.selected_block;
+
+    const registeredCourses = selectedBlock?.courses?.map((c: any) => ({
         courseName: c.courseName || c.course_name || '',
         section: c.section,
         type: c.type,
@@ -229,7 +233,11 @@ export default function MyScheduleTab({
                             <h2 className="text-lg font-bold leading-tight">My Schedule</h2>
                         </div>
                         <div className="flex items-center gap-1.5 mt-0.5 text-[13px] font-medium text-slate-500 dark:text-slate-400">
-                            <span className="text-slate-700 dark:text-slate-200 font-semibold">{displayCourses.length} <span className="font-medium text-slate-500 dark:text-slate-400">Courses</span></span>
+                            {loading ? (
+                                <span className="inline-block h-4 w-24 bg-slate-100 dark:bg-slate-800 rounded animate-pulse" />
+                            ) : (
+                                <span className="text-slate-700 dark:text-slate-200 font-semibold">{displayCourses.length} <span className="font-medium text-slate-500 dark:text-slate-400">Courses</span></span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -264,7 +272,51 @@ export default function MyScheduleTab({
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden" style={{ minHeight: 400 }}>
-                {displayCourses.length === 0 ? (
+                {loading ? (
+                    <div className="p-6 animate-pulse">
+                        <div className="flex items-center justify-center gap-2 mb-6 text-slate-400">
+                            <Loader2 size={18} className="animate-spin text-[#2F80ED]" />
+                            <span className="text-sm font-medium">Loading your schedule…</span>
+                        </div>
+                        {viewMode === 'grid' ? (
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-6 gap-2">
+                                    {Array.from({ length: 6 }).map((_, i) => (
+                                        <div key={i} className="h-8 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                                    ))}
+                                </div>
+                                {Array.from({ length: 8 }).map((_, row) => (
+                                    <div key={row} className="grid grid-cols-6 gap-2">
+                                        <div className="h-10 bg-slate-50 dark:bg-slate-800/60 rounded-lg" />
+                                        {Array.from({ length: 5 }).map((_, col) => (
+                                            <div
+                                                key={col}
+                                                className={`h-10 rounded-lg ${
+                                                    (row + col) % 3 === 0
+                                                        ? 'bg-blue-50 dark:bg-blue-950/30'
+                                                        : 'bg-slate-50 dark:bg-slate-800/40'
+                                                }`}
+                                            />
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl border border-slate-50 dark:border-slate-800">
+                                        <div className="h-10 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg shrink-0" />
+                                        <div className="flex-1 space-y-2">
+                                            <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded-md w-2/5" />
+                                            <div className="h-3 bg-slate-50 dark:bg-slate-800/60 rounded-md w-3/5" />
+                                        </div>
+                                        <div className="h-8 w-20 bg-slate-50 dark:bg-slate-800/60 rounded-lg shrink-0" />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ) : displayCourses.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-[400px] text-center">
                         <CalendarDays size={72} strokeWidth={1.5} className="text-[#84828f] mb-5 opacity-80" />
                         <h3 className="text-[1.35rem] font-semibold text-[#00103e] mb-2 tracking-tight">No Courses Added</h3>

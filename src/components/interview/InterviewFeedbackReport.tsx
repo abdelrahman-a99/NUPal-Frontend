@@ -178,7 +178,7 @@ export default function InterviewFeedbackReport({
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2">
                       <div className="p-5 space-y-2">
-                        <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-300 uppercase tracking-widest">Technical Strengths</span>
+                        <span className="text-[9px] font-bold text-blue-600 dark:text-blue-300 uppercase tracking-widest">Technical Strengths</span>
                         <p className="text-xs text-slate-600 dark:text-slate-300 font-bold leading-relaxed">{qf.strengths}</p>
                       </div>
                       <div className="p-5 space-y-2 bg-slate-50/20 dark:bg-slate-900/20 md:border-l border-slate-100 dark:border-slate-800">

@@ -336,20 +336,6 @@ export function InterviewPracticeSession({
                     />
                   </div>
                 )}
-
-                {!jobContext && !isLoadingHistory && (!jobFitHistory || jobFitHistory.length === 0) && (
-                  <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 p-4 py-3 flex items-center justify-between group hover:border-blue-200 transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-900 dark:text-slate-100 shadow-sm">
-                        <Briefcase className="w-4 h-4" />
-                      </div>
-                      <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                        Choose a role from your match history
-                      </span>
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400 dark:text-slate-400 group-hover:text-blue-500 transition-colors" />
-                  </div>
-                )}
               </div>
             </div>
 
@@ -741,9 +727,9 @@ export function InterviewPracticeSession({
                           </div>
                           <h3 className="text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">AI Bio-Sync</h3>
                        </div>
-                       <div className="flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded-lg border border-emerald-100/50">
-                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-300 uppercase tracking-widest">Monitoring</span>
+                       <div className="flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950/40 px-2 py-1 rounded-lg border border-blue-100/50">
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                          <span className="text-[9px] font-black text-blue-600 dark:text-blue-300 uppercase tracking-widest">Monitoring</span>
                        </div>
                     </div>
 

@@ -227,6 +227,54 @@ export async function getMyRegistration(): Promise<any> {
     return apiFetch('/api/scheduling/my-registration');
 }
 
+function normalizeRegistration(reg: any | null | undefined): any | null {
+    if (!reg) return null;
+
+    const selectedBlock = reg.selectedBlock ?? reg.selected_block ?? reg.SelectedBlock;
+    return {
+        ...reg,
+        selectedBlock,
+    };
+}
+
+function normalizeScheduleResponse(raw: any | null): {
+    activeRegistration: any | null;
+    latestRegistration: any | null;
+} {
+    if (!raw) {
+        return { activeRegistration: null, latestRegistration: null };
+    }
+
+    return {
+        activeRegistration: normalizeRegistration(
+            raw.activeRegistration ?? raw.ActiveRegistration ?? null,
+        ),
+        latestRegistration: normalizeRegistration(
+            raw.latestRegistration ?? raw.LatestRegistration ?? null,
+        ),
+    };
+}
+
+export async function getMySchedule(): Promise<{
+    activeRegistration: any | null;
+    latestRegistration: any | null;
+}> {
+    try {
+        const raw = await apiFetch<any>('/api/scheduling/my-schedule');
+        return normalizeScheduleResponse(raw);
+    } catch {
+        const [active, latest] = await Promise.all([
+            getMyRegistration().catch(() => null),
+            getLatestRegistration().catch(() => null),
+        ]);
+
+        return {
+            activeRegistration: normalizeRegistration(active),
+            latestRegistration: normalizeRegistration(latest),
+        };
+    }
+}
+
 export async function getLatestRegistration(): Promise<any> {
     return apiFetch('/api/scheduling/latest-registration');
 }
@@ -251,6 +299,7 @@ export const schedulingApi = {
     registerSchedule,
     getRegistrations,
     getMyRegistration,
+    getMySchedule,
     getLatestRegistration,
     approveRegistration,
 };

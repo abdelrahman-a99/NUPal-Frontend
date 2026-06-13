@@ -141,7 +141,7 @@ export default function ChatSidebar({
           variant="primary"
           size="md"
           onClick={onNewChat}
-          className="w-full"
+          className="w-full shadow-none hover:shadow-none"
         >
           + New Chat
         </Button>
