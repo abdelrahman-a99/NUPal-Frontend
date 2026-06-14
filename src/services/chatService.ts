@@ -69,6 +69,7 @@ export interface AgentPipelineTrace {
 
 export interface ChatSendResponse {
   conversation_id: string;
+  conversation_title: string;
   replies: ChatReply[];
 }
 

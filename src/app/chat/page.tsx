@@ -73,17 +73,6 @@ function ChatPageContent() {
     return 0; // Maintain relative order for same pin status
   });
 
-  // Generate chat title from first message
-  const generateChatTitle = (message: string): string => {
-    const trimmed = message.trim();
-    if (trimmed.length === 0) return 'New Chat';
-    // Take first 30 characters or first sentence
-    const firstSentence = trimmed.split(/[.!?]/)[0];
-    const title = firstSentence.length > 30
-      ? trimmed.substring(0, 30) + '...'
-      : firstSentence || trimmed.substring(0, 30);
-    return title || 'New Chat';
-  };
 
   const handleNewChat = useCallback(() => {
     router.push('/chat');
@@ -164,17 +153,15 @@ function ChatPageContent() {
         }),
       };
 
-      // Update chat with user message and generate title if it's the first message
+      // Add the user message immediately. The real conversation title now comes from the backend AI title generator.
       setChats((prevChats) =>
         prevChats.map((chat) => {
           if (chat.id === currentChatId) {
-            const isFirstMessage = chat.messages.length === 0;
             return {
               ...chat,
               messages: [...chat.messages, userMessage],
               lastMessage: messageText,
               timestamp: 'Just now',
-              title: isFirstMessage ? generateChatTitle(messageText) : chat.title,
             };
           }
           return chat;
@@ -216,6 +203,7 @@ function ChatPageContent() {
               return {
                 ...chat,
                 id: newConversationId, // Update to the real conversation ID from backend
+                title: response.conversation_title || chat.title,
                 messages: [...chat.messages, ...botMessages],
                 lastMessage: botMessages[botMessages.length - 1]?.text || chat.lastMessage,
                 timestamp: 'Just now',
