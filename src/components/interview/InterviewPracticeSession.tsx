@@ -390,13 +390,13 @@ export function InterviewPracticeSession({
                 {/* Difficulty Row */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 ml-1">Difficulty Level</h4>
-                  <div className="flex bg-slate-50/50 dark:bg-slate-900/50 p-1 rounded-2xl gap-1 border border-slate-100 dark:border-slate-800 shadow-sm">
+                  <div className="flex w-full sm:w-auto bg-slate-50/50 dark:bg-slate-900/50 p-1 rounded-2xl gap-1 border border-slate-100 dark:border-slate-800 shadow-sm">
                     {(['entry', 'mid', 'senior'] as const).map((lvl) => (
                       <button
                         key={lvl}
                         type="button"
                         onClick={() => setDifficulty(lvl)}
-                        className={`px-8 py-2.5 rounded-xl text-xs font-bold transition-all
+                        className={`flex-1 sm:flex-initial px-3 sm:px-8 py-2.5 rounded-xl text-xs font-bold transition-all
                           ${difficulty === lvl
                             ? "bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-300 shadow-sm border border-blue-100 dark:border-blue-900/50 ring-2 ring-blue-500/5"
                             : "text-slate-900 dark:text-slate-100 hover:text-slate-900"}`}
@@ -410,17 +410,17 @@ export function InterviewPracticeSession({
                 {/* Length Row */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 ml-1">Length</h4>
-                  <div className="flex items-center gap-4">
-                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+                  <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start">
+                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest shrink-0">
                       {practiceMode === 'voice' ? 'Short' : 'Short'}
                     </span>
-                    <div className="flex items-center bg-slate-50/50 dark:bg-slate-900/50 p-1 rounded-2xl gap-1 border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div className="flex flex-wrap justify-center items-center bg-slate-50/50 dark:bg-slate-900/50 p-1 rounded-2xl gap-1 border border-slate-100 dark:border-slate-800 shadow-sm">
                       {(practiceMode === 'voice' ? [5, 10, 15, 20, 25, 30] : [3, 4, 5, 6, 7, 8]).map((num) => (
                         <button
                           key={num}
                           type="button"
                           onClick={() => practiceMode === 'voice' ? setVoiceDurationMin(num) : setQuestionCount(num)}
-                          className={`w-10 h-10 rounded-full text-xs font-bold transition-all
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full text-xs font-bold transition-all
                             ${(practiceMode === 'voice' ? voiceDurationMin === num : questionCount === num)
                               ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
                               : "text-slate-900 dark:text-slate-100 hover:bg-white dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200"}`}
@@ -429,7 +429,7 @@ export function InterviewPracticeSession({
                         </button>
                       ))}
                     </div>
-                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest shrink-0">
                       {practiceMode === 'voice' ? 'Long' : 'Long'}
                     </span>
                   </div>

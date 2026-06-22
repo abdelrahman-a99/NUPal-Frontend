@@ -8,7 +8,7 @@ import {
   analyzeJobFit, getJobFitHistory, getJobFitById, deleteJobFit,
   type ParsedResume, type ResumeHistoryItem, type JobFitHistoryItem
 } from '@/services/resumeService';
-import { AlertCircle, Bot } from 'lucide-react';
+import { AlertCircle, Bot, BarChart2, Target } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Components
@@ -402,185 +402,241 @@ function ResumeAnalyzerPageInner() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-900/50 py-12 px-4 sm:px-6 lg:px-8 career-hub-container">
-      {!hideChrome && (
-        <div className="max-w-7xl mx-auto mb-12 text-center">
-          {activeTab !== 'interview-prep' && (
-            <motion.div
-              initial={{ y: -5 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
-                {activeTab === 'resume-checking' && 'Resume Checking'}
-                {activeTab === 'job-fit' && 'Job Match Analysis'}
-              </h1>
-              <p className="mt-2 text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base">
-                {activeTab === 'resume-checking' && 'Get deep AI-powered insights on your CV structure'}
-                {activeTab === 'job-fit' && 'Measure your fit against any job description'}
-              </p>
-            </motion.div>
-          )}
-        </div>
+  const TABS = [
+    { id: 'resume-checking', label: 'Resume Check', icon: BarChart2 },
+    { id: 'job-fit', label: 'Job Match', icon: Target },
+    { id: 'interview-prep', label: 'Interview Prep', icon: Bot },
+  ] as const;
+
+  const tabContent = (
+    <AnimatePresence mode="wait">
+      {error && (
+        <motion.div
+          key="error-alert"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="mb-8 flex items-start gap-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 rounded-2xl p-4 text-sm text-red-700 dark:text-red-300 w-full max-w-4xl"
+        >
+          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-bold">Action failed</p>
+            <p className="mt-0.5 font-medium text-red-600/90">{error}</p>
+          </div>
+        </motion.div>
       )}
 
-      <div className="max-w-7xl w-full mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12 items-start relative pb-10">
-        {!hideChrome && (
-          <div className="lg:sticky lg:top-24 shrink-0 w-full lg:w-auto self-start lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-2 custom-scrollbar">
-            <SidebarNav
-              activeTab={activeTab}
-              onSelect={selectTab}
-              interviewLocked={!jobFitData}
+      {activeTab === 'resume-checking' && (
+        <motion.div
+          key="resume-checking"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="w-full flex flex-col items-center gap-8"
+        >
+          {!currentResumeId && !isResumeDetailsLoading && (
+            <CVScoringTab
+              history={history}
+              isHistoryLoading={isHistoryLoading}
+              onUpload={handleFile}
+              onSelectExisting={handleLoadFromHistory}
+              isUploading={overlay.isOpen}
+              onDeleteHistory={handleDeleteHistory}
             />
+          )}
+
+          {isResumeDetailsLoading ? (
+            <DetailsSkeleton kind="resume" />
+          ) : (
+            parsed && currentResumeId && (
+              <ResumeDisplay
+                data={parsed}
+                fileName={fileName}
+                onReset={handleResetCV}
+              />
+            )
+          )}
+        </motion.div>
+      )}
+
+      {activeTab === 'job-fit' && (
+        <motion.div
+          key="job-fit"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="w-full flex flex-col items-center gap-8"
+        >
+          {!currentJobFitId && (!isJobFitDetailsLoading || isSilentJobFitLoad) && (
+            <JobFitTab
+              jobUrl={jobUrl}
+              setJobUrl={setJobUrl}
+              jobDescription={jobDescription}
+              setJobDescription={setJobDescription}
+              activeTab={jobFitActiveTab}
+              setActiveTab={setJobFitActiveTab}
+              history={history}
+              selectedResumeId={selectedResumeId}
+              setSelectedResumeId={setSelectedResumeId}
+              onAnalyze={handleJobFit}
+              isAnalyzing={overlay.isOpen}
+              canAnalyze={(jobFitActiveTab === 'url' ? !!jobUrl : !!jobDescription) && !!selectedResumeId}
+            />
+          )}
+
+          {(isJobFitDetailsLoading && !isSilentJobFitLoad) ? (
+            <DetailsSkeleton kind="jobfit" />
+          ) : (
+            jobFitData && currentJobFitId && (
+              <JobFitReport
+                data={jobFitData}
+                onBack={() => {
+                  window.scrollTo(0, 0);
+                  updateAnalyzerUrl({ tab: 'job-fit', jobFitId: null });
+                }}
+                onDelete={(id) => handleDeleteJobFit(null, id)}
+                onStartInterviewPrep={() => {
+                  window.scrollTo(0, 0);
+                  setActiveTab('interview-prep');
+                  updateAnalyzerUrl({ tab: 'interview-prep', jobFitId: loadedJobFitId });
+                }}
+              />
+            )
+          )}
+
+          {(!isJobFitDetailsLoading || isSilentJobFitLoad) && (isHistoryLoading || jobFitHistory.length > 0) && !currentJobFitId && (
+            <div className="w-full mt-4">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 ml-1">Recent Job Fit Analyses</h3>
+              <JobFitHistoryList
+                history={jobFitHistory}
+                isLoading={isHistoryLoading}
+                onLoad={handleLoadJobFitFromHistory}
+                onDelete={handleDeleteJobFit}
+              />
+            </div>
+          )}
+        </motion.div>
+      )}
+
+      {activeTab === 'interview-prep' && (
+        <motion.div
+          key="interview-prep"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="w-full flex flex-col items-center"
+        >
+          <div className="w-full max-w-7xl">
+            <InterviewPracticeSession
+              compact
+              jobFitHistory={jobFitHistory}
+              isLoadingHistory={isHistoryLoading || isJobFitDetailsLoading}
+              onJobSelect={async (item) => {
+                await loadJobFitDetailsById(item.id, false);
+                updateAnalyzerUrl({ tab: 'interview-prep' });
+              }}
+              jobContext={jobFitData ? {
+                id: jobFitData.id,
+                jobTitle: jobFitData.jobTitle || 'Target role',
+                companyName: jobFitData.companyName,
+                jobDescription:
+                  (jobFitData.jobDescriptionText &&
+                    jobFitData.jobDescriptionText.trim()) ||
+                  buildFallbackJobDescription(jobFitData),
+                jobUrl: jobFitData.jobUrl,
+              } as any : null}
+            />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-900/50 career-hub-container animate-in fade-in duration-300">
+      {/* Desktop Layout */}
+      <div className="hidden md:block py-12 px-4 sm:px-6 lg:px-8">
+        {!hideChrome && (
+          <div className="max-w-7xl mx-auto mb-12 text-center">
+            {activeTab !== 'interview-prep' && (
+              <motion.div
+                initial={{ y: -5 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+                  {activeTab === 'resume-checking' && 'Resume Checking'}
+                  {activeTab === 'job-fit' && 'Job Match Analysis'}
+                </h1>
+                <p className="mt-2 text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base">
+                  {activeTab === 'resume-checking' && 'Get deep AI-powered insights on your CV structure'}
+                  {activeTab === 'job-fit' && 'Measure your fit against any job description'}
+                </p>
+              </motion.div>
+            )}
           </div>
         )}
 
-        <div className="flex-1 w-full flex flex-col items-center min-h-[600px]">
-          <AnimatePresence mode="wait">
-            {error && (
-              <motion.div
-                key="error-alert"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="mb-8 flex items-start gap-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 rounded-2xl p-4 text-sm text-red-700 dark:text-red-300 w-full max-w-4xl"
-              >
-                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+        <div className="max-w-7xl w-full mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12 items-start relative pb-10">
+          {!hideChrome && (
+            <div className="lg:sticky lg:top-24 shrink-0 w-full lg:w-auto self-start lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-2 custom-scrollbar">
+              <SidebarNav
+                activeTab={activeTab}
+                onSelect={selectTab}
+                interviewLocked={!jobFitData}
+              />
+            </div>
+          )}
+
+          <div className="flex-1 w-full flex flex-col items-center min-h-[600px]">
+            {tabContent}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="md:hidden pb-24 bg-slate-50 dark:bg-slate-900/70 min-h-screen">
+        {/* Mobile Header & Custom Tab Selector */}
+        {!hideChrome && (
+          <div className="bg-white dark:bg-slate-900 px-5 pt-6 pb-5 rounded-b-[2rem] shadow-sm relative overflow-hidden border-b border-slate-100 dark:border-slate-800 mb-6">
+            <div className="relative z-10">
+              <div className="flex justify-between items-center mb-4">
                 <div>
-                  <p className="font-bold">Action failed</p>
-                  <p className="mt-0.5 font-medium text-red-600/90">{error}</p>
+                  <h1 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-2">
+                    <Bot className="h-5 w-5 text-blue-600 animate-pulse" />
+                    AI Resume Tools
+                  </h1>
+                  <p className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider mt-0.5">CV Checking & Prep</p>
                 </div>
-              </motion.div>
-            )}
+              </div>
 
-            {activeTab === 'resume-checking' && (
-              <motion.div
-                key="resume-checking"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="w-full flex flex-col items-center gap-8"
-              >
-                {!currentResumeId && !isResumeDetailsLoading && (
-                  <CVScoringTab
-                    history={history}
-                    isHistoryLoading={isHistoryLoading}
-                    onUpload={handleFile}
-                    onSelectExisting={handleLoadFromHistory}
-                    isUploading={overlay.isOpen}
-                    onDeleteHistory={handleDeleteHistory}
-                  />
-                )}
+              <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-inner w-full">
+                {TABS.map(({ id, label, icon: Icon }) => {
+                  const active = activeTab === id;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => selectTab(id)}
+                      className={`flex-1 flex flex-col items-center justify-center py-2.5 rounded-xl text-[10px] font-extrabold transition-all duration-200 ${active
+                        ? 'bg-white dark:bg-slate-900 text-blue-600 shadow-sm'
+                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                        }`}
+                    >
+                      <Icon size={15} className={`mb-1 transition-transform ${active ? 'scale-110' : ''}`} />
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
-                {isResumeDetailsLoading ? (
-                  <DetailsSkeleton kind="resume" />
-                ) : (
-                  parsed && currentResumeId && (
-                    <ResumeDisplay
-                      data={parsed}
-                      fileName={fileName}
-                      onReset={handleResetCV}
-                    />
-                  )
-                )}
-              </motion.div>
-            )}
-
-            {activeTab === 'job-fit' && (
-              <motion.div
-                key="job-fit"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="w-full flex flex-col items-center gap-8"
-              >
-                {!currentJobFitId && (!isJobFitDetailsLoading || isSilentJobFitLoad) && (
-                  <JobFitTab
-                    jobUrl={jobUrl}
-                    setJobUrl={setJobUrl}
-                    jobDescription={jobDescription}
-                    setJobDescription={setJobDescription}
-                    activeTab={jobFitActiveTab}
-                    setActiveTab={setJobFitActiveTab}
-                    history={history}
-                    selectedResumeId={selectedResumeId}
-                    setSelectedResumeId={setSelectedResumeId}
-                    onAnalyze={handleJobFit}
-                    isAnalyzing={overlay.isOpen}
-                    canAnalyze={(jobFitActiveTab === 'url' ? !!jobUrl : !!jobDescription) && !!selectedResumeId}
-                  />
-                )}
-
-                {(isJobFitDetailsLoading && !isSilentJobFitLoad) ? (
-                  <DetailsSkeleton kind="jobfit" />
-                ) : (
-                  jobFitData && currentJobFitId && (
-                    <JobFitReport
-                      data={jobFitData}
-                      onBack={() => {
-                        window.scrollTo(0, 0);
-                        updateAnalyzerUrl({ tab: 'job-fit', jobFitId: null });
-                      }}
-                      onDelete={(id) => handleDeleteJobFit(null, id)}
-                      onStartInterviewPrep={() => {
-                        window.scrollTo(0, 0);
-                        setActiveTab('interview-prep');
-                        updateAnalyzerUrl({ tab: 'interview-prep', jobFitId: loadedJobFitId });
-                      }}
-                    />
-                  )
-                )}
-
-                {(!isJobFitDetailsLoading || isSilentJobFitLoad) && (isHistoryLoading || jobFitHistory.length > 0) && !currentJobFitId && (
-                  <div className="w-full mt-4">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 ml-1">Recent Job Fit Analyses</h3>
-                    <JobFitHistoryList
-                      history={jobFitHistory}
-                      isLoading={isHistoryLoading}
-                      onLoad={handleLoadJobFitFromHistory}
-                      onDelete={handleDeleteJobFit}
-                    />
-                  </div>
-                )}
-              </motion.div>
-            )}
-
-            {activeTab === 'interview-prep' && (
-              <motion.div
-                key="interview-prep"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="w-full flex flex-col items-center"
-              >
-                <div className="w-full max-w-7xl">
-                  <InterviewPracticeSession
-                    compact
-                    jobFitHistory={jobFitHistory}
-                    isLoadingHistory={isHistoryLoading || isJobFitDetailsLoading}
-                    onJobSelect={async (item) => {
-                      await loadJobFitDetailsById(item.id, false);
-                      updateAnalyzerUrl({ tab: 'interview-prep' });
-                    }}
-                    jobContext={jobFitData ? {
-                      id: jobFitData.id,
-                      jobTitle: jobFitData.jobTitle || 'Target role',
-                      companyName: jobFitData.companyName,
-                      jobDescription:
-                        (jobFitData.jobDescriptionText &&
-                          jobFitData.jobDescriptionText.trim()) ||
-                        buildFallbackJobDescription(jobFitData),
-                      jobUrl: jobFitData.jobUrl,
-                    } as any : null}
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="px-4 py-4">
+          {tabContent}
         </div>
       </div>
 

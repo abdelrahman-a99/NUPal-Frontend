@@ -27,6 +27,16 @@ const JOB_FIT_STEPS = [
 export function ProgressOverlay({ isOpen, type, isDataReady = false, onComplete }: ProgressOverlayProps) {
   const steps = type === 'cv' ? CV_STEPS : JOB_FIT_STEPS;
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) {

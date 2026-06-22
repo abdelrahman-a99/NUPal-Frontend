@@ -1,7 +1,7 @@
 
 export type DayOfWeek = 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
 
-export type ScheduleType = 'compact' | 'balanced' | 'light';
+export type ScheduleType = 'compact' | 'balanced' | 'light' | 'early_classes' | 'late_classes';
 
 
 export interface CourseSession {

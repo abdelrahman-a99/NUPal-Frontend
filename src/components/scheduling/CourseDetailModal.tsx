@@ -26,7 +26,7 @@ export default function CourseDetailPanel({ course, visible, onClose }: Props) {
 
     return (
         <div 
-            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/30 backdrop-blur-[2px] p-4 animate-in fade-in duration-200"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/30 backdrop-blur-[2px] p-4 animate-in fade-in duration-200"
             onClick={onClose}
         >
             <div
