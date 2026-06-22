@@ -109,24 +109,24 @@ export function CVScoringTab({ history, isHistoryLoading, onUpload, onSelectExis
               history.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl hover:border-slate-300 dark:hover:border-slate-600 transition-colors group gap-4"
+                  className="flex items-center justify-between p-3.5 sm:p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl hover:border-slate-300 dark:hover:border-slate-600 transition-colors group gap-3 sm:gap-4 w-full"
                 >
                   {/* Left section: Icon and Info */}
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 shrink-0 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center text-blue-500 shadow-sm font-bold text-sm uppercase overflow-hidden">
-                      <FileText className="w-6 h-6 group-hover:text-blue-600 transition-colors" />
+                  <div className="flex items-center gap-3 sm:gap-5 min-w-0 flex-1">
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 shrink-0 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl sm:rounded-2xl flex items-center justify-center text-blue-500 shadow-sm font-bold text-sm uppercase overflow-hidden">
+                      <FileText className="w-5 h-5 sm:w-6 h-6 group-hover:text-blue-600 transition-colors" />
                     </div>
 
-                    <div className="flex flex-col mb-1">
-                      <div className="flex items-center gap-3">
-                        <h3 className="font-bold text-[16px] text-slate-950 dark:text-slate-100 tracking-tight">
+                    <div className="flex flex-col mb-1 min-w-0 flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2.5 min-w-0">
+                        <h3 className="font-bold text-sm sm:text-[16px] text-slate-950 dark:text-slate-100 tracking-tight truncate max-w-[100px] xs:max-w-[140px] sm:max-w-md" title={item.fileName}>
                           {item.fileName}
                         </h3>
-                        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300 font-bold text-[10px] uppercase tracking-wider">
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Ready
+                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300 font-bold text-[8px] sm:text-[10px] uppercase tracking-wider shrink-0 w-fit">
+                          <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> Ready
                         </span>
                       </div>
-                      <p className="text-[13px] font-semibold text-slate-950 dark:text-slate-100 mt-1">
+                      <p className="text-[10px] sm:text-[13px] font-semibold text-slate-400 dark:text-slate-500 mt-0.5 sm:mt-1">
                         {new Date(item.analyzedAt).toLocaleDateString(undefined, {
                           month: 'short', day: 'numeric', year: 'numeric'
                         })}
@@ -135,22 +135,22 @@ export function CVScoringTab({ history, isHistoryLoading, onUpload, onSelectExis
                   </div>
 
                   {/* Right section: Actions */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                     <button
                       onClick={() => onSelectExisting(item)}
-                      className="flex items-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-slate-950 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl font-bold text-[13px] transition-colors"
+                      className="flex items-center gap-1 px-3 sm:px-5 py-2 sm:py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-slate-950 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-[13px] transition-colors"
                     >
-                      View <ArrowRight className="w-4 h-4 ml-0.5" />
+                      <span>View</span> <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5" />
                     </button>
                     {onDeleteHistory && (
                       <>
-                        <div className="w-1 h-3 border-r border-slate-200 dark:border-slate-700 mx-1"></div>
+                        <div className="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-0.5 sm:mx-1"></div>
                         <button
                           onClick={(e) => onDeleteHistory(e, item.id)}
-                          className="p-2.5 text-slate-950 dark:text-slate-100 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-xl transition-colors shrink-0"
+                          className="p-2 text-slate-400 dark:text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-xl transition-colors shrink-0"
                           title="Delete History"
                         >
-                          <Trash2 className="w-5 h-5 pointer-events-none" />
+                          <Trash2 className="w-4.5 h-4.5 sm:w-5 sm:h-5 pointer-events-none" />
                         </button>
                       </>
                     )}
